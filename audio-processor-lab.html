@@ -1790,9 +1790,9 @@ function renderCompressorLesson() {
       <p class="compressor-tip"><strong>ลำดับการทำงาน:</strong> ตรวจจับเสียง → ลดระดับเสียงส่วนที่เกิน Threshold ตาม Ratio → วัด Gain Reduction → เพิ่ม Make-up Gain เพื่อชดเชยระดับเสียงที่ลดลง</p>
     </article>
 
-   <section class="compressor-lab" aria-labelledby="compressorLabTitle">
+    <section class="compressor-lab" aria-labelledby="compressorLabTitle">
       <div class="compressor-lab-head">
-        <div><h2 id="compressorLabTitle">Compressor Lab</h2></div>
+        <div><span class="filter-lab-eyebrow">INTERACTIVE EXPERIMENT</span><h2 id="compressorLabTitle">Compressor Lab</h2><p>ฟังเสียงก่อนและหลังใส่ Compressor พร้อมดูว่าเสียงถูกกดลงไปเท่าไหร่ และเพิ่ม Make-up Gain กลับเข้าไปเท่าไหร่</p></div>
         <span class="compressor-live-pill"><i></i> LIVE PROCESSING</span>
       </div>
       <div class="compressor-main-panel">
@@ -1802,31 +1802,15 @@ function renderCompressorLesson() {
           <div class="compressor-ab-buttons"><button type="button" id="compPreButton" aria-pressed="false">PRE · ก่อน Compressor</button><button type="button" id="compPostButton" class="active" aria-pressed="true">POST · หลัง Compressor</button></div>
           <div id="compModeDescription" class="compressor-mode-description">POST: ได้ยินเสียงหลังถูกบีบอัดและเพิ่ม Make-up Gain แล้ว</div>
         </div>
-
-        <div class="compressor-graph-top"><strong>LIVE COMPRESSION &amp; SPECTRUM VIEW</strong><span>Transfer Curve + Threshold &amp; Gain Reduction</span></div>
+        <div class="compressor-graph-top"><strong>LIVE COMPRESSION VIEW</strong><span>PRE / POST Spectrum + Transfer Curve</span></div>
         <div class="compressor-combined-graph-wrap">
-          <canvas id="compressorCombinedGraph" role="img" aria-label="กราฟรวม Transfer Curve และ Spectrum การทำงานของ Compressor"></canvas>
+          <canvas id="compressorCombinedGraph" role="img" aria-label="กราฟรวม Spectrum ก่อนและหลัง Compressor พร้อม Transfer Curve แสดงระดับการบีบอัด"></canvas>
         </div>
         <div class="compressor-graph-legend compressor-combined-legend">
-          <span><i class="comp-legend-curve"></i> Compression Curve (Input → Output)</span>
-          <span><i class="comp-legend-post"></i> Gain Reduction / Threshold</span>
-          <span><i class="comp-legend-diagonal"></i> เส้นประ · ไม่มีการบีบอัด (1:1)</span>
+          <span><i class="comp-legend-pre"></i> PRE · ก่อน Compressor</span>
+          <span><i class="comp-legend-post"></i> POST · หลัง Compressor + Make-up</span>
+          <span><i class="comp-legend-diagonal"></i> เส้นประ · ไม่มีการบีบอัด</span>
         </div>
-
-        <div class="compressor-controls compressor-primary-controls">
-          <div class="compressor-control"><label for="compThreshold"><span>Threshold</span><output id="compThresholdValue">-24 dB</output></label><input id="compThreshold" type="range" min="-60" max="0" step="1" value="-24"><small>เลื่อนลงเพื่อให้ Compressor เริ่มกดเสียงมากขึ้น</small></div>
-          <div class="compressor-control"><label for="compRatio"><span>Ratio</span><output id="compRatioValue">4:1</output></label><input id="compRatio" type="range" min="1" max="20" step="0.5" value="4"><small>ค่ายิ่งสูง เสียงส่วนที่เกินยิ่งถูกกดมาก</small></div>
-          <div class="compressor-control"><label for="compMakeup"><span>Make-up Gain</span><output id="compMakeupValue">+0 dB</output></label><input id="compMakeup" type="range" min="0" max="18" step="0.5" value="0"><small>เพิ่มความดังกลับหลังการบีบอัด</small></div>
-        </div>
-        <details class="compressor-advanced" style="margin-bottom: 16px;">
-          <summary>Advanced Settings <span>ปรับ Knee · Attack · Release</span></summary>
-          <div class="compressor-controls compressor-advanced-controls">
-            <div class="compressor-control"><label for="compKnee"><span>Knee</span><output id="compKneeValue">12 dB</output></label><input id="compKnee" type="range" min="0" max="40" step="1" value="12"><small>ความนุ่มนวลของจุดเริ่มบีบอัด</small></div>
-            <div class="compressor-control"><label for="compAttack"><span>Attack</span><output id="compAttackValue">10 ms</output></label><input id="compAttack" type="range" min="1" max="200" step="1" value="10"><small>เวลาตอบสนองเมื่อเสียงเกิน Threshold</small></div>
-            <div class="compressor-control"><label for="compRelease"><span>Release</span><output id="compReleaseValue">150 ms</output></label><input id="compRelease" type="range" min="10" max="1000" step="5" value="150"><small>เวลาคืนระดับหลังเสียงลดลง</small></div>
-          </div>
-        </details>
-
         <div class="compressor-meter-row">
           <div class="compressor-meter-card">
             <div class="compressor-meter-heading"><strong>GAIN REDUCTION</strong><output id="compReductionValue">0.0 dB</output></div>
@@ -1838,7 +1822,19 @@ function renderCompressorLesson() {
           <div class="compressor-level-card"><span>POST · OUTPUT RMS</span><strong id="compOutputLevel">-∞ dBFS</strong></div>
         </div>
         <div class="compressor-makeup-summary"><span>MAKE-UP GAIN ที่เพิ่ม</span><strong id="compMakeupSummary">+0.0 dB</strong><small>เพิ่มหลัง Compressor เพื่อชดเชยระดับเสียงที่ลดลง ไม่ใช่ค่า Gain Reduction</small></div>
-
+        <div class="compressor-controls compressor-primary-controls">
+          <div class="compressor-control"><label for="compThreshold"><span>Threshold</span><output id="compThresholdValue">-24 dB</output></label><input id="compThreshold" type="range" min="-60" max="0" step="1" value="-24"><small>เลื่อนลงเพื่อให้ Compressor เริ่มกดเสียงมากขึ้น</small></div>
+          <div class="compressor-control"><label for="compRatio"><span>Ratio</span><output id="compRatioValue">4:1</output></label><input id="compRatio" type="range" min="1" max="20" step="0.5" value="4"><small>ค่ายิ่งสูง เสียงส่วนที่เกินยิ่งถูกกดมาก</small></div>
+          <div class="compressor-control"><label for="compMakeup"><span>Make-up Gain</span><output id="compMakeupValue">+0 dB</output></label><input id="compMakeup" type="range" min="0" max="18" step="0.5" value="0"><small>เพิ่มความดังกลับหลังการบีบอัด</small></div>
+        </div>
+        <details class="compressor-advanced">
+          <summary>Advanced Settings <span>ปรับ Knee · Attack · Release</span></summary>
+          <div class="compressor-controls compressor-advanced-controls">
+            <div class="compressor-control"><label for="compKnee"><span>Knee</span><output id="compKneeValue">12 dB</output></label><input id="compKnee" type="range" min="0" max="40" step="1" value="12"><small>ความนุ่มนวลของจุดเริ่มบีบอัด</small></div>
+            <div class="compressor-control"><label for="compAttack"><span>Attack</span><output id="compAttackValue">10 ms</output></label><input id="compAttack" type="range" min="1" max="200" step="1" value="10"><small>เวลาตอบสนองเมื่อเสียงเกิน Threshold</small></div>
+            <div class="compressor-control"><label for="compRelease"><span>Release</span><output id="compReleaseValue">150 ms</output></label><input id="compRelease" type="range" min="10" max="1000" step="5" value="150"><small>เวลาคืนระดับหลังเสียงลดลง</small></div>
+          </div>
+        </details>
         <div class="compressor-preset-row"><span>ทดลองคาแรกเตอร์เสียง</span><button type="button" id="compNormalPreset">เริ่มต้น / Moderate</button><button type="button" id="compOverPreset">Overcompression</button></div>
         <p id="compCharacterDescription" class="compressor-character-description">Moderate: เริ่มจากการบีบอัดพอประมาณ เพื่อควบคุมเสียงที่ดังเกิน Threshold</p>
 
@@ -1846,6 +1842,7 @@ function renderCompressorLesson() {
         <p class="compressor-note">หมายเหตุ: Gain Reduction เป็นค่าการลดระดับจาก Compressor ก่อน Make-up Gain ส่วน PRE / POST ใช้สลับฟังสัญญาณต้นฉบับและสัญญาณที่ผ่านการประมวลผล</p>
       </div>
     </section>
+  `;
   initCompressorLab();
 }
 
@@ -1937,13 +1934,14 @@ function initCompressorLab() {
     } else if (inputDb >= t + k / 2) {
       compressed = t + (inputDb - t) / r;
     }
-const grHistory = new Array(140).fill(0);
+    return compressed + m;
+  }
 
   function drawCombinedGraph() {
     const rect = canvas.getBoundingClientRect();
     const w = rect.width;
     if (!w) return;
-    const h = Math.max(360, Math.min(430, w * 0.48));
+    const h = Math.max(390, Math.min(470, w * 0.53));
     const dpr = Math.max(1, window.devicePixelRatio || 1);
     canvas.width = Math.round(w * dpr);
     canvas.height = Math.round(h * dpr);
@@ -1952,140 +1950,122 @@ const grHistory = new Array(140).fill(0);
     ctx.fillStyle = '#11100f';
     ctx.fillRect(0, 0, w, h);
 
-    const left = 46, right = 18, top = 22, bottom = 28;
+    const left = 49, right = 16, top = 24, gap = 37, bottom = 28;
+    const spectrumH = Math.round((h - top - gap - bottom) * 0.66);
+    const curveTop = top + spectrumH + gap;
+    const curveH = h - curveTop - bottom;
     const plotW = w - left - right;
-    const plotH = h - top - bottom;
-
     const minHz = 20, maxHz = 20000, minLevel = -90, maxLevel = -10;
     const xFreq = hz => left + Math.log10(hz / minHz) / Math.log10(maxHz / minHz) * plotW;
-    const ySpectrum = db => top + (maxLevel - clamp(db, minLevel, maxLevel)) / (maxLevel - minLevel) * plotH;
-
+    const ySpectrum = db => top + (maxLevel - clamp(db, minLevel, maxLevel)) / (maxLevel - minLevel) * spectrumH;
     const xDb = db => left + (db + 60) / 60 * plotW;
-    const yDb = db => top + (6 - clamp(db, -60, 6)) / 66 * plotH;
+    const yDb = db => curveTop + (12 - clamp(db, -60, 12)) / 72 * curveH;
 
-    // 1. Grid พื้นหลังเต็มพื้นที่
-    for (let db = -60; db <= 0; db += 12) {
-      const y = yDb(db);
-      ctx.strokeStyle = 'rgba(255,255,255,.06)';
-      ctx.lineWidth = 1;
+    // Spectrum panel.
+    ctx.fillStyle = '#e8c49d';
+    ctx.font = '700 10px Montserrat,sans-serif';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('FREQUENCY SPECTRUM · PRE / POST', left, 11);
+    ctx.fillStyle = '#9e9081';
+    ctx.font = '9px Kanit,sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('dBFS', w - right, 11);
+
+    for (let db = -90; db <= -10; db += 20) {
+      const y = ySpectrum(db);
+      ctx.strokeStyle = 'rgba(255,255,255,.09)';
       ctx.beginPath(); ctx.moveTo(left, y); ctx.lineTo(w - right, y); ctx.stroke();
-      ctx.fillStyle = '#9c9389'; ctx.font = '9px Montserrat,sans-serif';
-      ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-      ctx.fillText(`${db} dB`, left - 7, y);
+      ctx.fillStyle = '#a99b8b'; ctx.font = '9px Montserrat,sans-serif'; ctx.textAlign = 'right';
+      ctx.fillText(String(db), left - 8, y);
     }
-    for (let db = -60; db <= 0; db += 12) {
-      const x = xDb(db);
-      ctx.strokeStyle = 'rgba(255,255,255,.05)';
-      ctx.beginPath(); ctx.moveTo(x, top); ctx.lineTo(x, top + plotH); ctx.stroke();
-      ctx.fillStyle = '#9c9389'; ctx.font = '9px Montserrat,sans-serif';
-      ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-      ctx.fillText(`${db}`, x, top + plotH + 7);
-    }
+    const ticks = [20,50,100,200,500,1000,2000,5000,10000,20000];
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.font = '9px Montserrat,sans-serif';
+    ticks.forEach(hz => {
+      const x = xFreq(hz);
+      ctx.strokeStyle = 'rgba(255,255,255,.06)';
+      ctx.beginPath(); ctx.moveTo(x, top); ctx.lineTo(x, top + spectrumH); ctx.stroke();
+      ctx.fillStyle = '#a99b8b';
+      ctx.fillText(hz >= 1000 ? `${hz/1000}k` : `${hz}`, x, top + spectrumH + 5);
+    });
 
-    // 2. Live Spectrum พื้นหลัง (เหมือนหน้า Filter)
+    let prePoints = [], postPoints = [];
     if (!audio.paused && !audio.ended && inputAnalyser && postSpectrumAnalyser && audioContext) {
       inputAnalyser.getFloatFrequencyData(preSpectrumData);
       postSpectrumAnalyser.getFloatFrequencyData(postSpectrumData);
       const binHz = audioContext.sampleRate / inputAnalyser.fftSize;
-      const specPoints = [];
-      for (let i = 1; i < postSpectrumData.length; i++) {
+      for (let i = 1; i < preSpectrumData.length; i++) {
         const hz = i * binHz;
         if (hz < minHz || hz > maxHz) continue;
-        const val = monitorMode === 'pre' ? preSpectrumData[i] : postSpectrumData[i];
-        const rawDb = Number.isFinite(val) ? val : minLevel;
-        specPoints.push([xFreq(hz), ySpectrum(rawDb)]);
+        const pre = Number.isFinite(preSpectrumData[i]) ? preSpectrumData[i] : minLevel;
+        const post = Number.isFinite(postSpectrumData[i]) ? postSpectrumData[i] : minLevel;
+        prePoints.push([xFreq(hz), ySpectrum(pre)]);
+        postPoints.push([xFreq(hz), ySpectrum(post)]);
       }
-      if (specPoints.length > 1) {
+      // Fill the gap between PRE and POST to make the level difference easier to see.
+      if (prePoints.length > 1 && postPoints.length === prePoints.length) {
         ctx.beginPath();
-        ctx.moveTo(specPoints[0][0], top + plotH);
-        specPoints.forEach(([x, y]) => ctx.lineTo(x, y));
-        ctx.lineTo(specPoints[specPoints.length - 1][0], top + plotH);
+        prePoints.forEach(([x,y],i) => i ? ctx.lineTo(x,y) : ctx.moveTo(x,y));
+        for (let i = postPoints.length - 1; i >= 0; i--) ctx.lineTo(postPoints[i][0], postPoints[i][1]);
         ctx.closePath();
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+        ctx.fillStyle = 'rgba(255,177,95,.13)';
         ctx.fill();
       }
+      const drawTrace = (points, color) => {
+        if (points.length < 2) return;
+        ctx.beginPath();
+        points.forEach(([x,y],i) => i ? ctx.lineTo(x,y) : ctx.moveTo(x,y));
+        ctx.strokeStyle = color; ctx.lineWidth = 1.9; ctx.lineJoin = 'round'; ctx.stroke();
+      };
+      drawTrace(prePoints, '#ffb15f');
+      drawTrace(postPoints, '#62d9ad');
+    } else {
+      ctx.fillStyle = '#9c8d7d'; ctx.font = '11px Kanit,sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('กด Play เพื่อดู Spectrum ก่อนและหลัง Compressor', left + plotW/2, top + spectrumH/2);
     }
 
-    // 3. พื้นที่แรเงาใต้เส้น Transfer Curve + เส้นโค้ง Compressor (แบบรูปที่ 1 โทนสีธีมเว็บ)
-    ctx.beginPath();
-    ctx.moveTo(xDb(-60), top + plotH);
-    for (let db = -60; db <= 0; db += 0.5) {
-      const out = clamp(transfer(db), -60, 6);
-      ctx.lineTo(xDb(db), yDb(out));
+    // Current Gain Reduction badge in the spectrum panel.
+    const gr = audio.paused ? 0 : Math.abs(Number(compressor?.reduction) || 0);
+    ctx.fillStyle = 'rgba(255,177,95,.13)';
+    ctx.strokeStyle = 'rgba(255,177,95,.35)';
+    ctx.beginPath(); ctx.roundRect(w - right - 104, top + 8, 98, 25, 6); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#ffc17d'; ctx.font = '700 10px Montserrat,sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(`GR ${gr.toFixed(1)} dB`, w - right - 55, top + 20);
+
+    // Transfer curve panel.
+    const dividerY = curveTop - 16;
+    ctx.strokeStyle = 'rgba(232,160,77,.24)';
+    ctx.beginPath(); ctx.moveTo(left, dividerY); ctx.lineTo(w-right, dividerY); ctx.stroke();
+    ctx.fillStyle = '#e8c49d'; ctx.font = '700 10px Montserrat,sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    ctx.fillText('COMPRESSION CURVE · INPUT → OUTPUT', left, curveTop - 7);
+    ctx.font = '9px Montserrat,sans-serif'; ctx.textAlign = 'right'; ctx.fillStyle = '#9e9081';
+    ctx.fillText(`Threshold ${threshold.value} dB  ·  Ratio ${Number(ratio.value).toFixed(1)}:1`, w-right, curveTop - 7);
+
+    for (let db = -60; db <= 0; db += 20) {
+      const x = xDb(db);
+      ctx.strokeStyle = 'rgba(255,255,255,.06)';
+      ctx.beginPath(); ctx.moveTo(x, curveTop); ctx.lineTo(x, curveTop+curveH); ctx.stroke();
+      ctx.fillStyle = '#a99b8b'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      ctx.fillText(String(db), x, curveTop+curveH+4);
     }
-    ctx.lineTo(xDb(0), top + plotH);
-    ctx.closePath();
-    const curveFill = ctx.createLinearGradient(0, top, 0, top + plotH);
-    curveFill.addColorStop(0, 'rgba(255, 173, 89, 0.24)');
-    curveFill.addColorStop(1, 'rgba(255, 173, 89, 0.04)');
-    ctx.fillStyle = curveFill;
-    ctx.fill();
-
-    // เส้นประ 1:1 (ไม่มีการบีบอัด)
-    ctx.beginPath();
-    ctx.moveTo(xDb(-60), yDb(-60));
-    ctx.lineTo(xDb(0), yDb(0));
-    ctx.strokeStyle = 'rgba(255,255,255,.22)';
-    ctx.lineWidth = 1.2;
-    ctx.setLineDash([4, 4]);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // เส้น Compression Curve หลัก
-    ctx.beginPath();
-    for (let db = -60; db <= 0; db += 0.25) {
-      const out = clamp(transfer(db), -60, 6);
-      const px = xDb(db), py = yDb(out);
-      if (db === -60) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    for (let db = -60; db <= 0; db += 20) {
+      const y = yDb(db);
+      ctx.strokeStyle = 'rgba(255,255,255,.06)';
+      ctx.beginPath(); ctx.moveTo(left,y); ctx.lineTo(w-right,y); ctx.stroke();
+      ctx.fillStyle = '#a99b8b'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+      ctx.fillText(String(db), left-8, y);
     }
-    ctx.strokeStyle = '#ffad59';
-    ctx.lineWidth = 2.4;
-    ctx.stroke();
-
-    // จุดวงกลมคู่ตรงตำแหน่ง Threshold (เหมือนรูปที่ 1)
-    const tVal = Number(threshold.value);
-    const tOut = clamp(transfer(tVal), -60, 6);
-    const tx = xDb(tVal), ty = yDb(tOut);
-    ctx.beginPath(); ctx.arc(tx, ty, 6.5, 0, Math.PI * 2);
-    ctx.fillStyle = '#11100f'; ctx.fill();
-    ctx.lineWidth = 2; ctx.strokeStyle = '#ffd09c'; ctx.stroke();
-    ctx.beginPath(); ctx.arc(tx, ty, 2.2, 0, Math.PI * 2);
-    ctx.fillStyle = '#ffd09c'; ctx.fill();
-
-    // 4. เส้นระดับ Threshold แนวนอน + เส้น Gain Reduction ด้านบน (แบบรูปที่ 2)
-    const threshLineY = yDb(tVal);
+    ctx.beginPath(); ctx.moveTo(xDb(-60),yDb(-60)); ctx.lineTo(xDb(0),yDb(0));
+    ctx.strokeStyle = 'rgba(190,190,190,.65)'; ctx.lineWidth = 1.2; ctx.setLineDash([4,4]); ctx.stroke(); ctx.setLineDash([]);
     ctx.beginPath();
-    ctx.moveTo(left, threshLineY);
-    ctx.lineTo(w - right, threshLineY);
-    ctx.strokeStyle = 'rgba(255, 173, 89, 0.75)';
-    ctx.lineWidth = 1.8;
-    ctx.stroke();
-
-    const currentGr = audio.paused ? 0 : Math.abs(Number(compressor?.reduction) || 0);
-    if (!audio.paused && !audio.ended) {
-      grHistory.push(currentGr);
-      grHistory.shift();
+    for (let db=-60; db<=0; db+=0.25) {
+      const out = clamp(transfer(db),-60,12);
+      const px=xDb(db), py=yDb(out);
+      if (db===-60) ctx.moveTo(px,py); else ctx.lineTo(px,py);
     }
-
-    const grBaseY = top + 12;
-    ctx.beginPath();
-    grHistory.forEach((val, idx) => {
-      const gx = left + (idx / (grHistory.length - 1)) * plotW;
-      const gy = grBaseY + clamp(val * 3.2, 0, plotH * 0.35);
-      if (idx === 0) ctx.moveTo(gx, gy); else ctx.lineTo(gx, gy);
-    });
-    ctx.strokeStyle = '#ffd09c';
-    ctx.lineWidth = 1.8;
-    ctx.stroke();
-
-    // ตัวเลข Gain Reduction มุมขวาล่าง (เหมือนรูปที่ 2)
-    ctx.fillStyle = '#ff9d43';
-    ctx.font = '700 13px Montserrat,sans-serif';
-    ctx.textAlign = 'right';
-    ctx.textBaseline = 'bottom';
-    ctx.fillText(`-${currentGr.toFixed(2)} dB`, w - right - 6, top + plotH - 6);
-  }
-  ctx.fillText('เส้นประ = ไม่มีการบีบอัด', left+5, curveTop+curveH-4);
+    ctx.strokeStyle='#ffb15f'; ctx.lineWidth=2.3; ctx.stroke();
+    ctx.fillStyle='#bba68f'; ctx.font='9px Kanit,sans-serif'; ctx.textAlign='left'; ctx.textBaseline='bottom';
+    ctx.fillText('เส้นประ = ไม่มีการบีบอัด', left+5, curveTop+curveH-4);
   }
 
   function readRms(analyser, buffer) {
@@ -2546,9 +2526,9 @@ function renderEQLesson() {
       <p>EQ สามารถใช้ลดความถี่ที่ทำให้เกิดเสียงหอน (Feedback) และปรับย่านความถี่เพื่อช่วยให้เสียงพูดชัดเจนขึ้น ทั้งนี้ควรฟังเปรียบเทียบก่อนและหลังปรับทุกครั้ง</p>
     </article>
 
-  <section class="eq-lab-panel" aria-labelledby="eqLabTitle">
+    <section class="eq-lab-panel" aria-labelledby="eqLabTitle">
       <div class="eq-lab-head">
-        <div><h2 id="eqLabTitle">Parametric EQ Lab</h2></div>
+        <div><span class="filter-lab-eyebrow">INTERACTIVE EXPERIMENT</span><h2 id="eqLabTitle">Parametric EQ Lab</h2><p>คลิกบนกราฟเพื่อเพิ่มจุด EQ แล้วลากจุดเพื่อ Boost / Cut ได้ทันที</p></div>
         <div class="eq-live-state"><i></i> LIVE EQ</div>
       </div>
       ${createAudioBarHTML("eq", "sound1.wav", {audio:"eqDemoAudio", play:"eqPlayPause", seek:"eqAudioSeek", time:"eqAudioTime", status:"eqAudioStatus"})}
@@ -2557,6 +2537,7 @@ function renderEQLesson() {
         <canvas id="eqResponseChart" role="img" aria-label="กราฟ Parametric Equalizer สามารถคลิกเพิ่มและลากจุดปรับ EQ ได้"></canvas>
         <div class="eq-chart-foot"><span><i class="eq-legend-spectrum"></i> Live Spectrum (เสียงจริง)</span><span><i class="eq-legend-curve"></i> EQ Curve</span><span><i class="eq-legend-speech"></i> ย่านความถี่เสียงพูดโดยประมาณ</span></div>
       </div>
+      <div class="eq-speech-guide"><strong>ช่วงความถี่ของเสียงพูด</strong><span class="eq-speech-band"><b>100–300 Hz</b> น้ำหนักและความหนา</span><span class="eq-speech-band"><b>300 Hz–1 kHz</b> เนื้อเสียง</span><span class="eq-speech-band"><b>1–5 kHz</b> ความชัดและความเข้าใจคำพูด</span><span class="eq-speech-band"><b>5–8 kHz</b> รายละเอียดและเสียงเสียดแทรก</span><small>ช่วงเหล่านี้เป็นแนวทางโดยประมาณ ไม่ใช่ขอบเขตตายตัวของเสียงพูดทุกคน</small></div>
       <div class="eq-tools-row">
         <button id="eqAddBand" class="eq-action-button" type="button">＋ Add Band</button>
         <button id="eqRemoveBand" class="eq-action-button secondary" type="button">− Remove Selected</button>
@@ -2575,9 +2556,8 @@ function renderEQLesson() {
       </div>
 
       <div class="eq-readout" id="eqReadout">4 EQ bands · Flat response</div>
-
-      <div class="eq-speech-guide"><strong>ช่วงความถี่ของเสียงพูด</strong><span class="eq-speech-band"><b>100–300 Hz</b> น้ำหนักและความหนา</span><span class="eq-speech-band"><b>300 Hz–1 kHz</b> เนื้อเสียง</span><span class="eq-speech-band"><b>1–5 kHz</b> ความชัดและความเข้าใจคำพูด</span><span class="eq-speech-band"><b>5–8 kHz</b> รายละเอียดและเสียงเสียดแทรก</span><small>ช่วงเหล่านี้เป็นแนวทางโดยประมาณ ไม่ใช่ขอบเขตตายตัวของเสียงพูดทุกคน</small></div>
     </section>
+  `;
   initEQLab();
 }
 
