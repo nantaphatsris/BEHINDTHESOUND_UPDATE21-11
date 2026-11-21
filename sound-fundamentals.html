@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="th">
 
@@ -1265,6 +1264,47 @@ const lessons = {
    4. DISPLAY SELECTED TOPIC
 ========================================= */
 
+const fundamentalTitles = {
+  sound: "What is Sound?",
+  frequency: "Frequency",
+  waveform: "Waveform"
+};
+
+async function saveRecentFundamentalLesson(topicKey) {
+  const title = fundamentalTitles[topicKey];
+  if (!title) return;
+
+  const lessonPayload = {
+    type: "lesson",
+    lessonId: topicKey,
+    lessonName: title,
+    category: "Sound Fundamentals",
+    url: `sound-fundamentals.html?topic=${encodeURIComponent(topicKey)}`,
+    status: "in_progress",
+    updatedAt: Date.now()
+  };
+
+  try {
+    localStorage.setItem("bts_recent_lesson", JSON.stringify(lessonPayload));
+  } catch (_) {}
+
+  try {
+    const { auth, db } = await import("./firebase-config.js");
+    const { doc, setDoc, serverTimestamp } = await import(
+      "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
+    );
+    if (auth.currentUser) {
+      const ref = doc(db, "users", auth.currentUser.uid, "learningResults", `lesson_${topicKey}`);
+      await setDoc(ref, {
+        ...lessonPayload,
+        updatedAt: serverTimestamp()
+      }, { merge: true });
+    }
+  } catch (err) {
+    console.warn("Could not sync recent lesson to Firestore:", err);
+  }
+}
+
 if (selectedTopic && lessons[selectedTopic]) {
 
   topicPage.hidden = true;
@@ -1276,6 +1316,8 @@ if (selectedTopic && lessons[selectedTopic]) {
     selectedTopic.charAt(0).toUpperCase() +
     selectedTopic.slice(1) +
     " | Behind The Sound";
+
+  saveRecentFundamentalLesson(selectedTopic);
 
 } else {
 
