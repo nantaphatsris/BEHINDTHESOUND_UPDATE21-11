@@ -1502,9 +1502,42 @@ backButton.addEventListener("click", () => {
   window.location.href = selectedTopic ? "audio-processor-lab.html" : "learning.html";
 });
 
+async function saveRecentLabLesson(topicKey, title) {
+  const lessonPayload = {
+    type: "lesson",
+    lessonId: topicKey,
+    lessonName: title,
+    category: "Audio Processor Lab",
+    url: `audio-processor-lab.html?topic=${encodeURIComponent(topicKey)}`,
+    status: "in_progress",
+    updatedAt: Date.now()
+  };
+
+  try {
+    localStorage.setItem("bts_recent_lesson", JSON.stringify(lessonPayload));
+  } catch (_) {}
+
+  try {
+    const { auth, db } = await import("./firebase-config.js");
+    const { doc, setDoc, serverTimestamp } = await import(
+      "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
+    );
+    if (auth.currentUser) {
+      const ref = doc(db, "users", auth.currentUser.uid, "learningResults", `lesson_${topicKey}`);
+      await setDoc(ref, {
+        ...lessonPayload,
+        updatedAt: serverTimestamp()
+      }, { merge: true });
+    }
+  } catch (err) {
+    console.warn("Could not sync lab recent lesson to Firestore:", err);
+  }
+}
+
 function showLesson(topicKey) {
   const title = topics[topicKey];
   if (!title) return;
+  saveRecentLabLesson(topicKey, title);
 
   topicPage.hidden = true;
   lessonPage.hidden = false;
