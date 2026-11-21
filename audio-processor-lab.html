@@ -1231,6 +1231,217 @@ button, a {
   }
 }
 
+
+/* =========================================
+   PITCH SHIFTER LESSON + VISUALIZER LAB
+========================================= */
+.pitch-freq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.pitch-freq-box {
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.025);
+  border-left: 3px solid var(--gold);
+  border-radius: 6px 10px 10px 6px;
+}
+
+.pitch-freq-box strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #ffd09c;
+  font-size: 14px;
+}
+
+.pitch-freq-box span {
+  display: block;
+  color: #d9cec2;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.pitch-param-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.pitch-semi-chips {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.pitch-chip {
+  padding: 8px 10px;
+  background: #171411;
+  border: 1px solid rgba(232, 160, 77, 0.22);
+  border-radius: 8px;
+}
+
+.pitch-chip b {
+  display: block;
+  color: #ffad59;
+  font: 600 11.5px 'Montserrat', sans-serif;
+  margin-bottom: 2px;
+}
+
+.pitch-chip span {
+  display: block;
+  color: #cbbba9;
+  font-size: 11.5px;
+  line-height: 1.4;
+}
+
+.pitch-canvas-shell {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  background: #12100d;
+  border: 1px solid rgba(232, 160, 77, 0.28);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+#pitchShiftCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pitch-legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px 18px;
+  margin: 12px 2px 16px;
+  color: #bba996;
+  font-size: 11.5px;
+}
+
+.pitch-legend-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+}
+
+.pitch-legend-items span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.pitch-legend-items i {
+  display: inline-block;
+  width: 14px;
+  height: 3px;
+  border-radius: 3px;
+}
+
+.pitch-summary-inline {
+  color: #ffd09c;
+  font: 600 12px 'Montserrat', sans-serif;
+}
+
+.pitch-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.pitch-control-card {
+  padding: 16px 18px;
+  background: #16130f;
+  border: 1px solid rgba(232, 160, 77, 0.24);
+  border-radius: 13px;
+}
+
+.pitch-control-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.pitch-control-head label {
+  color: #f4e7d9;
+  font: 600 15px 'Montserrat', sans-serif;
+}
+
+.pitch-control-head output {
+  color: #ffad59;
+  font: 700 16px 'Montserrat', sans-serif;
+}
+
+.pitch-gold-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 5px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, rgba(232, 160, 77, 0.28), rgba(255, 173, 89, 0.55));
+  outline: none;
+  cursor: pointer;
+}
+
+.pitch-gold-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffe0a3, #e8a04d);
+  box-shadow: 0 0 12px rgba(255, 173, 89, 0.75);
+  border: 2px solid #2b1d0e;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.pitch-gold-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+}
+
+.pitch-gold-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffe0a3, #e8a04d);
+  box-shadow: 0 0 12px rgba(255, 173, 89, 0.75);
+  border: 2px solid #2b1d0e;
+  cursor: pointer;
+}
+
+.pitch-control-sub {
+  margin-top: 11px;
+  color: #a99886;
+  font-size: 12px;
+}
+
+@media (max-width: 820px) {
+  .pitch-param-grid {
+    grid-template-columns: 1fr;
+  }
+  .pitch-semi-chips {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .pitch-freq-grid,
+  .pitch-controls-grid {
+    grid-template-columns: 1fr;
+  }
+  .pitch-canvas-shell {
+    height: 300px;
+  }
+}
+
 </style>
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
@@ -3661,7 +3872,7 @@ function initDelayLab() {
   let spectrumData = null;
   let animId = 0;
 
-  let delayMode = "free"; // "free" | "sync"
+  let delayMode = "free";
   let selectedNoteMult = 0.5;
   let selectedNoteSym = "♪";
 
@@ -3675,7 +3886,6 @@ function initDelayLab() {
 
   function estimateRepeats(fbRatio) {
     if (fbRatio <= 0.02) return 1;
-    // Count repeats above -36 dB (~0.0158 amplitude)
     const count = Math.floor(Math.log(0.016) / Math.log(fbRatio));
     return Math.max(1, Math.min(28, count));
   }
@@ -3789,16 +3999,13 @@ function initDelayLab() {
     const plotW = w - pad.left - pad.right;
     const plotH = h - pad.top - pad.bottom;
 
-    // Dynamic horizontal timeline window (at least 2250 ms, expands for whole/half notes)
     const maxMs = Math.max(2250, Math.ceil((ms * 4.5) / 250) * 250);
     const xForMs = t => pad.left + (t / maxMs) * plotW;
 
-    // Background
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = "#13110f";
     ctx.fillRect(0, 0, w, h);
 
-    // Horizontal dB grid lines
     const dbLevels = [
       { label: "0 dB", ratio: 0.04 },
       { label: "-6 dB", ratio: 0.28 },
@@ -3822,7 +4029,6 @@ function initDelayLab() {
       ctx.fillText(row.label, pad.left - 10, y);
     });
 
-    // Vertical time grid lines
     const stepMs = maxMs <= 2500 ? 250 : 500;
     ctx.textAlign = "center";
     ctx.textBaseline = "top";
@@ -3838,7 +4044,6 @@ function initDelayLab() {
       ctx.fillText(`${t} ms`, x, pad.top + plotH + 9);
     }
 
-    // Beat markers on top when in Tempo Sync mode
     if (delayMode === "sync") {
       const quarterMs = 60000 / bpm;
       ctx.font = "600 10px Kanit, sans-serif";
@@ -3859,7 +4064,6 @@ function initDelayLab() {
       }
     }
 
-    // Real-Time Audio Spectrum Overlay (when playing)
     if (analyser && spectrumData && audioCtx && !audio.paused && !audio.ended) {
       analyser.getFloatFrequencyData(spectrumData);
       const minHz = 30, maxHz = 18000;
@@ -3898,7 +4102,6 @@ function initDelayLab() {
 
     const baseY = pad.top + plotH;
 
-    // 1. DRY Bar at 0 ms
     const dryX = xForMs(0);
     const dryFactor = 1 - mix * 0.35;
     const dryH = plotH * 0.80 * dryFactor;
@@ -3919,7 +4122,6 @@ function initDelayLab() {
     ctx.textBaseline = "bottom";
     ctx.fillText("DRY", dryX, dryTopY - 7);
 
-    // 2. Delay Taps (#1, #2, #3...)
     const taps = [];
     const maxTaps = Math.min(28, Math.floor(maxMs / Math.max(20, ms)));
     for (let k = 1; k <= maxTaps; k++) {
@@ -3933,7 +4135,6 @@ function initDelayLab() {
       taps.push({ k, tx, ty, tapH, amp });
     }
 
-    // Decay Envelope dashed line connecting taps
     if (taps.length > 1) {
       ctx.beginPath();
       taps.forEach((tap, idx) => {
@@ -3947,7 +4148,6 @@ function initDelayLab() {
       ctx.setLineDash([]);
     }
 
-    // Draw each tap bar + pink cap + #k label
     taps.forEach(tap => {
       const barGrad = ctx.createLinearGradient(0, tap.ty, 0, baseY);
       barGrad.addColorStop(0, "rgba(255, 111, 181, 0.85)");
@@ -3957,13 +4157,11 @@ function initDelayLab() {
       ctx.fillStyle = barGrad;
       ctx.fillRect(tap.tx - 3.5, tap.ty, 7, tap.tapH);
 
-      // Pink dot cap
       ctx.beginPath();
       ctx.arc(tap.tx, tap.ty, 3.2, 0, Math.PI * 2);
       ctx.fillStyle = "#ff6fb5";
       ctx.fill();
 
-      // #k label
       ctx.font = "600 10px Montserrat, sans-serif";
       ctx.fillStyle = "#d9cec2";
       ctx.textAlign = "center";
@@ -3971,7 +4169,6 @@ function initDelayLab() {
       ctx.fillText(`#${tap.k}`, tap.tx, tap.ty - 6);
     });
 
-    // 3. Cyan Delay Time Arrow between DRY and Tap #1
     const firstTapX = Math.min(w - pad.right, xForMs(ms));
     if (firstTapX - dryX > 18) {
       const arrowY = pad.top + 14;
@@ -3984,7 +4181,6 @@ function initDelayLab() {
       ctx.lineTo(firstTapX - 5, arrowY);
       ctx.stroke();
 
-      // Left arrow head
       ctx.beginPath();
       ctx.moveTo(dryX + 5, arrowY);
       ctx.lineTo(dryX + 11, arrowY - 3.5);
@@ -3992,7 +4188,6 @@ function initDelayLab() {
       ctx.closePath();
       ctx.fill();
 
-      // Right arrow head
       ctx.beginPath();
       ctx.moveTo(firstTapX - 5, arrowY);
       ctx.lineTo(firstTapX - 11, arrowY - 3.5);
@@ -4066,22 +4261,83 @@ function initDelayLab() {
 function renderPitchShifterLesson() {
   lessonContent.innerHTML = `
     <div class="lesson-page-heading"><h1>Pitch Shifter</h1></div>
+
     <article class="content-card">
-      <h3>Pitch Shifter คืออะไร?</h3>
-      <p>Pitch Shifter คือเครื่องมือที่ปรับระดับเสียงสูง-ต่ำ (Pitch) ของสัญญาณเสียงให้สูงขึ้นหรือต่ำลง โดยวัดหน่วยเป็น Semitone (ครึ่งเสียง) หรือ Cents</p>
+      <h3>Pitch Shifter และระดับเสียง (Pitch)</h3>
+      <p><strong>Pitch Shifter</strong> ทำหน้าที่เปลี่ยนระดับเสียงสูง–ต่ำ (Pitch) ของสัญญาณเสียงต้นฉบับให้สูงขึ้นหรือต่ำลงได้ตามต้องการ โดยไม่จำเป็นต้องบันทึกเสียงใหม่</p>
+      <p><strong>Pitch (ระดับเสียง)</strong> คือ การรับรู้ของมนุษย์ว่าเสียงที่ได้ยินมีระดับสูงหรือต่ำเพียงใด โดยสัมพันธ์กับ<strong>ความถี่ของเสียง (Frequency)</strong> ซึ่งมีหน่วยเป็นเฮิรตซ์ (Hz)</p>
+      <div class="pitch-freq-grid">
+        <div class="pitch-freq-box">
+          <strong>ความถี่สูง (High Frequency)</strong>
+          <span>รับรู้เป็นเสียงระดับสูง เช่น เสียงนกหวีด หรือเสียงร้องแหลม</span>
+        </div>
+        <div class="pitch-freq-box">
+          <strong>ความถี่ต่ำ (Low Frequency)</strong>
+          <span>รับรู้เป็นเสียงระดับต่ำ เช่น เสียงผู้ชายทุ้ม หรือเสียงเบส</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="content-card">
+      <h3>ส่วนประกอบและค่าที่ใช้ในการปรับ Pitch Shifter</h3>
+      <div class="pitch-param-grid">
+        <div class="reverb-param-card">
+          <h4>Semitone (ครึ่งเสียง)</h4>
+          <p>หน่วยวัดระยะห่างระหว่างระดับเสียง โดยในระบบดนตรีตะวันตก <strong>1 Octave จะประกอบด้วย 12 Semitones</strong></p>
+          <div class="pitch-semi-chips">
+            <div class="pitch-chip"><b>+1 Semitone</b><span>สูงขึ้น 1 ครึ่งเสียง</span></div>
+            <div class="pitch-chip"><b>+2 Semitones</b><span>สูงขึ้น 2 ครึ่งเสียง</span></div>
+            <div class="pitch-chip"><b>+12 Semitones</b><span>สูงขึ้น 1 Octave</span></div>
+            <div class="pitch-chip"><b>-1 Semitone</b><span>ต่ำลง 1 ครึ่งเสียง</span></div>
+            <div class="pitch-chip"><b>-2 Semitones</b><span>ต่ำลง 2 ครึ่งเสียง</span></div>
+            <div class="pitch-chip"><b>-12 Semitones</b><span>ต่ำลง 1 Octave</span></div>
+          </div>
+        </div>
+
+        <div class="reverb-param-card">
+          <h4>Pitch (ระดับเสียงเป้าหมาย)</h4>
+          <p>ค่าหรือระดับเสียงเป้าหมายที่ผู้ใช้งานต้องการให้เสียงเปลี่ยนไป โดยสามารถกำหนดให้สูงขึ้น (ค่าบวก) หรือต่ำลง (ค่าลบ) จากเสียงต้นฉบับได้ตามต้องการ</p>
+        </div>
+      </div>
     </article>
 
     <section class="filter-lab-section" aria-label="ทดลองปรับ Pitch Shifter">
       <div class="filter-lab-panel">
         ${createAudioBarHTML("pitch", "sound1.wav")}
-        <div class="fx-lab-grid">
-          <div class="filter-control">
-            <div class="filter-label-line"><label for="pitchSemitone">Pitch Shift</label><output id="pitchSemitoneVal">0 Semitones</output></div>
-            <input id="pitchSemitone" type="range" min="-12" max="12" step="1" value="0">
-            <div class="filter-range-labels"><span>-12 st (ต่ำลง 1 Oct)</span><span>+12 st (สูงขึ้น 1 Oct)</span></div>
+
+        <div class="pitch-canvas-shell" id="pitchCanvasWrap">
+          <canvas id="pitchShiftCanvas" role="img" aria-label="กราฟแสดงการเลื่อนระดับเสียง Semitone และ Octave พร้อมสเปกตรัมเรียลไทม์"></canvas>
+        </div>
+
+        <div class="pitch-legend-row">
+          <div class="pitch-legend-items">
+            <span><i style="background:#d99b38;"></i> ระดับเสียงต้นฉบับ (Original = 0 ST)</span>
+            <span><i style="background:#ffe082;"></i> ระดับเสียงที่เลื่อนแล้ว (Shifted Pitch)</span>
+            <span><i style="background:rgba(232,160,77,0.35);"></i> เส้นแบ่งช่วง Octave (ทุก 12 Semitones)</span>
+            <span><i style="background:#ffd066;"></i> ระยะและทิศทางการเลื่อน (Semitones)</span>
+          </div>
+          <span class="pitch-summary-inline" id="pitchSummaryText">0 ST (1.000x)</span>
+        </div>
+
+        <div class="pitch-controls-grid">
+          <div class="pitch-control-card">
+            <div class="pitch-control-head">
+              <label for="pitchSemitone">Semitone</label>
+              <output id="pitchSemitoneVal">0</output>
+            </div>
+            <input id="pitchSemitone" class="pitch-gold-slider" type="range" min="-12" max="12" step="1" value="0">
+            <p class="pitch-control-sub">เลื่อนระดับเสียงละเอียดทีละ 1 ครึ่งเสียง (12 Semitones = 1 Octave)</p>
+          </div>
+
+          <div class="pitch-control-card">
+            <div class="pitch-control-head">
+              <label for="pitchOctave">Octave</label>
+              <output id="pitchOctaveVal">0</output>
+            </div>
+            <input id="pitchOctave" class="pitch-gold-slider" type="range" min="-2" max="2" step="1" value="0">
+            <p class="pitch-control-sub">เลื่อนระดับเสียงขึ้นหรือลงทีละช่วงคู่แปด (1 Octave = 12 Semitones)</p>
           </div>
         </div>
-        <div class="filter-readout" id="pitchReadout" style="margin-top:12px;">Pitch Shift · 0 Semitones (1.00x)</div>
       </div>
     </section>
   `;
@@ -4094,30 +4350,302 @@ function initPitchShifterLab() {
   const seek = document.getElementById("pitchAudioSeek");
   const timeLabel = document.getElementById("pitchAudioTime");
   const statusEl = document.getElementById("pitchAudioStatus");
-  const semiInput = document.getElementById("pitchSemitone");
 
+  const semiInput = document.getElementById("pitchSemitone");
+  const octInput = document.getElementById("pitchOctave");
+  const semiVal = document.getElementById("pitchSemitoneVal");
+  const octVal = document.getElementById("pitchOctaveVal");
+  const summaryText = document.getElementById("pitchSummaryText");
+
+  const canvas = document.getElementById("pitchShiftCanvas");
+  const wrap = document.getElementById("pitchCanvasWrap");
+  const ctx = canvas.getContext("2d");
+
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
   bindAudioSourceLoader("pitch", audio, statusEl);
   audio.preservesPitch = false;
 
+  let audioCtx = null, src = null, analyser = null, spectrumData = null;
+  let animId = 0;
+
+  function setupAudio() {
+    if (audioCtx || !AudioCtx) return;
+    try {
+      audioCtx = new AudioCtx();
+      src = audioCtx.createMediaElementSource(audio);
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 2048;
+      analyser.smoothingTimeConstant = 0.82;
+      spectrumData = new Float32Array(analyser.frequencyBinCount);
+
+      src.connect(analyser);
+      analyser.connect(audioCtx.destination);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  function formatSigned(num) {
+    if (num > 0) return `+${num}`;
+    return `${num}`;
+  }
+
   function updatePitch() {
-    const st = Number(semiInput.value);
-    const rate = Math.pow(2, st / 12);
+    const semi = Number(semiInput.value);
+    const oct = Number(octInput.value);
+    const totalSt = oct * 12 + semi;
+    const rate = Math.pow(2, totalSt / 12);
+
     audio.preservesPitch = false;
     audio.playbackRate = rate;
-    document.getElementById("pitchSemitoneVal").textContent = `${st > 0 ? "+" : ""}${st} Semitones`;
-    document.getElementById("pitchReadout").textContent = `Pitch Shift · ${st > 0 ? "+" : ""}${st} Semitones (${rate.toFixed(2)}x)`;
+
+    semiVal.textContent = formatSigned(semi);
+    octVal.textContent = formatSigned(oct);
+    summaryText.textContent = `SHIFTED: ${formatSigned(totalSt)} ST (${rate.toFixed(3)}x)`;
+
+    drawPitchGraph();
+  }
+
+  function drawPitchGraph() {
+    const rect = wrap.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    const w = rect.width;
+    const h = rect.height;
+    if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+    }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const semi = Number(semiInput.value);
+    const oct = Number(octInput.value);
+    const totalSt = oct * 12 + semi;
+
+    const pad = { left: 66, right: 28, top: 28, bottom: 28 };
+    const plotW = w - pad.left - pad.right;
+    const plotH = h - pad.top - pad.bottom;
+
+    const minSt = -36;
+    const maxSt = 36;
+    const yForSt = st => pad.top + ((maxSt - st) / (maxSt - minSt)) * plotH;
+
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = "#12100d";
+    ctx.fillRect(0, 0, w, h);
+
+    // Subtle vertical grid lines
+    const vCols = 8;
+    for (let i = 0; i <= vCols; i++) {
+      const vx = pad.left + (i / vCols) * plotW;
+      ctx.strokeStyle = "rgba(255, 210, 130, 0.04)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(vx, pad.top);
+      ctx.lineTo(vx, pad.top + plotH);
+      ctx.stroke();
+    }
+
+    // Horizontal Octave reference lines (-36 to +36 ST)
+    const levels = [36, 24, 12, 0, -12, -24, -36];
+    ctx.font = "600 10px Montserrat, sans-serif";
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+
+    levels.forEach(lv => {
+      const y = yForSt(lv);
+      if (lv === 0) {
+        ctx.strokeStyle = "rgba(232, 160, 77, 0.72)";
+        ctx.lineWidth = 1.4;
+        ctx.setLineDash([]);
+      } else {
+        ctx.strokeStyle = "rgba(232, 160, 77, 0.22)";
+        ctx.lineWidth = 1;
+        ctx.setLineDash([5, 5]);
+      }
+      ctx.beginPath();
+      ctx.moveTo(pad.left, y);
+      ctx.lineTo(w - pad.right, y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = lv === 0 ? "#f4d08a" : "#9c8767";
+      const label = lv > 0 ? `+${lv} ST` : `${lv} ST`;
+      ctx.fillText(label, pad.left - 12, y);
+    });
+
+    // Real-time audio spectrum (Gold/Amber theme) when playing
+    if (analyser && spectrumData && audioCtx && !audio.paused && !audio.ended) {
+      analyser.getFloatFrequencyData(spectrumData);
+      const minHz = 30, maxHz = 18000;
+      const binHz = audioCtx.sampleRate / analyser.fftSize;
+      const pts = [];
+      for (let i = 1; i < spectrumData.length; i++) {
+        const hz = i * binHz;
+        if (hz < minHz || hz > maxHz) continue;
+        const rawDb = Number.isFinite(spectrumData[i]) ? spectrumData[i] : -100;
+        const norm = Math.max(0, Math.min(1, (rawDb + 95) / 80));
+        const sx = pad.left + (Math.log10(hz / minHz) / Math.log10(maxHz / minHz)) * plotW;
+        const sy = pad.top + plotH - norm * (plotH * 0.80);
+        pts.push([sx, sy]);
+      }
+      if (pts.length > 1) {
+        const specGrad = ctx.createLinearGradient(pad.left, 0, w - pad.right, 0);
+        specGrad.addColorStop(0.0, "rgba(255, 173, 66, 0.28)");
+        specGrad.addColorStop(0.5, "rgba(255, 214, 102, 0.22)");
+        specGrad.addColorStop(1.0, "rgba(232, 160, 77, 0.26)");
+
+        ctx.beginPath();
+        ctx.moveTo(pts[0][0], pad.top + plotH);
+        pts.forEach(([sx, sy]) => ctx.lineTo(sx, sy));
+        ctx.lineTo(pts[pts.length - 1][0], pad.top + plotH);
+        ctx.closePath();
+        ctx.fillStyle = specGrad;
+        ctx.fill();
+
+        ctx.beginPath();
+        pts.forEach(([sx, sy], idx) => idx === 0 ? ctx.moveTo(sx, sy) : ctx.lineTo(sx, sy));
+        ctx.strokeStyle = "rgba(255, 216, 125, 0.48)";
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+      }
+    }
+
+    // Active Pitch Region (from 12% to 84% of plot width)
+    const xStart = pad.left + plotW * 0.12;
+    const xEnd = pad.left + plotW * 0.84;
+    const xMid = (xStart + xEnd) * 0.5;
+    const yZero = yForSt(0);
+    const yTarget = yForSt(totalSt);
+
+    // Highlighted band between 0 ST and Target ST
+    if (totalSt !== 0) {
+      const topY = Math.min(yZero, yTarget);
+      const bandH = Math.abs(yTarget - yZero);
+      const bandGrad = ctx.createLinearGradient(0, yTarget, 0, yZero);
+      bandGrad.addColorStop(0, "rgba(255, 210, 105, 0.22)");
+      bandGrad.addColorStop(1, "rgba(232, 160, 77, 0.04)");
+
+      ctx.fillStyle = bandGrad;
+      ctx.fillRect(xStart, topY, xEnd - xStart, bandH);
+
+      // Subtle vertical boundary lines
+      ctx.strokeStyle = "rgba(255, 210, 105, 0.22)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(xStart, yZero);
+      ctx.lineTo(xStart, yTarget);
+      ctx.moveTo(xEnd, yZero);
+      ctx.lineTo(xEnd, yTarget);
+      ctx.stroke();
+    }
+
+    // "ต้นฉบับ (0 ST)" label above 0 ST line on the left
+    ctx.font = "600 11px Kanit, Montserrat, sans-serif";
+    ctx.fillStyle = "#e8b968";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "bottom";
+    ctx.fillText("ต้นฉบับ (0 ST)", xStart, yZero - 6);
+
+    // Vertical shift arrow in the center
+    if (Math.abs(yTarget - yZero) > 10) {
+      const isUp = totalSt > 0;
+      const tipY = isUp ? yTarget + 3 : yTarget - 3;
+
+      ctx.strokeStyle = "#ffd97d";
+      ctx.fillStyle = "#ffd97d";
+      ctx.lineWidth = 1.8;
+
+      ctx.beginPath();
+      ctx.moveTo(xMid, yZero);
+      ctx.lineTo(xMid, tipY);
+      ctx.stroke();
+
+      // Arrowhead
+      ctx.beginPath();
+      if (isUp) {
+        ctx.moveTo(xMid, tipY);
+        ctx.lineTo(xMid - 5, tipY + 8);
+        ctx.lineTo(xMid + 5, tipY + 8);
+      } else {
+        ctx.moveTo(xMid, tipY);
+        ctx.lineTo(xMid - 5, tipY - 8);
+        ctx.lineTo(xMid + 5, tipY - 8);
+      }
+      ctx.closePath();
+      ctx.fill();
+
+      // Arrow value label
+      ctx.font = "700 11px Montserrat, sans-serif";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "middle";
+      const arrowLabel = `${isUp ? "▲" : "▼"} ${formatSigned(totalSt)} ST`;
+      ctx.fillText(arrowLabel, xMid + 10, (yZero + yTarget) * 0.5);
+    }
+
+    // Glowing Shifted Pitch horizontal line
+    ctx.save();
+    ctx.strokeStyle = "#ffe599";
+    ctx.lineWidth = 3.2;
+    ctx.shadowColor = "rgba(255, 210, 95, 0.85)";
+    ctx.shadowBlur = 12;
+    ctx.beginPath();
+    ctx.moveTo(xStart, yTarget);
+    ctx.lineTo(xEnd, yTarget);
+    ctx.stroke();
+
+    // Glowing endpoint circle
+    ctx.beginPath();
+    ctx.arc(xEnd, yTarget, 5.2, 0, Math.PI * 2);
+    ctx.fillStyle = "#fff1bd";
+    ctx.fill();
+    ctx.restore();
+
+    // "เลื่อนเป็น ... ST" label near right endpoint
+    ctx.font = "600 11.5px Kanit, Montserrat, sans-serif";
+    ctx.fillStyle = "#ffe599";
+    ctx.textAlign = "right";
+    ctx.textBaseline = "bottom";
+    ctx.fillText(`เลื่อนเป็น ${formatSigned(totalSt)} ST`, xEnd - 8, yTarget - 8);
+  }
+
+  function startLoop() {
+    cancelAnimationFrame(animId);
+    const loop = () => {
+      drawPitchGraph();
+      if (!audio.paused && !audio.ended) {
+        animId = requestAnimationFrame(loop);
+      }
+    };
+    animId = requestAnimationFrame(loop);
   }
 
   semiInput.addEventListener("input", updatePitch);
+  octInput.addEventListener("input", updatePitch);
 
   const fmtTime = t => Number.isFinite(t) ? `${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,"0")}` : "0:00";
   playBtn.addEventListener("click", async () => {
+    setupAudio();
+    if (audioCtx && audioCtx.state === "suspended") await audioCtx.resume();
     updatePitch();
     if (audio.paused) await audio.play(); else audio.pause();
   });
-  audio.addEventListener("play", () => { playBtn.textContent = "Ⅱ Pause"; });
-  audio.addEventListener("pause", () => { playBtn.textContent = "▶ Play"; });
-  audio.addEventListener("ended", () => { playBtn.textContent = "▶ Play"; seek.value = 0; });
+  audio.addEventListener("play", () => {
+    playBtn.textContent = "Ⅱ Pause";
+    statusEl.textContent = "กำลังเล่นเสียงพร้อมเปลี่ยนระดับ Pitch · แสดงสเปกตรัมเรียลไทม์บนกราฟ";
+    startLoop();
+  });
+  audio.addEventListener("pause", () => {
+    playBtn.textContent = "▶ Play";
+    cancelAnimationFrame(animId);
+    drawPitchGraph();
+  });
+  audio.addEventListener("ended", () => {
+    playBtn.textContent = "▶ Play";
+    seek.value = 0;
+    cancelAnimationFrame(animId);
+    drawPitchGraph();
+  });
   audio.addEventListener("loadedmetadata", () => { timeLabel.textContent = `0:00 / ${fmtTime(audio.duration)}`; });
   audio.addEventListener("timeupdate", () => {
     if (audio.duration > 0) {
@@ -4126,13 +4654,20 @@ function initPitchShifterLab() {
     }
   });
   seek.addEventListener("input", () => { if (audio.duration > 0) audio.currentTime = Number(seek.value) / 1000 * audio.duration; });
+
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(drawPitchGraph).observe(wrap);
+  } else {
+    window.addEventListener("resize", drawPitchGraph);
+  }
+
+  updatePitch();
 }
 
 if (selectedTopic) {
   if (topics[selectedTopic]) showLesson(selectedTopic);
   else window.location.replace("audio-processor-lab.html");
 }
-
-</script>
+  </script>
 </body>
 </html>
