@@ -1171,6 +1171,309 @@ button, a {
   }
 }
 
+
+/* =========================================
+   REVERB 3D SPATIAL VISUALIZER LAB
+========================================= */
+.reverb-theory-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.reverb-compare-box {
+  padding: 15px 17px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(232, 160, 77, 0.25);
+  border-radius: 12px;
+}
+
+.reverb-compare-box h4 {
+  margin: 0 0 6px;
+  color: #ffad59;
+  font-size: 15px;
+}
+
+.reverb-compare-box p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.reverb-role-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.reverb-role-item {
+  padding: 14px 15px;
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 3px solid var(--orange);
+  border-radius: 6px 10px 10px 6px;
+}
+
+.reverb-role-item strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #f4bd87;
+  font-size: 13px;
+}
+
+.reverb-role-item span {
+  display: block;
+  color: #d9cec2;
+  font-size: 12.5px;
+  line-height: 1.75;
+}
+
+.reverb-param-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.reverb-param-card {
+  padding: 15px 16px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(232, 160, 77, 0.18);
+  border-radius: 12px;
+}
+
+.reverb-param-card h4 {
+  margin: 0 0 6px;
+  color: var(--orange);
+  font-size: 15px;
+}
+
+.reverb-param-card p {
+  margin: 0 0 8px;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.reverb-param-sub {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 157, 67, 0.15);
+  font-size: 12px;
+  color: #cbbba9;
+}
+
+.reverb-param-sub b {
+  color: #ffd09c;
+  font-weight: 500;
+}
+
+.reverb-canvas-shell {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  background: #141210;
+  border: 1px solid rgba(232, 160, 77, 0.28);
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.reverb-canvas-shell:active {
+  cursor: grabbing;
+}
+
+#reverb3dCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.reverb-canvas-axis {
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+  color: #8b7b6a;
+  font: 600 9px 'Montserrat', sans-serif;
+  letter-spacing: 0.8px;
+}
+
+.reverb-canvas-hint {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  padding-left: 52px;
+  pointer-events: none;
+  color: #9e8d7b;
+  font-size: 11px;
+}
+
+.reverb-canvas-hud {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  text-align: right;
+  pointer-events: none;
+}
+
+.reverb-canvas-hud small {
+  display: block;
+  color: #9e8d7b;
+  font: 700 9px 'Montserrat', sans-serif;
+  letter-spacing: 1.2px;
+}
+
+.reverb-canvas-hud strong {
+  color: #ffad59;
+  font: 700 17px 'Montserrat', sans-serif;
+  text-shadow: 0 0 12px rgba(255, 157, 67, 0.35);
+}
+
+.reverb-legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  margin: 12px 2px 16px;
+  color: #bba996;
+  font-size: 11px;
+}
+
+.reverb-legend-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.reverb-legend-row i {
+  display: inline-block;
+  width: 14px;
+  height: 3px;
+  border-radius: 3px;
+}
+
+.reverb-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.reverb-summary-box {
+  margin-top: 16px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(232, 160, 77, 0.22);
+  border-radius: 13px;
+}
+
+.reverb-summary-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+
+.reverb-summary-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #f0c18e;
+  font: 600 13px 'Kanit', 'Montserrat', sans-serif;
+}
+
+.reverb-summary-title i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff9d43;
+  box-shadow: 0 0 8px rgba(255, 157, 67, 0.7);
+}
+
+.reverb-space-badge {
+  padding: 5px 11px;
+  background: rgba(255, 157, 67, 0.14);
+  border: 1px solid rgba(255, 157, 67, 0.45);
+  border-radius: 7px;
+  color: #ffd09c;
+  font: 700 11px 'Montserrat', sans-serif;
+  letter-spacing: 0.6px;
+}
+
+.reverb-summary-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.reverb-stat-card {
+  padding: 12px 13px;
+  background: #171411;
+  border: 1px solid rgba(232, 160, 77, 0.16);
+  border-radius: 10px;
+}
+
+.reverb-stat-card > span {
+  display: block;
+  margin-bottom: 6px;
+  color: #a99886;
+  font-size: 11px;
+}
+
+.reverb-stat-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+
+.reverb-stat-main strong {
+  color: #ffad59;
+  font: 700 15px 'Montserrat', sans-serif;
+}
+
+.reverb-stat-main em {
+  font-style: normal;
+  color: #e7c49d;
+  font-size: 11px;
+}
+
+.reverb-stat-card small {
+  display: block;
+  color: #9c8d7d;
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .reverb-controls-grid,
+  .reverb-summary-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .reverb-theory-grid,
+  .reverb-param-grid,
+  .reverb-controls-grid,
+  .reverb-summary-cards {
+    grid-template-columns: 1fr;
+  }
+  .reverb-canvas-shell {
+    height: 300px;
+  }
+}
+
 </style>
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
@@ -2816,31 +3119,197 @@ function initEQLab() {
 function renderReverbLesson() {
   lessonContent.innerHTML = `
     <div class="lesson-page-heading"><h1>Reverb</h1></div>
+
     <article class="content-card">
       <h3>Reverb คืออะไร?</h3>
-      <p>Reverb (Reverberation) คือเสียงสะท้อนที่เกิดขึ้นต่อเนื่องภายในพื้นที่หรือห้อง ทำให้เสียงมีความก้อง มีมิติ และให้ความรู้สึกเหมือนเสียงอยู่ในสถานที่จริง เช่น ห้องซ้อม ห้องโถง หรือสตูดิโอ</p>
-      <h4>ค่าที่ใช้ในการปรับ Reverb</h4>
-      <ul class="filter-bullet-list">
-        <li><strong>Decay Time:</strong> ระยะเวลาที่เสียงก้องค่อย ๆ จางหายไป</li>
-        <li><strong>Pre-Delay:</strong> ช่วงเวลาสั้น ๆ ก่อนที่เสียงสะท้อนชุดแรกจะตามมาหลังเสียงต้นฉบับ</li>
-        <li><strong>Mix (Dry/Wet):</strong> สัดส่วนระหว่างเสียงต้นฉบับ (Dry) กับเสียงก้อง (Wet)</li>
-      </ul>
+      <p><strong>Reverb</strong> คือ Audio Processor ที่ใช้สร้างหรือจำลองปรากฏการณ์เสียงสะท้อน เพื่อทำให้เสียงมีมิติ มีความลึก และให้ความรู้สึกเหมือนเสียงกำลังเกิดขึ้นภายในพื้นที่ใดพื้นที่หนึ่ง ช่วยทำให้เสียงไม่แห้งหรือแบนจนเกินไป โดยเพิ่มเสียงสะท้อนเข้าไปเพื่อสร้างความรู้สึกของสถานที่และบรรยากาศ</p>
+      <p><strong>Reverb ในธรรมชาติ</strong> คือ ปรากฏการณ์การสะท้อนของเสียงที่เกิดขึ้นเมื่อเสียงเดินทางไปกระทบกับพื้นผิวหรือวัตถุต่าง ๆ ภายในพื้นที่ เช่น ผนัง เพดาน พื้น และสิ่งของภายในห้อง จากนั้นเสียงจะสะท้อนกลับมาและรวมเข้ากับเสียงต้นฉบับจนเกิดเป็นเสียงก้องต่อเนื่อง</p>
+
+      <h4>ความแตกต่างของ Reverb และ Echo</h4>
+      <div class="reverb-theory-grid">
+        <div class="reverb-compare-box">
+          <h4>Reverb (เสียงก้องต่อเนื่อง)</h4>
+          <p>เสียงสะท้อนหลายครั้งที่เกิดขึ้นต่อเนื่องและซ้อนทับกัน จนกลายเป็นเสียงก้องที่ค่อย ๆ จางหายไป</p>
+        </div>
+        <div class="reverb-compare-box">
+          <h4>Echo (เสียงสะท้อนแยกจังหวะ)</h4>
+          <p>เสียงสะท้อนที่กลับมาให้ได้ยินเป็นครั้ง ๆ โดยแยกออกจากเสียงต้นฉบับได้อย่างชัดเจน</p>
+        </div>
+      </div>
     </article>
 
-    <section class="filter-lab-section" aria-label="ทดลองปรับ Reverb">
-      <div class="filter-lab-panel">
-        ${createAudioBarHTML("reverb", "sound1.wav")}
-        <div class="fx-lab-grid">
-          <div class="filter-control">
-            <div class="filter-label-line"><label for="reverbDecay">Decay Time</label><output id="reverbDecayVal">1.8 s</output></div>
-            <input id="reverbDecay" type="range" min="0.3" max="5.0" step="0.1" value="1.8">
-          </div>
-          <div class="filter-control">
-            <div class="filter-label-line"><label for="reverbMix">Wet Mix</label><output id="reverbMixVal">35%</output></div>
-            <input id="reverbMix" type="range" min="0" max="100" step="1" value="35">
+    <article class="content-card">
+      <h3>หน้าที่สำคัญของ Reverb</h3>
+      <div class="reverb-role-list">
+        <div class="reverb-role-item">
+          <strong>สร้างมิติให้กับเสียง (Spatial Depth)</strong>
+          <span>ช่วยให้เสียงมีความรู้สึกใกล้หรือไกลมากขึ้น ไม่แบนหรือแห้งจนเกินไป</span>
+        </div>
+        <div class="reverb-role-item">
+          <strong>สร้างบรรยากาศของสถานที่ (Room Ambience)</strong>
+          <span>ช่วยจำลองความรู้สึกของเสียงในสถานที่ต่าง ๆ เช่น ห้องเล็ก ห้องโถง หรือโบสถ์</span>
+        </div>
+        <div class="reverb-role-item">
+          <strong>เพิ่มความนุ่มนวลให้กับเสียง (Smoothness)</strong>
+          <span>ช่วยให้เสียงร้องหรือเสียงดนตรีมีความต่อเนื่องและฟังดูกลมกลืนมากขึ้น</span>
+        </div>
+        <div class="reverb-role-item">
+          <strong>สร้างความกว้างของเสียง (Spatial Impression)</strong>
+          <span>ช่วยให้เสียงมีความรู้สึกกว้างและมีพื้นที่มากขึ้น โดยเฉพาะในการผลิตเพลง</span>
+        </div>
+        <div class="reverb-role-item">
+          <strong>เพิ่มความสมจริงให้กับเสียง (Realism)</strong>
+          <span>ช่วยให้เสียงที่บันทึกแห้ง ๆ มีลักษณะใกล้เคียงกับเสียงที่เกิดขึ้นในสถานที่จริง</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="content-card">
+      <h3>ส่วนประกอบและค่าที่ใช้ในการปรับ Reverb</h3>
+      <div class="reverb-param-grid">
+        <div class="reverb-param-card">
+          <h4>Pre-delay</h4>
+          <p>ระยะเวลาระหว่างเสียงต้นฉบับกับการเริ่มต้นของเสียงสะท้อนจาก Reverb โดยมีหน่วยเป็นมิลลิวินาที (ms)</p>
+          <div class="reverb-param-sub">
+            <span><b>Pre-delay สั้น:</b> เสียงก้องเริ่มตามเสียงต้นฉบับอย่างรวดเร็ว ทำให้เสียงรู้สึกต่อเนื่องกัน</span>
+            <span><b>Pre-delay ยาว:</b> เสียงต้นฉบับจะมีระยะห่างจากเสียงก้องมากขึ้น ทำให้เสียงต้นฉบับยังคงความชัดเจนก่อนที่เสียงสะท้อนจะตามมา</span>
           </div>
         </div>
-        <div class="filter-readout" id="reverbReadout" style="margin-top:12px;">Reverb · Decay 1.8 s · Mix 35%</div>
+
+        <div class="reverb-param-card">
+          <h4>Room Size</h4>
+          <p>ค่าที่ใช้กำหนดหรือจำลองขนาดของพื้นที่ที่เกิดเสียงสะท้อน โดยพบได้ใน Digital Reverb หลายรุ่น</p>
+          <div class="reverb-param-sub">
+            <span><b>Size เล็ก:</b> ให้ความรู้สึกเหมือนเสียงอยู่ในห้องขนาดเล็ก</span>
+            <span><b>Size ใหญ่:</b> ให้ความรู้สึกเหมือนเสียงอยู่ในพื้นที่กว้างหรือห้องโถงขนาดใหญ่</span>
+          </div>
+        </div>
+
+        <div class="reverb-param-card">
+          <h4>Decay Time</h4>
+          <p>ระยะเวลาที่เสียงสะท้อนค่อย ๆ เบาลงจนหายไปหลังจากเสียงต้นฉบับหยุดลง</p>
+          <div class="reverb-param-sub">
+            <span><b>Decay สั้น:</b> เสียงก้องหายเร็ว ให้ความรู้สึกเหมือนอยู่ในห้องขนาดเล็ก</span>
+            <span><b>Decay ยาว:</b> เสียงก้องอยู่นาน ให้ความรู้สึกเหมือนอยู่ในพื้นที่ขนาดใหญ่</span>
+          </div>
+        </div>
+
+        <div class="reverb-param-card">
+          <h4>Wet / Dry</h4>
+          <p>การกำหนดสัดส่วนระหว่างเสียงต้นฉบับกับเสียงที่ผ่าน Reverb</p>
+          <div class="reverb-param-sub">
+            <span><b>Dry:</b> เสียงต้นฉบับที่ยังไม่มี Reverb</span>
+            <span><b>Wet:</b> เสียงที่ผ่าน Reverb แล้ว</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <section class="filter-lab-section" aria-label="ทดลองปรับ Reverb 3D">
+      <div class="filter-lab-panel">
+        ${createAudioBarHTML("reverb", "sound1.wav")}
+
+        <div class="reverb-canvas-shell" id="reverb3dWrap">
+          <canvas id="reverb3dCanvas" role="img" aria-label="ภาพจำลองห้องเสียง 3D ของ Reverb"></canvas>
+          <div class="reverb-canvas-axis" aria-hidden="true">
+            <span>+SPACE</span>
+            <span>WALL</span>
+            <span>0.0 m</span>
+            <span>WALL</span>
+            <span>-SPACE</span>
+          </div>
+          <div class="reverb-canvas-hint">ลากเมาส์หรือนิ้วเพื่อหมุนดูรอบห้อง 3D</div>
+          <div class="reverb-canvas-hud">
+            <small>WET / DECAY</small>
+            <strong id="reverbHudValue">25% WET / 2.20 s</strong>
+          </div>
+        </div>
+
+        <div class="reverb-legend-row">
+          <span><i style="background:#ffad59;"></i> กล่องห้อง 3D (Room Size &amp; ความเร็วหมุน Decay)</span>
+          <span><i style="background:#e8a04d;"></i> คลื่นระยะหน่วง (Pre-Delay)</span>
+          <span><i style="background:#ffd09c;"></i> ละอองความฟุ้งรอบนอก (Decay &amp; Wet)</span>
+          <span><i style="background:#62d9ad;"></i> แกนเสียงต้นฉบับ (Dry)</span>
+        </div>
+
+        <div class="reverb-controls-grid">
+          <div class="filter-control">
+            <div class="filter-label-line">
+              <label for="reverbPreDelay">Pre-Delay</label>
+              <output id="reverbPreDelayVal">35 ms</output>
+            </div>
+            <input id="reverbPreDelay" type="range" min="0" max="200" step="1" value="35">
+            <small>หน่วงเวลาก่อนเสียงสะท้อนแรกจะเริ่มดัง</small>
+          </div>
+
+          <div class="filter-control">
+            <div class="filter-label-line">
+              <label for="reverbRoomSize">Room Size</label>
+              <output id="reverbRoomSizeVal">55%</output>
+            </div>
+            <input id="reverbRoomSize" type="range" min="10" max="100" step="1" value="55">
+            <small>ปรับขนาดห้องจำลอง ยิ่งใหญ่เสียงยิ่งกังวาน</small>
+          </div>
+
+          <div class="filter-control">
+            <div class="filter-label-line">
+              <label for="reverbDecay">Decay</label>
+              <output id="reverbDecayVal">2.2 s</output>
+            </div>
+            <input id="reverbDecay" type="range" min="0.3" max="6.0" step="0.1" value="2.2">
+            <small>ความยาวหางเสียง ยิ่งมากละอองยิ่งฟุ้งและหมุนเร็ว</small>
+          </div>
+
+          <div class="filter-control">
+            <div class="filter-label-line">
+              <label for="reverbMix">Wet / Dry</label>
+              <output id="reverbMixVal">25%</output>
+            </div>
+            <input id="reverbMix" type="range" min="0" max="100" step="1" value="25">
+            <small>สัดส่วนเสียงก้อง (Wet) เทียบกับเสียงแห้งต้นฉบับ</small>
+          </div>
+        </div>
+
+        <div class="reverb-summary-box">
+          <div class="reverb-summary-head">
+            <div class="reverb-summary-title"><i></i> สรุปสถานะการจำลองห้องเสียง (LIVE ACOUSTIC SUMMARY)</div>
+            <span class="reverb-space-badge" id="reverbSpaceBadge">Medium Studio Hall</span>
+          </div>
+          <div class="reverb-summary-cards">
+            <div class="reverb-stat-card">
+              <span>ระยะหน่วงก่อนสะท้อน (Pre-Delay)</span>
+              <div class="reverb-stat-main">
+                <strong id="revStatPre">35 ms</strong>
+                <em id="revStatDist">≈ 12.0 ม.</em>
+              </div>
+              <small id="revStatPreDesc">แยกเสียงต้นฉบับให้ชัดเจนขึ้นเล็กน้อย</small>
+            </div>
+            <div class="reverb-stat-card">
+              <span>มิติขนาดพื้นที่ (Room Size)</span>
+              <div class="reverb-stat-main">
+                <strong id="revStatSize">55%</strong>
+                <em id="revStatRoomName">ห้องสตูดิโอกลาง</em>
+              </div>
+              <small id="revStatSizeDesc">พื้นที่ขนาดกลาง ให้มิติโอบล้อมกำลังดี</small>
+            </div>
+            <div class="reverb-stat-card">
+              <span>ความยาวหางเสียง (Decay / RT60)</span>
+              <div class="reverb-stat-main">
+                <strong id="revStatDecay">2.20 วินาที</strong>
+                <em id="revStatDecayTag">ฟุ้งปานกลาง</em>
+              </div>
+              <small id="revStatDecayDesc">หางเสียงนุ่มนวล กลมกลืนกับเสียงหลัก</small>
+            </div>
+            <div class="reverb-stat-card">
+              <span>สมดุลเสียง (Wet / Dry Ratio)</span>
+              <div class="reverb-stat-main">
+                <strong id="revStatWetDry" style="color:#62d9ad;">25% / 75%</strong>
+                <em id="revStatWetTag">สมดุลธรรมชาติ</em>
+              </div>
+              <small id="revStatWetDesc">ผสมบรรยากาศห้องโดยยังรักษาความชัด</small>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   `;
@@ -2853,61 +3322,409 @@ function initReverbLab() {
   const seek = document.getElementById("reverbAudioSeek");
   const timeLabel = document.getElementById("reverbAudioTime");
   const statusEl = document.getElementById("reverbAudioStatus");
+
+  const preDelayInput = document.getElementById("reverbPreDelay");
+  const roomSizeInput = document.getElementById("reverbRoomSize");
   const decayInput = document.getElementById("reverbDecay");
   const mixInput = document.getElementById("reverbMix");
+
+  const canvas = document.getElementById("reverb3dCanvas");
+  const wrap = document.getElementById("reverb3dWrap");
+  const vCtx = canvas.getContext("2d");
+
   const AudioCtx = window.AudioContext || window.webkitAudioContext;
-
   bindAudioSourceLoader("reverb", audio, statusEl);
-  let ctx = null, src = null, convolver = null, dryGain = null, wetGain = null;
 
-  function buildImpulse(seconds) {
+  let ctx = null, src = null, preDelayNode = null, convolver = null, roomFilter = null;
+  let dryGain = null, wetGain = null, analyser = null, timeData = null;
+
+  function buildImpulse(seconds, roomPct) {
     const rate = ctx.sampleRate;
     const len = Math.max(1, Math.floor(rate * seconds));
     const buf = ctx.createBuffer(2, len, rate);
+    const roomFactor = roomPct / 100;
+    const density = 0.008 + (1 - roomFactor) * 0.015;
     for (let ch = 0; ch < 2; ch++) {
       const data = buf.getChannelData(ch);
       for (let i = 0; i < len; i++) {
-        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.4);
+        const t = i / len;
+        const env = Math.pow(1 - t, 1.9 + (1 - roomFactor) * 1.4);
+        const earlyBoost = i < rate * (0.02 + roomFactor * 0.06) && Math.random() < density ? 1.35 : 1.0;
+        data[i] = (Math.random() * 2 - 1) * env * earlyBoost;
       }
     }
     return buf;
   }
 
-  function setup() {
+  function setupAudio() {
     if (ctx || !AudioCtx) return;
-    ctx = new AudioCtx();
-    src = ctx.createMediaElementSource(audio);
-    convolver = ctx.createConvolver();
-    dryGain = ctx.createGain();
-    wetGain = ctx.createGain();
-    convolver.buffer = buildImpulse(Number(decayInput.value));
-    src.connect(dryGain);
-    src.connect(convolver);
-    convolver.connect(wetGain);
-    dryGain.connect(ctx.destination);
-    wetGain.connect(ctx.destination);
-    updateParams(false);
-  }
+    try {
+      ctx = new AudioCtx();
+      src = ctx.createMediaElementSource(audio);
+      preDelayNode = ctx.createDelay(1.0);
+      convolver = ctx.createConvolver();
+      roomFilter = ctx.createBiquadFilter();
+      roomFilter.type = "lowpass";
+      dryGain = ctx.createGain();
+      wetGain = ctx.createGain();
+      analyser = ctx.createAnalyser();
+      analyser.fftSize = 1024;
+      timeData = new Uint8Array(analyser.frequencyBinCount);
 
-  function updateParams(rebuildIR = true) {
-    const decay = Number(decayInput.value);
-    const mix = Number(mixInput.value) / 100;
-    document.getElementById("reverbDecayVal").textContent = `${decay.toFixed(1)} s`;
-    document.getElementById("reverbMixVal").textContent = `${Math.round(mix * 100)}%`;
-    document.getElementById("reverbReadout").textContent = `Reverb · Decay ${decay.toFixed(1)} s · Mix ${Math.round(mix * 100)}%`;
-    if (ctx && dryGain && wetGain) {
-      dryGain.gain.value = 1 - mix * 0.5;
-      wetGain.gain.value = mix;
-      if (rebuildIR && convolver) convolver.buffer = buildImpulse(decay);
+      convolver.buffer = buildImpulse(Number(decayInput.value), Number(roomSizeInput.value));
+
+      src.connect(dryGain);
+      src.connect(preDelayNode);
+      preDelayNode.connect(roomFilter);
+      roomFilter.connect(convolver);
+      convolver.connect(wetGain);
+
+      dryGain.connect(analyser);
+      wetGain.connect(analyser);
+      analyser.connect(ctx.destination);
+
+      updateParams(false);
+    } catch (e) {
+      console.error(e);
+      statusEl.textContent = "เบราว์เซอร์ไม่รองรับ Web Audio API ในหน้านี้";
     }
   }
 
+  function updateSummaryUI(preMs, sizePct, decaySec, wetPct) {
+    const dryPct = 100 - wetPct;
+    const distMeters = (preMs * 0.343).toFixed(1);
+
+    document.getElementById("reverbPreDelayVal").textContent = `${preMs} ms`;
+    document.getElementById("reverbRoomSizeVal").textContent = `${sizePct}%`;
+    document.getElementById("reverbDecayVal").textContent = `${decaySec.toFixed(1)} s`;
+    document.getElementById("reverbMixVal").textContent = `${wetPct}%`;
+    document.getElementById("reverbHudValue").textContent = `${wetPct}% WET / ${decaySec.toFixed(2)} s`;
+
+    document.getElementById("revStatPre").textContent = `${preMs} ms`;
+    document.getElementById("revStatDist").textContent = `≈ ${distMeters} ม.`;
+    document.getElementById("revStatPreDesc").textContent =
+      preMs < 20 ? "เสียงก้องติดกับเสียงต้นฉบับทันที ฟังดูกลมกลืน" :
+      preMs < 75 ? "เว้นระยะให้เสียงต้นฉบับชัดขึ้นก่อนเสียงก้องตามมา" :
+      "เกิดจังหวะสะท้อนแยกชัดเจนคล้าย Slapback Delay";
+
+    let roomName = "ห้องขนาดเล็ก (Small Room)";
+    let roomDesc = "ผนังอยู่ใกล้ เสียงสะท้อนกลับมาเร็วและกระชับ";
+    let badge = "Small Vocal Booth";
+    if (sizePct >= 75) {
+      roomName = "คอนเสิร์ตฮอลล์";
+      roomDesc = "พื้นที่กว้างขวาง ให้มิติโอบล้อมและกังวานลึก";
+      badge = "Large Concert Hall";
+    } else if (sizePct >= 45) {
+      roomName = "ห้องสตูดิโอกลาง";
+      roomDesc = "พื้นที่ขนาดกลาง ให้มิติโอบล้อมกำลังดี";
+      badge = "Medium Studio Hall";
+    } else if (sizePct >= 25) {
+      roomName = "ห้องซ้อมดนตรี";
+      roomDesc = "มีบรรยากาศห้องชัดเจนโดยไม่ฟุ้งจนเกินไป";
+      badge = "Live Chamber Room";
+    }
+    document.getElementById("revStatSize").textContent = `${sizePct}%`;
+    document.getElementById("revStatRoomName").textContent = roomName;
+    document.getElementById("revStatSizeDesc").textContent = roomDesc;
+    document.getElementById("reverbSpaceBadge").textContent = badge;
+
+    document.getElementById("revStatDecay").textContent = `${decaySec.toFixed(2)} วินาที`;
+    document.getElementById("revStatDecayTag").textContent =
+      decaySec < 1.2 ? "สั้นกระชับ" : decaySec < 3.0 ? "ฟุ้งปานกลาง" : "ฟุ้งกระจายสูง";
+    document.getElementById("revStatDecayDesc").textContent =
+      decaySec < 1.2 ? "เสียงก้องจางหายเร็ว เหมาะกับจังหวะกระชับ" :
+      decaySec < 3.0 ? "หางเสียงนุ่มนวล กลมกลืนกับเสียงหลัก" :
+      "หางเสียงลอยค้างนาน สร้างบรรยากาศนุ่มลึก";
+
+    document.getElementById("revStatWetDry").textContent = `${wetPct}% / ${dryPct}%`;
+    document.getElementById("revStatWetTag").textContent =
+      wetPct <= 20 ? "อยู่ด้านหน้าชัด (Dry)" : wetPct <= 55 ? "สมดุลธรรมชาติ" : "โอบล้อมฟุ้ง (Wet)";
+    document.getElementById("revStatWetDesc").textContent =
+      wetPct <= 20 ? "เน้นความคมชัดของเสียงต้นฉบับ มีบรรยากาศบางๆ" :
+      wetPct <= 55 ? "ผสมบรรยากาศห้องโดยยังรักษาความชัด" :
+      "เสียงก้องเด่นชัด ให้ความรู้สึกอยู่ลึกเข้าไปในพื้นที่";
+  }
+
+  function updateParams(rebuildIR = true) {
+    const preMs = Number(preDelayInput.value);
+    const sizePct = Number(roomSizeInput.value);
+    const decaySec = Number(decayInput.value);
+    const wetPct = Number(mixInput.value);
+    const mix = wetPct / 100;
+
+    updateSummaryUI(preMs, sizePct, decaySec, wetPct);
+
+    if (ctx && dryGain && wetGain) {
+      const now = ctx.currentTime;
+      dryGain.gain.setTargetAtTime(1 - mix * 0.45, now, 0.015);
+      wetGain.gain.setTargetAtTime(mix * 1.15, now, 0.015);
+      if (preDelayNode) preDelayNode.delayTime.setTargetAtTime(preMs / 1000, now, 0.015);
+      if (roomFilter) {
+        const cutoff = 2800 + (sizePct / 100) * 9500;
+        roomFilter.frequency.setTargetAtTime(cutoff, now, 0.02);
+      }
+      if (rebuildIR && convolver) {
+        convolver.buffer = buildImpulse(decaySec, sizePct);
+      }
+    }
+  }
+
+  preDelayInput.addEventListener("input", () => updateParams(false));
+  roomSizeInput.addEventListener("input", () => updateParams(true));
   decayInput.addEventListener("input", () => updateParams(true));
   mixInput.addEventListener("input", () => updateParams(false));
 
+  // 3D Spatial Room Visualizer (Dark-Gold Theme)
+  let rotX = 0.42;
+  let rotY = 0.58;
+  let isDragging = false;
+  let lastPtrX = 0;
+  let lastPtrY = 0;
+  let lastFrameTime = performance.now();
+
+  const particles = Array.from({ length: 135 }, () => ({
+    x: (Math.random() * 2 - 1),
+    y: (Math.random() * 2 - 1),
+    z: (Math.random() * 2 - 1),
+    size: 1.2 + Math.random() * 2.2,
+    phase: Math.random() * Math.PI * 2,
+    tint: Math.random()
+  }));
+
+  const cubeVertices = [
+    [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
+    [-1, -1,  1], [1, -1,  1], [1, 1,  1], [-1, 1,  1]
+  ];
+  const cubeEdges = [
+    [0,1],[1,2],[2,3],[3,0],
+    [4,5],[5,6],[6,7],[7,4],
+    [0,4],[1,5],[2,6],[3,7]
+  ];
+  const cubeFaces = [
+    [0,1,2,3], [4,5,6,7], [0,1,5,4], [2,3,7,6], [1,2,6,5], [0,3,7,4]
+  ];
+
+  wrap.addEventListener("pointerdown", (e) => {
+    isDragging = true;
+    lastPtrX = e.clientX;
+    lastPtrY = e.clientY;
+    wrap.setPointerCapture(e.pointerId);
+  });
+  wrap.addEventListener("pointermove", (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - lastPtrX;
+    const dy = e.clientY - lastPtrY;
+    lastPtrX = e.clientX;
+    lastPtrY = e.clientY;
+    rotY += dx * 0.0085;
+    rotX = Math.max(-1.25, Math.min(1.25, rotX + dy * 0.0085));
+  });
+  wrap.addEventListener("pointerup", () => { isDragging = false; });
+  wrap.addEventListener("pointercancel", () => { isDragging = false; });
+
+  function project3D(x, y, z, cx, cy, fov) {
+    const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+    const x1 = x * cosY - z * sinY;
+    const z1 = z * cosY + x * sinY;
+
+    const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
+    const y2 = y * cosX - z1 * sinX;
+    const z2 = z1 * cosX + y * sinX;
+
+    const depth = Math.max(120, fov + z2);
+    const scale = fov / depth;
+    return {
+      px: cx + x1 * scale,
+      py: cy + y2 * scale,
+      z: z2,
+      scale
+    };
+  }
+
+  function render3DScene(now) {
+    const dt = Math.min(0.05, (now - lastFrameTime) / 1000);
+    lastFrameTime = now;
+
+    const rect = wrap.getBoundingClientRect();
+    if (rect.width > 0 && rect.height > 0) {
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      const w = rect.width;
+      const h = rect.height;
+      if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+      }
+      vCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const preMs = Number(preDelayInput.value);
+      const sizePct = Number(roomSizeInput.value);
+      const decaySec = Number(decayInput.value);
+      const wetPct = Number(mixInput.value);
+
+      // Audio reactivity
+      let audioEnergy = 0;
+      if (analyser && timeData && !audio.paused && !audio.ended) {
+        analyser.getByteTimeDomainData(timeData);
+        let sum = 0;
+        for (let i = 0; i < timeData.length; i++) {
+          const v = (timeData[i] - 128) / 128;
+          sum += v * v;
+        }
+        audioEnergy = Math.min(1, Math.sqrt(sum / timeData.length) * 3.2);
+      }
+
+      // Auto-rotation speed scales with Decay Time
+      if (!isDragging) {
+        const spinSpeed = 0.14 + (decaySec / 6.0) * 1.15;
+        rotY += spinSpeed * dt;
+      }
+
+      // Background + Subtle Gold Grid
+      vCtx.clearRect(0, 0, w, h);
+      const bgGrad = vCtx.createRadialGradient(w * 0.5, h * 0.5, 10, w * 0.5, h * 0.5, w * 0.65);
+      bgGrad.addColorStop(0, "rgba(255, 157, 67, 0.08)");
+      bgGrad.addColorStop(1, "#12100e");
+      vCtx.fillStyle = bgGrad;
+      vCtx.fillRect(0, 0, w, h);
+
+      vCtx.strokeStyle = "rgba(255, 173, 89, 0.06)";
+      vCtx.lineWidth = 1;
+      const gridStep = 44;
+      for (let gx = (w % gridStep) / 2; gx < w; gx += gridStep) {
+        vCtx.beginPath(); vCtx.moveTo(gx, 0); vCtx.lineTo(gx, h); vCtx.stroke();
+      }
+      for (let gy = (h % gridStep) / 2; gy < h; gy += gridStep) {
+        vCtx.beginPath(); vCtx.moveTo(0, gy); vCtx.lineTo(w, gy); vCtx.stroke();
+      }
+
+      const cx = w * 0.5;
+      const cy = h * 0.5;
+      const fov = 460;
+      const minDim = Math.min(w, h);
+      const roomHalf = (0.13 + (sizePct / 100) * 0.25) * minDim * (1 + audioEnergy * 0.04);
+
+      // 1. Diffusion Particles (Decay & Wet control dispersion & brightness)
+      const spread = roomHalf * (1.25 + (decaySec / 6.0) * 1.15);
+      const activeRatio = Math.max(0.15, (wetPct / 100) * 0.65 + (decaySec / 6.0) * 0.45);
+      const visibleCount = Math.floor(particles.length * Math.min(1, activeRatio));
+
+      for (let i = 0; i < visibleCount; i++) {
+        const p = particles[i];
+        const swirl = now * 0.0005 * (0.4 + decaySec * 0.35) + p.phase;
+        const px3 = p.x * spread + Math.cos(swirl) * (6 + decaySec * 2.5);
+        const py3 = p.y * spread + Math.sin(swirl * 0.9) * (6 + decaySec * 2.5);
+        const pz3 = p.z * spread;
+        const pt = project3D(px3, py3, pz3, cx, cy, fov);
+        const alpha = Math.min(0.85, (0.18 + (wetPct / 100) * 0.55) * pt.scale);
+
+        vCtx.fillStyle = p.tint > 0.45
+          ? `rgba(255, 173, 89, ${alpha.toFixed(3)})`
+          : `rgba(255, 224, 178, ${(alpha * 0.85).toFixed(3)})`;
+        const s = p.size * pt.scale;
+        vCtx.fillRect(pt.px - s / 2, pt.py - s / 2, s, s);
+      }
+
+      // 2. Project 3D Room Cube Vertices
+      const projected = cubeVertices.map(([vx, vy, vz]) =>
+        project3D(vx * roomHalf, vy * roomHalf, vz * roomHalf, cx, cy, fov)
+      );
+
+      // Translucent Gold-Amber Faces
+      const faceAlpha = 0.035 + (wetPct / 100) * 0.075 + audioEnergy * 0.03;
+      cubeFaces.forEach((face) => {
+        vCtx.beginPath();
+        face.forEach((idx, k) => {
+          const p = projected[idx];
+          if (k === 0) vCtx.moveTo(p.px, p.py);
+          else vCtx.lineTo(p.px, p.py);
+        });
+        vCtx.closePath();
+        vCtx.fillStyle = `rgba(255, 157, 67, ${faceAlpha.toFixed(3)})`;
+        vCtx.fill();
+      });
+
+      // Cube Edges
+      vCtx.strokeStyle = "rgba(255, 185, 105, 0.72)";
+      vCtx.lineWidth = 1.6;
+      cubeEdges.forEach(([a, b]) => {
+        vCtx.beginPath();
+        vCtx.moveTo(projected[a].px, projected[a].py);
+        vCtx.lineTo(projected[b].px, projected[b].py);
+        vCtx.stroke();
+      });
+
+      // Glowing Corner Nodes
+      projected.forEach((p) => {
+        const r = Math.max(2.6, 4.2 * p.scale);
+        vCtx.beginPath();
+        vCtx.arc(p.px, p.py, r, 0, Math.PI * 2);
+        vCtx.fillStyle = "#ffd09c";
+        vCtx.shadowColor = "rgba(255, 157, 67, 0.85)";
+        vCtx.shadowBlur = 10;
+        vCtx.fill();
+        vCtx.shadowBlur = 0;
+      });
+
+      // 3. Pre-Delay Wavefront Ring (radius expands with Pre-Delay)
+      const baseCoreR = 14 + audioEnergy * 6;
+      const preDelayGap = 6 + (preMs / 200) * (roomHalf * 0.62);
+      const waveR = baseCoreR + preDelayGap;
+
+      vCtx.beginPath();
+      vCtx.arc(cx, cy, waveR, 0, Math.PI * 2);
+      vCtx.strokeStyle = "rgba(232, 160, 77, 0.85)";
+      vCtx.lineWidth = 2.4;
+      vCtx.setLineDash(preMs > 85 ? [6, 4] : []);
+      vCtx.stroke();
+      vCtx.setLineDash([]);
+
+      // Outer Wet Halo
+      if (wetPct > 2) {
+        const wetHaloR = waveR + 5 + (wetPct / 100) * 14;
+        vCtx.beginPath();
+        vCtx.arc(cx, cy, wetHaloR, 0, Math.PI * 2);
+        vCtx.strokeStyle = `rgba(255, 208, 156, ${(0.25 + (wetPct / 100) * 0.55).toFixed(2)})`;
+        vCtx.lineWidth = 1.8;
+        vCtx.stroke();
+      }
+
+      // 4. Dry Core Source (Center Hexagon/Circle)
+      const dryScale = Math.max(0.55, 1 - (wetPct / 100) * 0.35);
+      const coreR = baseCoreR * dryScale;
+      const coreGrad = vCtx.createRadialGradient(cx, cy, 2, cx, cy, coreR * 1.4);
+      coreGrad.addColorStop(0, "#a8f5d6");
+      coreGrad.addColorStop(0.65, "#62d9ad");
+      coreGrad.addColorStop(1, "rgba(98, 217, 173, 0)");
+
+      vCtx.beginPath();
+      vCtx.arc(cx, cy, coreR * 1.35, 0, Math.PI * 2);
+      vCtx.fillStyle = coreGrad;
+      vCtx.fill();
+
+      vCtx.beginPath();
+      for (let i = 0; i < 6; i++) {
+        const ang = (Math.PI / 3) * i - Math.PI / 6;
+        const hx = cx + Math.cos(ang) * coreR;
+        const hy = cy + Math.sin(ang) * coreR;
+        if (i === 0) vCtx.moveTo(hx, hy);
+        else vCtx.lineTo(hx, hy);
+      }
+      vCtx.closePath();
+      vCtx.fillStyle = "#62d9ad";
+      vCtx.fill();
+    }
+
+    if (document.getElementById("reverb3dCanvas")) {
+      requestAnimationFrame(render3DScene);
+    }
+  }
+
+  updateParams(false);
+  requestAnimationFrame(render3DScene);
+
   const fmtTime = t => Number.isFinite(t) ? `${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,"0")}` : "0:00";
   playBtn.addEventListener("click", async () => {
-    setup();
+    setupAudio();
     if (!ctx) return;
     if (ctx.state === "suspended") await ctx.resume();
     if (audio.paused) await audio.play(); else audio.pause();
