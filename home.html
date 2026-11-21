@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -984,7 +983,7 @@ button {
 
         <!-- RECENT LESSON -->
 
-        <a href="learning.html" class="info-item">
+        <a id="recentLessonLink" href="learning.html" class="info-item">
 
           <div class="info-icon">
 
@@ -1202,6 +1201,7 @@ const pretestStatus = document.getElementById("pretestStatus");
 
 const recentLesson = document.getElementById("recentLesson");
 const recentLessonStatus = document.getElementById("recentLessonStatus");
+const recentLessonLink = document.getElementById("recentLessonLink");
 
 
 // =========================================
@@ -1458,6 +1458,31 @@ function updatePretestScore(records) {
 // 9. RECENT LESSON
 // =========================================
 
+function getLessonUrl(lesson) {
+  if (!lesson) return "learning.html";
+  if (lesson.url) return lesson.url;
+
+  const id = (lesson.lessonId || "").toLowerCase();
+  const fundamentalsMap = {
+    sound: "sound-fundamentals.html?topic=sound",
+    frequency: "sound-fundamentals.html?topic=frequency",
+    waveform: "sound-fundamentals.html?topic=waveform"
+  };
+  const labMap = {
+    filter: "audio-processor-lab.html?topic=filter",
+    eq: "audio-processor-lab.html?topic=eq",
+    compressor: "audio-processor-lab.html?topic=compressor",
+    "gain-stage": "audio-processor-lab.html?topic=gain-stage",
+    reverb: "audio-processor-lab.html?topic=reverb",
+    delay: "audio-processor-lab.html?topic=delay",
+    "pitch-shifter": "audio-processor-lab.html?topic=pitch-shifter"
+  };
+
+  if (fundamentalsMap[id]) return fundamentalsMap[id];
+  if (labMap[id]) return labMap[id];
+  return "learning.html";
+}
+
 function updateRecentLesson(records) {
 
   const lessons = records
@@ -1466,14 +1491,26 @@ function updateRecentLesson(records) {
 
     .sort((a, b) => getRecordTime(b) - getRecordTime(a));
 
+  let latestLesson = lessons[0] || null;
+
+  if (!latestLesson) {
+    try {
+      const localRaw = localStorage.getItem("bts_recent_lesson");
+      if (localRaw) {
+        latestLesson = JSON.parse(localRaw);
+      }
+    } catch (_) {}
+  }
 
   // No lesson yet
 
-  if (lessons.length === 0) {
+  if (!latestLesson) {
 
     recentLesson.textContent = "Not started";
 
     recentLessonStatus.textContent = "Start learning";
+
+    if (recentLessonLink) recentLessonLink.href = "learning.html";
 
     return;
 
@@ -1481,8 +1518,6 @@ function updateRecentLesson(records) {
 
 
   // Get latest lesson
-
-  const latestLesson = lessons[0];
 
   recentLesson.textContent =
     latestLesson.lessonName ||
@@ -1497,6 +1532,10 @@ function updateRecentLesson(records) {
 
   recentLessonStatus.textContent =
     isCompleted ? "Completed" : "In progress";
+
+  if (recentLessonLink) {
+    recentLessonLink.href = getLessonUrl(latestLesson);
+  }
 
 }
 
