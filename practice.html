@@ -83,7 +83,7 @@
     /* MAIN LAYOUT */
     .practice-container {
       width: 100%;
-      max-width: 1380px;
+      max-width: 1440px;
       margin: 0 auto;
       padding: 28px 28px 50px;
     }
@@ -259,25 +259,25 @@
       flex-shrink: 0;
     }
 
-    /* PROCESSOR DEVICE CARD */
+    /* PROCESSOR DEVICE CARD (LAB GRADE) */
     .device-card {
-      width: 390px;
-      min-width: 390px;
-      background: linear-gradient(160deg, #26211b, #191612);
+      width: 560px;
+      min-width: 560px;
+      background: linear-gradient(155deg, #25201a, #171411);
       border: 1.5px solid var(--border);
-      border-radius: 16px;
+      border-radius: 18px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
       flex-shrink: 0;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
       transition: border-color 0.2s, opacity 0.2s;
     }
     .device-card:hover { border-color: var(--orange); }
-    .device-card.bypassed { opacity: 0.52; }
+    .device-card.bypassed { opacity: 0.5; }
 
     .device-header {
-      padding: 12px 16px;
+      padding: 13px 18px;
       background: rgba(255, 173, 89, 0.08);
       border-bottom: 1px solid rgba(232, 160, 77, 0.22);
       display: flex;
@@ -287,20 +287,39 @@
     .device-title-group {
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 10px;
     }
     .device-index {
       font-size: 11px;
       font-weight: 800;
       color: #1c130b;
       background: var(--orange);
-      padding: 2px 7px;
-      border-radius: 5px;
+      padding: 2px 8px;
+      border-radius: 6px;
     }
     .device-title {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--text);
+    }
+    .device-live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 20px;
+      background: rgba(115, 196, 157, 0.08);
+      border: 1px solid rgba(115, 196, 157, 0.28);
+      color: #9de0c0;
+      font: 700 9px 'Montserrat', sans-serif;
+      letter-spacing: 0.8px;
+    }
+    .device-live-pill i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #62d9ad;
+      box-shadow: 0 0 8px #62d9ad;
     }
 
     .device-actions {
@@ -309,7 +328,7 @@
       gap: 8px;
     }
     .bypass-btn {
-      padding: 4px 9px;
+      padding: 5px 10px;
       border-radius: 6px;
       border: 1px solid var(--orange);
       background: rgba(255, 173, 89, 0.18);
@@ -324,74 +343,371 @@
       color: #8c7f72;
     }
     .remove-device-btn {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       border-radius: 6px;
       border: 1px solid rgba(255, 255, 255, 0.15);
       background: transparent;
       color: var(--muted);
       cursor: pointer;
-      font-size: 14px;
+      font-size: 15px;
     }
     .remove-device-btn:hover { border-color: #ff6b6b; color: #ff6b6b; }
 
-    /* VISUAL GRAPH CANVAS INSIDE CARD */
-    .device-visual-box {
-      padding: 12px 14px 6px;
-    }
-    .device-canvas {
-      width: 100%;
-      height: 155px;
-      display: block;
-      background: #110f0d;
-      border: 1px solid rgba(232, 160, 77, 0.22);
-      border-radius: 10px;
-      cursor: crosshair;
+    /* LAB BODY INSIDE DEVICE CARD */
+    .device-lab-body {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
     }
 
-    /* PARAMETER SLIDERS INSIDE CARD */
-    .device-params {
-      padding: 10px 14px 16px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px 14px;
+    .lab-canvas-shell {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      background: #12100e;
+      border: 1px solid rgba(232, 160, 77, 0.24);
+      border-radius: 12px;
+      overflow: hidden;
     }
-    .param-item.full { grid-column: 1 / -1; }
-    .param-label {
+    .lab-canvas-shell canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .lab-legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      color: #b4a392;
+      font: 400 10.5px 'Kanit', sans-serif;
+    }
+    .lab-legend-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .lab-legend-row i {
+      display: inline-block;
+      width: 12px;
+      height: 3px;
+      border-radius: 3px;
+    }
+
+    .lab-controls-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .lab-controls-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .lab-controls-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .lab-ctrl-box {
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(232, 160, 77, 0.16);
+      border-radius: 10px;
+    }
+    .lab-ctrl-head {
       display: flex;
       justify-content: space-between;
-      font: 500 11px 'Kanit', sans-serif;
-      color: #dfd0c0;
-      margin-bottom: 4px;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+      font: 500 11.5px 'Kanit', sans-serif;
+      color: #e7c49d;
     }
-    .param-label span:last-child {
+    .lab-ctrl-head output {
       color: var(--orange);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
+      font: 700 11px 'Montserrat', sans-serif;
+      white-space: nowrap;
     }
-    .param-item input[type="range"] {
+    .lab-ctrl-box input[type="range"] {
       width: 100%;
       accent-color: var(--orange);
       cursor: pointer;
-      height: 5px;
     }
-    .param-item select {
+    .lab-ctrl-box select {
       width: 100%;
-      padding: 6px 8px;
+      padding: 7px 9px;
       border-radius: 7px;
       border: 1px solid rgba(232, 160, 77, 0.35);
       background: #14110e;
       color: var(--text);
       font: 400 12px 'Kanit', sans-serif;
     }
+    .lab-ctrl-box small {
+      display: block;
+      margin-top: 4px;
+      color: #9c8c7b;
+      font: 300 10px 'Kanit', sans-serif;
+    }
 
-    /* ADD PROCESSOR SLOT (REPLACES ADD CARD) */
+    .lab-readout-bar {
+      padding: 9px 12px;
+      color: #ffd09c;
+      background: rgba(255, 157, 67, 0.08);
+      border: 1px solid rgba(255, 157, 67, 0.22);
+      border-radius: 9px;
+      font: 400 11px 'Kanit', 'Montserrat', sans-serif;
+    }
+
+    /* EQ SPECIFIC */
+    .eq-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
+    }
+    .lab-mini-btn {
+      padding: 6px 10px;
+      border-radius: 7px;
+      border: 1px solid rgba(232, 160, 77, 0.28);
+      background: #1d1914;
+      color: #e7c49d;
+      font: 600 10.5px 'Montserrat', 'Kanit', sans-serif;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .lab-mini-btn.primary {
+      background: var(--orange);
+      color: #1f140a;
+      border-color: var(--orange);
+    }
+    .lab-mini-btn.active {
+      background: var(--orange);
+      color: #1f140a;
+      border-color: var(--orange);
+    }
+    .lab-mini-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* COMPRESSOR SPECIFIC */
+    .comp-ab-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(232, 160, 77, 0.18);
+      border-radius: 10px;
+      font: 400 11px 'Kanit', sans-serif;
+      color: #cbbba9;
+    }
+    .comp-meter-strip {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 8px;
+    }
+    .comp-meter-box {
+      padding: 9px 11px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(232, 160, 77, 0.14);
+      border-radius: 9px;
+    }
+    .comp-meter-box span {
+      display: block;
+      font: 700 8.5px 'Montserrat', sans-serif;
+      color: #a99886;
+      letter-spacing: 0.8px;
+    }
+    .comp-meter-box strong {
+      font: 700 13px 'Montserrat', sans-serif;
+      color: #f4e7d9;
+    }
+    .gr-track {
+      height: 8px;
+      margin-top: 5px;
+      background: #0d0c0b;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .gr-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #72c99e, #e9c46a, #ff7eb6);
+      transition: width 0.06s linear;
+    }
+    .comp-adv-details {
+      border: 1px solid rgba(232, 160, 77, 0.18);
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .comp-adv-details summary {
+      padding: 8px 12px;
+      font: 600 11px 'Kanit', sans-serif;
+      color: #e8c49d;
+      cursor: pointer;
+    }
+    .comp-adv-details .lab-controls-grid-3 {
+      padding: 0 10px 10px;
+    }
+
+    /* GAIN STAGE LED METERS */
+    .gain-console-box {
+      padding: 14px;
+      background: #151412;
+      border: 1px solid rgba(232, 160, 77, 0.25);
+      border-radius: 12px;
+    }
+    .gain-meters-pair {
+      display: grid;
+      grid-template-columns: 1fr 24px 1fr;
+      gap: 8px;
+      align-items: center;
+    }
+    .gain-ch-card {
+      padding: 10px;
+      background: #0f100e;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+    }
+    .gain-ch-head {
+      display: flex;
+      justify-content: space-between;
+      font: 700 10px 'Montserrat', sans-serif;
+      color: #e8c49d;
+      margin-bottom: 8px;
+    }
+    .gain-led-body {
+      display: grid;
+      grid-template-columns: 22px 1fr 54px;
+      gap: 6px;
+      height: 165px;
+      align-items: stretch;
+    }
+    .gain-led-scale {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font: 8px 'Montserrat', sans-serif;
+      color: #7e756a;
+      text-align: right;
+    }
+    .gain-led-strip {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 2px;
+      padding: 4px;
+      background: #090a09;
+      border: 1px solid #2c2f29;
+      border-radius: 4px;
+    }
+    .gain-led-strip i {
+      display: block;
+      flex: 1;
+      background: #232b25;
+      border-radius: 1px;
+    }
+    .gain-led-strip i.lit { background: #39b86f; box-shadow: 0 0 4px rgba(57,184,111,0.4); }
+    .gain-led-strip i.hot { background: #d5b83d; }
+    .gain-led-strip i.red { background: #dc5147; }
+    .gain-led-val {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .gain-led-val strong {
+      font: 700 14px 'Montserrat', sans-serif;
+      color: #8ce0a9;
+    }
+    .gain-led-val small {
+      font: 8px 'Montserrat', sans-serif;
+      color: #888;
+    }
+    .gain-stats-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .gain-stat-pill {
+      padding: 7px 9px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .gain-stat-pill span {
+      display: block;
+      font: 700 8px 'Montserrat', sans-serif;
+      color: #998c7c;
+    }
+    .gain-stat-pill strong {
+      font: 700 12px 'Montserrat', sans-serif;
+      color: #e8c18f;
+    }
+    .gain-stat-pill.clipping {
+      background: rgba(220, 81, 71, 0.18);
+      border-color: #ff665c;
+    }
+    .gain-stat-pill.clipping strong { color: #ff665c; }
+
+    /* REVERB 3D HUD & SUMMARY */
+    .reverb-hud-overlay {
+      position: absolute;
+      right: 12px;
+      bottom: 10px;
+      text-align: right;
+      pointer-events: none;
+    }
+    .reverb-hud-overlay small {
+      display: block;
+      font: 700 8px 'Montserrat', sans-serif;
+      color: #9e8d7b;
+    }
+    .reverb-hud-overlay strong {
+      font: 700 13px 'Montserrat', sans-serif;
+      color: var(--orange);
+    }
+    .reverb-hint-overlay {
+      position: absolute;
+      left: 12px;
+      bottom: 10px;
+      font: 300 10px 'Kanit', sans-serif;
+      color: #9e8d7b;
+      pointer-events: none;
+    }
+
+    /* DELAY NOTE BUTTONS */
+    .delay-note-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 5px;
+      margin-top: 8px;
+    }
+    .delay-note-chip {
+      padding: 6px 3px;
+      border-radius: 7px;
+      border: 1px solid rgba(232, 160, 77, 0.22);
+      background: #161310;
+      color: #d9cec2;
+      font: 500 10px 'Kanit', sans-serif;
+      cursor: pointer;
+      text-align: center;
+    }
+    .delay-note-chip.active {
+      border-color: var(--orange);
+      background: rgba(255, 157, 67, 0.18);
+      color: #ffd09c;
+    }
+
+    /* ADD PROCESSOR SLOT */
     .add-processor-slot {
       width: 240px;
       min-width: 240px;
-      min-height: 340px;
+      min-height: 420px;
       border: 2px dashed rgba(232, 160, 77, 0.45);
-      border-radius: 16px;
+      border-radius: 18px;
       background: rgba(255, 173, 89, 0.03);
       display: flex;
       flex-direction: column;
@@ -399,7 +715,6 @@
       justify-content: center;
       padding: 18px;
       flex-shrink: 0;
-      position: relative;
       transition: 0.2s;
     }
     .add-processor-slot:hover {
@@ -434,7 +749,7 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      margin-top: 10px;
+      margin-top: 12px;
     }
     .processor-menu[hidden] { display: none; }
     .proc-option-btn {
@@ -489,7 +804,7 @@
     .submit-btn:hover { transform: translateY(-2px); filter: brightness(1.06); }
     .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-    /* POST-SUBMIT MODAL (CONTINUE OR FINISH) */
+    /* POST-SUBMIT MODAL */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -571,7 +886,7 @@
 
     @media (max-width: 820px) {
       .waveform-grid { grid-template-columns: 1fr; }
-      .device-card { width: 330px; min-width: 330px; }
+      .device-card { width: 92vw; min-width: 92vw; }
       .modal-choice-buttons { grid-template-columns: 1fr; }
     }
   </style>
@@ -589,7 +904,7 @@
     <div class="top-workspace-bar">
       <div class="hero-title">
         <h1>Practice Your <span>Sound</span></h1>
-        <p>เลือกเสียงเป้าหมาย เพิ่ม Processor ต่อเป็น Chain แนวนอน แล้วปรับกราฟให้ใกล้เคียงต้นฉบับ</p>
+        <p>เลือกเสียงเป้าหมาย เพิ่ม Processor ทั้ง 7 ตัวแบบ Audio Processor Lab แล้วปรับกราฟให้ใกล้เคียงต้นฉบับ</p>
       </div>
       <div class="sound-selector-box">
         <label for="sampleSelect">TARGET SOUND</label>
@@ -636,11 +951,11 @@
     <!-- HORIZONTAL PROCESSOR RACK -->
     <div class="rack-section-head">
       <span>AUDIO PROCESSOR CHAIN (เลื่อนปัดแนวนอน ◄ ─── ►)</span>
-      <span class="rack-hint" id="audioNote">กด + Add Processor เพื่อเพิ่มเครื่องมือจาก Audio Processor Lab</span>
+      <span class="rack-hint" id="audioNote">กด + Add Processor เพื่อเพิ่มเครื่องมือแบบ Audio Processor Lab</span>
     </div>
 
     <section class="processor-rack-scroll" id="processorRack">
-      <!-- Dynamic Device Cards + Add Processor Slot rendered via JS -->
+      <!-- Dynamic Lab Device Cards + Add Processor Slot rendered via JS -->
     </section>
 
     <!-- SUBMIT BAR -->
@@ -679,29 +994,67 @@
       "assets/crape-2-foley-6-table-toob.mp3": { name: "Table / Foley 02" }
     };
 
-    // 7 Processors from Audio Processor Lab
     const PROCESSORS = {
-      filter: { title: "Filter (LPF / HPF / BPF)" },
-      eq: { title: "Parametric EQ" },
+      filter: { title: "Filter" },
+      eq: { title: "EQ (Parametric)" },
       compressor: { title: "Compressor" },
       "gain-stage": { title: "Gain Stage" },
-      reverb: { title: "3D Space Reverb" },
+      reverb: { title: "Reverb (3D Spatial)" },
       delay: { title: "Delay" },
       "pitch-shifter": { title: "Pitch Shifter" }
     };
 
     const selectedProcessors = [];
+
+    // Lab-identical state for all 7 processors
     const processorValues = {
-      filter: { enabled: true, type: "lowpass", cutoff: 3500, slope: 24 },
-      eq: { enabled: true, lowFreq: 180, lowGain: 0, midFreq: 1000, midGain: 0, highFreq: 6000, highGain: 0, q: 1 },
-      compressor: { enabled: true, threshold: -24, ratio: 4, attack: 10, release: 150 },
-      "gain-stage": { enabled: true, gain: 0 },
-      reverb: { enabled: true, decay: 2.0, wet: 25, rotY: 0.55 },
-      delay: { enabled: true, time: 280, feedback: 25, mix: 20 },
-      "pitch-shifter": { enabled: true, semitones: 0 }
+      filter: { enabled: true, type: "lowpass", lowerFreq: 1000, upperFreq: 3000, slope: 24 },
+      eq: {
+        enabled: true,
+        selectedBand: 1,
+        bands: [
+          { type: "lowshelf", frequency: 120, gain: 0, q: 0.8 },
+          { type: "peaking", frequency: 350, gain: 0, q: 1.0 },
+          { type: "peaking", frequency: 2500, gain: 0, q: 1.2 },
+          { type: "highshelf", frequency: 8000, gain: 0, q: 0.8 }
+        ]
+      },
+      compressor: {
+        enabled: true,
+        threshold: -24,
+        ratio: 4,
+        knee: 12,
+        attack: 10,
+        release: 150,
+        makeup: 0,
+        monitor: "post",
+        grHistory: new Array(120).fill(0)
+      },
+      "gain-stage": { enabled: true, gain: 0, peakHold: -Infinity, peakTimer: 0 },
+      reverb: {
+        enabled: true,
+        preDelay: 35,
+        roomSize: 55,
+        decay: 2.2,
+        wet: 25,
+        rotX: 0.42,
+        rotY: 0.58
+      },
+      delay: {
+        enabled: true,
+        mode: "free",
+        time: 435,
+        bpm: 120,
+        noteMult: 0.5,
+        noteSym: "♪",
+        feedback: 55,
+        mix: 35
+      },
+      "pitch-shifter": { enabled: true, semitone: 0, octave: 0 }
     };
 
     const $ = id => document.getElementById(id);
+    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
     const sampleSelect = $("sampleSelect");
     const processorRack = $("processorRack");
     const targetAudio = $("targetAudio");
@@ -716,8 +1069,29 @@
     let isSubmitting = false;
     let pickerOpen = false;
 
+    // Live analysis handles for visualizers
+    const liveHandles = {
+      postAnalyser: null,
+      postSpectrumData: null,
+      compNode: null,
+      compInAnalyser: null,
+      compOutAnalyser: null,
+      gainInAnalyser: null,
+      gainOutAnalyser: null
+    };
+
+    // Reverb 3D particles
+    const reverbParticles = Array.from({ length: 110 }, () => ({
+      x: Math.random() * 2 - 1,
+      y: Math.random() * 2 - 1,
+      z: Math.random() * 2 - 1,
+      size: 1.2 + Math.random() * 2.0,
+      phase: Math.random() * Math.PI * 2,
+      tint: Math.random()
+    }));
+
     // -----------------------------------------
-    // DRAW WAVEFORM BARS
+    // WAVEFORM BARS (TOP A/B PLAYER)
     // -----------------------------------------
     function drawStaticWaveform(canvasId, color, seedOffset = 0, progress = 0) {
       const canvas = $(canvasId);
@@ -725,8 +1099,7 @@
       const ctx = canvas.getContext("2d");
       const w = canvas.width, h = canvas.height;
       ctx.clearRect(0, 0, w, h);
-      const bars = 68;
-      const barW = 3;
+      const bars = 68, barW = 3;
       const gap = (w - bars * barW) / (bars + 1);
       for (let i = 0; i < bars; i++) {
         const norm = i / bars;
@@ -741,12 +1114,11 @@
         ctx.fill();
       }
     }
-
     drawStaticWaveform("targetWaveCanvas", "rgba(244, 231, 217, 0.45)", 1.2);
     drawStaticWaveform("processedWaveCanvas", "rgba(255, 173, 89, 0.55)", 2.7);
 
     // -----------------------------------------
-    // AUDIO CONTEXT & LIVE CHAIN
+    // WEB AUDIO ENGINE (MATCHING LAB PARAMS)
     // -----------------------------------------
     async function ensureAudioContext() {
       const AC = window.AudioContext || window.webkitAudioContext;
@@ -755,17 +1127,28 @@
       if (!processedMediaSource) processedMediaSource = audioContext.createMediaElementSource(processedAudio);
     }
 
-    function makeImpulse(context, seconds) {
-      const rate = context.sampleRate;
+    function buildReverbImpulse(ctx, seconds, roomPct) {
+      const rate = ctx.sampleRate;
       const len = Math.max(1, Math.floor(rate * seconds));
-      const imp = context.createBuffer(2, len, rate);
+      const buf = ctx.createBuffer(2, len, rate);
+      const roomFactor = roomPct / 100;
+      const density = 0.008 + (1 - roomFactor) * 0.015;
       for (let ch = 0; ch < 2; ch++) {
-        const d = imp.getChannelData(ch);
+        const data = buf.getChannelData(ch);
         for (let i = 0; i < len; i++) {
-          d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.4);
+          const t = i / len;
+          const env = Math.pow(1 - t, 1.9 + (1 - roomFactor) * 1.4);
+          const earlyBoost = i < rate * (0.02 + roomFactor * 0.06) && Math.random() < density ? 1.35 : 1.0;
+          data[i] = (Math.random() * 2 - 1) * env * earlyBoost;
         }
       }
-      return imp;
+      return buf;
+    }
+
+    function getActiveDelayMs() {
+      const d = processorValues.delay;
+      if (d.mode === "free") return d.time;
+      return Math.round((60000 / d.bpm) * d.noteMult);
     }
 
     async function buildLiveChain() {
@@ -773,6 +1156,14 @@
       try { processedMediaSource.disconnect(); } catch (_) {}
       processingNodes.forEach(n => { try { n.disconnect(); } catch (_) {} });
       processingNodes = [];
+
+      liveHandles.compNode = null;
+      liveHandles.compInAnalyser = null;
+      liveHandles.compOutAnalyser = null;
+      liveHandles.gainInAnalyser = null;
+      liveHandles.gainOutAnalyser = null;
+
+      processedAudio.preservesPitch = false;
       processedAudio.playbackRate = 1;
       let current = processedMediaSource;
 
@@ -781,266 +1172,1435 @@
         if (!v.enabled) return;
 
         if (key === "filter") {
-          const stages = Math.max(1, Math.min(4, Math.round(v.slope / 12)));
-          for (let i = 0; i < stages; i++) {
-            const n = audioContext.createBiquadFilter();
-            n.type = v.type; n.frequency.value = v.cutoff; n.Q.value = 0.707;
-            processingNodes.push(n); current.connect(n); current = n;
+          const count = Math.max(1, Math.round(v.slope / 12));
+          const makeStages = (kind, freq) => {
+            for (let i = 0; i < count; i++) {
+              const n = audioContext.createBiquadFilter();
+              n.type = kind;
+              n.frequency.value = freq;
+              n.Q.value = 0.7071;
+              processingNodes.push(n);
+              current.connect(n);
+              current = n;
+            }
+          };
+          if (v.type === "lowpass") makeStages("lowpass", v.lowerFreq);
+          else if (v.type === "highpass") makeStages("highpass", v.lowerFreq);
+          else {
+            makeStages("highpass", v.lowerFreq);
+            makeStages("lowpass", v.upperFreq);
           }
         } else if (key === "eq") {
-          [
-            { type: "lowshelf", frequency: v.lowFreq, gain: v.lowGain },
-            { type: "peaking", frequency: v.midFreq, gain: v.midGain, Q: v.q },
-            { type: "highshelf", frequency: v.highFreq, gain: v.highGain }
-          ].forEach(c => {
+          v.bands.forEach(b => {
             const n = audioContext.createBiquadFilter();
-            n.type = c.type; n.frequency.value = c.frequency; n.gain.value = c.gain;
-            if (c.Q) n.Q.value = c.Q;
-            processingNodes.push(n); current.connect(n); current = n;
+            n.type = b.type;
+            n.frequency.value = b.frequency;
+            n.gain.value = b.gain;
+            n.Q.value = b.q;
+            processingNodes.push(n);
+            current.connect(n);
+            current = n;
           });
         } else if (key === "compressor") {
-          const n = audioContext.createDynamicsCompressor();
-          n.threshold.value = v.threshold; n.ratio.value = v.ratio;
-          n.attack.value = v.attack / 1000; n.release.value = v.release / 1000;
-          processingNodes.push(n); current.connect(n); current = n;
+          const inAn = audioContext.createAnalyser();
+          const outAn = audioContext.createAnalyser();
+          inAn.fftSize = outAn.fftSize = 2048;
+
+          const comp = audioContext.createDynamicsCompressor();
+          comp.threshold.value = v.threshold;
+          comp.ratio.value = v.ratio;
+          comp.knee.value = v.knee;
+          comp.attack.value = v.attack / 1000;
+          comp.release.value = v.release / 1000;
+
+          const makeup = audioContext.createGain();
+          makeup.gain.value = Math.pow(10, v.makeup / 20);
+
+          const preGain = audioContext.createGain();
+          const postGain = audioContext.createGain();
+          preGain.gain.value = v.monitor === "pre" ? 1 : 0;
+          postGain.gain.value = v.monitor === "post" ? 1 : 0;
+
+          const merge = audioContext.createGain();
+
+          current.connect(inAn);
+          inAn.connect(preGain);
+          preGain.connect(merge);
+
+          inAn.connect(comp);
+          comp.connect(makeup);
+          makeup.connect(outAn);
+          outAn.connect(postGain);
+          postGain.connect(merge);
+
+          processingNodes.push(inAn, outAn, comp, makeup, preGain, postGain, merge);
+          liveHandles.compNode = comp;
+          liveHandles.compInAnalyser = inAn;
+          liveHandles.compOutAnalyser = outAn;
+          current = merge;
         } else if (key === "gain-stage") {
-          const n = audioContext.createGain();
-          n.gain.value = Math.pow(10, v.gain / 20);
-          processingNodes.push(n); current.connect(n); current = n;
+          const inAn = audioContext.createAnalyser();
+          const outAn = audioContext.createAnalyser();
+          inAn.fftSize = outAn.fftSize = 2048;
+          const g = audioContext.createGain();
+          g.gain.value = Math.pow(10, v.gain / 20);
+
+          current.connect(inAn);
+          inAn.connect(g);
+          g.connect(outAn);
+
+          processingNodes.push(inAn, g, outAn);
+          liveHandles.gainInAnalyser = inAn;
+          liveHandles.gainOutAnalyser = outAn;
+          current = outAn;
         } else if (key === "reverb") {
-          const dry = audioContext.createGain(), wet = audioContext.createGain();
-          const conv = audioContext.createConvolver(), out = audioContext.createGain();
-          conv.buffer = makeImpulse(audioContext, v.decay);
-          dry.gain.value = 1 - v.wet / 100; wet.gain.value = v.wet / 100;
-          processingNodes.push(dry, wet, conv, out);
-          current.connect(dry); current.connect(conv); conv.connect(wet);
-          dry.connect(out); wet.connect(out); current = out;
+          const preDelay = audioContext.createDelay(1.0);
+          preDelay.delayTime.value = v.preDelay / 1000;
+
+          const roomFilter = audioContext.createBiquadFilter();
+          roomFilter.type = "lowpass";
+          roomFilter.frequency.value = 2800 + (v.roomSize / 100) * 9500;
+
+          const conv = audioContext.createConvolver();
+          conv.buffer = buildReverbImpulse(audioContext, v.decay, v.roomSize);
+
+          const mix = v.wet / 100;
+          const dry = audioContext.createGain();
+          const wet = audioContext.createGain();
+          const out = audioContext.createGain();
+          dry.gain.value = 1 - mix * 0.45;
+          wet.gain.value = mix * 1.15;
+
+          current.connect(dry);
+          current.connect(preDelay);
+          preDelay.connect(roomFilter);
+          roomFilter.connect(conv);
+          conv.connect(wet);
+          dry.connect(out);
+          wet.connect(out);
+
+          processingNodes.push(preDelay, roomFilter, conv, dry, wet, out);
+          current = out;
         } else if (key === "delay") {
-          const d = audioContext.createDelay(2), fb = audioContext.createGain();
-          const dry = audioContext.createGain(), wet = audioContext.createGain(), out = audioContext.createGain();
-          d.delayTime.value = v.time / 1000; fb.gain.value = Math.min(0.85, v.feedback / 100);
-          dry.gain.value = 1 - v.mix / 100; wet.gain.value = v.mix / 100;
-          processingNodes.push(d, fb, dry, wet, out);
-          current.connect(dry); current.connect(d); d.connect(wet); d.connect(fb); fb.connect(d);
-          dry.connect(out); wet.connect(out); current = out;
+          const ms = getActiveDelayMs();
+          const fb = v.feedback / 100;
+          const mix = v.mix / 100;
+
+          const dNode = audioContext.createDelay(4.5);
+          dNode.delayTime.value = ms / 1000;
+          const fbGain = audioContext.createGain();
+          fbGain.gain.value = fb;
+          const dry = audioContext.createGain();
+          const wet = audioContext.createGain();
+          const out = audioContext.createGain();
+          dry.gain.value = 1 - mix * 0.35;
+          wet.gain.value = mix;
+
+          current.connect(dry);
+          current.connect(dNode);
+          dNode.connect(fbGain);
+          fbGain.connect(dNode);
+          dNode.connect(wet);
+          dry.connect(out);
+          wet.connect(out);
+
+          processingNodes.push(dNode, fbGain, dry, wet, out);
+          current = out;
         } else if (key === "pitch-shifter") {
-          processedAudio.playbackRate = Math.pow(2, v.semitones / 12);
+          const totalSt = v.octave * 12 + v.semitone;
+          processedAudio.preservesPitch = false;
+          processedAudio.playbackRate = Math.pow(2, totalSt / 12);
         }
       });
-      current.connect(audioContext.destination);
+
+      if (!liveHandles.postAnalyser) {
+        liveHandles.postAnalyser = audioContext.createAnalyser();
+        liveHandles.postAnalyser.fftSize = 4096;
+        liveHandles.postAnalyser.smoothingTimeConstant = 0.8;
+        liveHandles.postSpectrumData = new Float32Array(liveHandles.postAnalyser.frequencyBinCount);
+      }
+      current.connect(liveHandles.postAnalyser);
+      liveHandles.postAnalyser.connect(audioContext.destination);
     }
 
     // -----------------------------------------
-    // VISUAL GRAPHS FOR EACH PROCESSOR
+    // LAB VISUALIZERS (100% MATCHING AUDIO LAB)
     // -----------------------------------------
-    function drawProcessorVisual(key) {
-      const canvas = document.getElementById(`canvas-${key}`);
-      if (!canvas) return;
+    function setupCanvasDPR(canvas) {
+      const rect = canvas.getBoundingClientRect();
+      if (!rect.width || !rect.height) return null;
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      const w = rect.width, h = rect.height;
+      if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+      }
       const ctx = canvas.getContext("2d");
-      const w = canvas.width, h = canvas.height;
-      const v = processorValues[key];
-      ctx.clearRect(0, 0, w, h);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      return { ctx, w, h };
+    }
 
-      // Subtle Grid
-      ctx.strokeStyle = "rgba(255, 173, 89, 0.08)";
-      ctx.lineWidth = 1;
-      for (let gx = 1; gx < 5; gx++) { ctx.beginPath(); ctx.moveTo((w / 5) * gx, 0); ctx.lineTo((w / 5) * gx, h); ctx.stroke(); }
-      for (let gy = 1; gy < 4; gy++) { ctx.beginPath(); ctx.moveTo(0, (h / 4) * gy); ctx.lineTo(w, (h / 4) * gy); ctx.stroke(); }
+    function drawLiveSpectrumOverlay(ctx, pad, plotW, plotH, colorFill, colorStroke) {
+      const an = liveHandles.postAnalyser;
+      const data = liveHandles.postSpectrumData;
+      if (!an || !data || !audioContext || processedAudio.paused || processedAudio.ended) return;
 
-      if (key === "filter") {
-        const logNorm = (Math.log10(v.cutoff) - Math.log10(80)) / (Math.log10(16000) - Math.log10(80));
-        const cutX = Math.max(15, Math.min(w - 15, logNorm * w));
-        const slopeFactor = v.slope / 12;
-        ctx.strokeStyle = "#ffad59";
-        ctx.lineWidth = 2.5;
+      an.getFloatFrequencyData(data);
+      const minHz = 20, maxHz = 20000;
+      const binHz = audioContext.sampleRate / an.fftSize;
+      const pts = [];
+      for (let i = 1; i < data.length; i++) {
+        const hz = i * binHz;
+        if (hz < minHz || hz > maxHz) continue;
+        const rawDb = Number.isFinite(data[i]) ? data[i] : -100;
+        const norm = clamp((rawDb + 95) / 85, 0, 1);
+        const sx = pad.left + (Math.log10(hz / minHz) / Math.log10(maxHz / minHz)) * plotW;
+        const sy = pad.top + plotH - norm * (plotH * 0.80);
+        pts.push([sx, sy]);
+      }
+      if (pts.length > 1) {
         ctx.beginPath();
-        for (let x = 0; x <= w; x += 3) {
-          let db = 0;
-          if (v.type === "lowpass" && x > cutX) db = -((x - cutX) / 35) * 12 * slopeFactor;
-          else if (v.type === "highpass" && x < cutX) db = -((cutX - x) / 35) * 12 * slopeFactor;
-          else if (v.type === "bandpass") db = -(Math.abs(x - cutX) / 30) * 10 * slopeFactor;
-          const y = Math.min(h - 10, 28 - db * 1.4);
-          x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-        }
+        ctx.moveTo(pts[0][0], pad.top + plotH);
+        pts.forEach(([x, y]) => ctx.lineTo(x, y));
+        ctx.lineTo(pts[pts.length - 1][0], pad.top + plotH);
+        ctx.closePath();
+        ctx.fillStyle = colorFill;
+        ctx.fill();
+
+        ctx.beginPath();
+        pts.forEach(([x, y], idx) => idx === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y));
+        ctx.strokeStyle = colorStroke;
+        ctx.lineWidth = 1.2;
         ctx.stroke();
-        // Cutoff handle
-        ctx.fillStyle = "#fff";
-        ctx.beginPath(); ctx.arc(cutX, 34, 6, 0, Math.PI * 2); ctx.fill();
-        ctx.strokeStyle = "#ffad59"; ctx.stroke();
+      }
+    }
+
+    // 1. FILTER LAB GRAPH
+    function drawFilterGraph() {
+      const cvs = document.getElementById("canvas-filter");
+      if (!cvs) return;
+      const res = setupCanvasDPR(cvs);
+      if (!res) return;
+      const { ctx, w, h } = res;
+      const v = processorValues.filter;
+
+      const minFreq = 20, maxFreq = 20000, minDb = -60, maxDb = 12;
+      const pad = { left: 46, right: 14, top: 14, bottom: 26 };
+      const plotW = w - pad.left - pad.right;
+      const plotH = h - pad.top - pad.bottom;
+      const xFor = f => pad.left + (Math.log10(f / minFreq) / Math.log10(maxFreq / minFreq)) * plotW;
+      const yFor = db => pad.top + ((maxDb - clamp(db, minDb, maxDb)) / (maxDb - minDb)) * plotH;
+
+      ctx.fillStyle = "#141517";
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.font = "9px Montserrat, sans-serif";
+      ctx.textAlign = "right";
+      ctx.textBaseline = "middle";
+      for (let db = -60; db <= 0; db += 12) {
+        const y = yFor(db);
+        ctx.strokeStyle = db === 0 ? "rgba(255,255,255,0.16)" : "rgba(255,255,255,0.06)";
+        ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(w - pad.right, y); ctx.stroke();
+        ctx.fillStyle = "#9c9389";
+        ctx.fillText(`${db} dB`, pad.left - 6, y);
       }
 
-      if (key === "eq") {
-        // Speech band highlight
-        ctx.fillStyle = "rgba(98, 217, 173, 0.1)";
-        ctx.fillRect(w * 0.35, 0, w * 0.35, h);
-        const midY = h / 2;
-        const pts = [
-          { x: w * 0.18, y: midY - v.lowGain * 2.8 },
-          { x: w * 0.50, y: midY - v.midGain * 2.8 },
-          { x: w * 0.82, y: midY - v.highGain * 2.8 }
-        ];
-        ctx.strokeStyle = "#ffad59";
-        ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        ctx.moveTo(0, pts[0].y);
-        ctx.bezierCurveTo(w * 0.3, pts[0].y, w * 0.35, pts[1].y, pts[1].x, pts[1].y);
-        ctx.bezierCurveTo(w * 0.65, pts[1].y, w * 0.7, pts[2].y, w, pts[2].y);
-        ctx.stroke();
+      const ticks = [20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000];
+      ctx.textAlign = "center";
+      ctx.textBaseline = "top";
+      ticks.forEach(f => {
+        const x = xFor(f);
+        ctx.strokeStyle = "rgba(255,255,255,0.06)";
+        ctx.beginPath(); ctx.moveTo(x, pad.top); ctx.lineTo(x, pad.top + plotH); ctx.stroke();
+        ctx.fillStyle = "#9c9389";
+        ctx.fillText(f >= 1000 ? `${f / 1000}k` : `${f}`, x, pad.top + plotH + 6);
+      });
 
-        pts.forEach((p, idx) => {
-          ctx.fillStyle = idx === 1 ? "#62d9ad" : "#ffad59";
-          ctx.beginPath(); ctx.arc(p.x, p.y, 5.5, 0, Math.PI * 2); ctx.fill();
+      drawLiveSpectrumOverlay(ctx, pad, plotW, plotH, "rgba(255, 160, 75, 0.28)", "rgba(255, 204, 128, 0.5)");
+
+      const order = (v.slope / 12) * 2;
+      const points = 400;
+      ctx.beginPath();
+      for (let i = 0; i < points; i++) {
+        const f = minFreq * Math.pow(maxFreq / minFreq, i / (points - 1));
+        let magSq = 1;
+        if (v.type === "lowpass") magSq = 1 / (1 + Math.pow(f / v.lowerFreq, 2 * order));
+        else if (v.type === "highpass") magSq = 1 / (1 + Math.pow(v.lowerFreq / f, 2 * order));
+        else {
+          const hpSq = 1 / (1 + Math.pow(v.lowerFreq / f, 2 * order));
+          const lpSq = 1 / (1 + Math.pow(f / v.upperFreq, 2 * order));
+          magSq = hpSq * lpSq;
+        }
+        const db = 10 * Math.log10(Math.max(magSq, 1e-12));
+        const x = xFor(f), y = yFor(db);
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = "#ffad59";
+      ctx.lineWidth = 2.4;
+      ctx.shadowColor = "rgba(255, 173, 89, 0.45)";
+      ctx.shadowBlur = 8;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      const markers = v.type === "bandpass" ? [v.lowerFreq, v.upperFreq] : [v.lowerFreq];
+      markers.forEach(f => {
+        const x = xFor(f), y = yFor(-14);
+        ctx.beginPath();
+        ctx.arc(x, y, 7, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(20, 21, 23, 0.75)";
+        ctx.fill();
+        ctx.lineWidth = 2.2;
+        ctx.strokeStyle = "#ffd09c";
+        ctx.stroke();
+      });
+    }
+
+    // 2. EQ LAB GRAPH
+    function drawEQGraph() {
+      const cvs = document.getElementById("canvas-eq");
+      if (!cvs) return;
+      const res = setupCanvasDPR(cvs);
+      if (!res) return;
+      const { ctx, w, h } = res;
+      const v = processorValues.eq;
+
+      const minFreq = 20, maxFreq = 20000, minDb = -24, maxDb = 24;
+      const pad = { left: 46, right: 14, top: 14, bottom: 26 };
+      const plotW = w - pad.left - pad.right;
+      const plotH = h - pad.top - pad.bottom;
+      const xFor = f => pad.left + (Math.log10(f / minFreq) / Math.log10(maxFreq / minFreq)) * plotW;
+      const yFor = db => pad.top + ((maxDb - clamp(db, minDb, maxDb)) / (maxDb - minDb)) * plotH;
+
+      ctx.fillStyle = "#11100f";
+      ctx.fillRect(0, 0, w, h);
+
+      // Speech & Intelligibility highlight
+      ctx.fillStyle = "rgba(86,170,190,.075)";
+      ctx.fillRect(xFor(100), pad.top, xFor(8000) - xFor(100), plotH);
+      ctx.fillStyle = "rgba(86,190,160,.12)";
+      ctx.fillRect(xFor(1000), pad.top, xFor(5000) - xFor(1000), plotH);
+
+      ctx.font = "9px Montserrat, sans-serif";
+      ctx.textAlign = "right";
+      ctx.textBaseline = "middle";
+      for (let db = -24; db <= 24; db += 12) {
+        const yy = yFor(db);
+        ctx.strokeStyle = db === 0 ? "rgba(255,255,255,.32)" : "rgba(255,255,255,.08)";
+        ctx.beginPath(); ctx.moveTo(pad.left, yy); ctx.lineTo(w - pad.right, yy); ctx.stroke();
+        ctx.fillStyle = "#a99d91";
+        ctx.fillText(`${db > 0 ? "+" : ""}${db} dB`, pad.left - 6, yy);
+      }
+
+      const ticks = [20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000];
+      ctx.textAlign = "center";
+      ctx.textBaseline = "top";
+      ticks.forEach(f => {
+        const xx = xFor(f);
+        ctx.strokeStyle = "rgba(255,255,255,.07)";
+        ctx.beginPath(); ctx.moveTo(xx, pad.top); ctx.lineTo(xx, pad.top + plotH); ctx.stroke();
+        ctx.fillStyle = "#b5a99d";
+        ctx.fillText(f >= 1000 ? `${f / 1000}k` : String(f), xx, pad.top + plotH + 6);
+      });
+
+      drawLiveSpectrumOverlay(ctx, pad, plotW, plotH, "rgba(91,220,174,.28)", "#62d9ad");
+
+      // Compute combined Biquad response
+      const sampleCount = 320;
+      const freqs = new Float32Array(sampleCount);
+      for (let i = 0; i < sampleCount; i++) freqs[i] = minFreq * Math.pow(maxFreq / minFreq, i / (sampleCount - 1));
+      const magTotal = new Float32Array(sampleCount).fill(1);
+
+      if (audioContext) {
+        const mag = new Float32Array(sampleCount), phase = new Float32Array(sampleCount);
+        v.bands.forEach(b => {
+          const n = audioContext.createBiquadFilter();
+          n.type = b.type; n.frequency.value = b.frequency; n.gain.value = b.gain; n.Q.value = b.q;
+          n.getFrequencyResponse(freqs, mag, phase);
+          for (let i = 0; i < sampleCount; i++) magTotal[i] *= mag[i];
+          n.disconnect();
         });
       }
 
-      if (key === "compressor") {
-        const threshNorm = (v.threshold + 60) / 60;
-        const kneeX = threshNorm * (w - 40) + 20;
-        const kneeY = h - 20 - threshNorm * (h - 40);
-        ctx.strokeStyle = "rgba(255,255,255,0.2)";
+      ctx.beginPath();
+      for (let i = 0; i < sampleCount; i++) {
+        const db = 20 * Math.log10(Math.max(magTotal[i], 1e-8));
+        const xx = xFor(freqs[i]), yy = yFor(db);
+        i === 0 ? ctx.moveTo(xx, yy) : ctx.lineTo(xx, yy);
+      }
+      ctx.strokeStyle = "#ffb15f";
+      ctx.lineWidth = 2.4;
+      ctx.shadowColor = "rgba(255,177,95,.45)";
+      ctx.shadowBlur = 8;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // Band nodes
+      v.bands.forEach((b, i) => {
+        const xx = xFor(b.frequency), yy = yFor(b.gain);
+        const isSel = i === v.selectedBand;
+        const hue = isSel ? "#fff0d7" : `hsl(${(i * 67 + 28) % 360} 78% 66%)`;
+        ctx.beginPath();
+        ctx.arc(xx, yy, isSel ? 8 : 6, 0, Math.PI * 2);
+        ctx.fillStyle = hue;
+        ctx.fill();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "#21170f";
+        ctx.stroke();
+        if (isSel) {
+          ctx.beginPath();
+          ctx.arc(xx, yy, 11, 0, Math.PI * 2);
+          ctx.strokeStyle = "rgba(255,190,120,.65)";
+          ctx.stroke();
+        }
+      });
+    }
+
+    // 3. COMPRESSOR LAB GRAPH + METERS
+    function drawCompressorGraph() {
+      const cvs = document.getElementById("canvas-compressor");
+      if (!cvs) return;
+      const res = setupCanvasDPR(cvs);
+      if (!res) return;
+      const { ctx, w, h } = res;
+      const v = processorValues.compressor;
+
+      ctx.fillStyle = "#141517";
+      ctx.fillRect(0, 0, w, h);
+
+      const pad = { left: 46, right: 14, top: 14, bottom: 26 };
+      const plotW = w - pad.left - pad.right;
+      const plotH = h - pad.top - pad.bottom;
+      const xDb = db => pad.left + ((clamp(db, -60, 0) + 60) / 60) * plotW;
+      const yDb = db => pad.top + ((0 - clamp(db, -60, 0)) / 60) * plotH;
+
+      ctx.font = "9px Montserrat, sans-serif";
+      for (let db = -60; db <= 0; db += 12) {
+        const y = yDb(db);
+        ctx.strokeStyle = db === 0 ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.06)";
+        ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(w - pad.right, y); ctx.stroke();
+        ctx.fillStyle = "#9c9389";
+        ctx.textAlign = "right";
+        ctx.textBaseline = "middle";
+        ctx.fillText(`${db} dB`, pad.left - 6, y);
+
+        const x = xDb(db);
+        ctx.strokeStyle = "rgba(255,255,255,0.06)";
+        ctx.beginPath(); ctx.moveTo(x, pad.top); ctx.lineTo(x, pad.top + plotH); ctx.stroke();
+        ctx.textAlign = "center";
+        ctx.textBaseline = "top";
+        ctx.fillText(`${db}`, x, pad.top + plotH + 6);
+      }
+
+      drawLiveSpectrumOverlay(ctx, pad, plotW, plotH, "rgba(130, 145, 165, 0.24)", "rgba(165, 180, 200, 0.35)");
+
+      // 1:1 Reference line
+      ctx.beginPath();
+      ctx.moveTo(xDb(-60), yDb(-60));
+      ctx.lineTo(xDb(0), yDb(0));
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.24)";
+      ctx.setLineDash([4, 4]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      const transfer = inputDb => {
+        const t = v.threshold, r = v.ratio, k = v.knee, m = v.makeup;
+        let compressed = inputDb;
+        if (k > 0 && inputDb > t - k / 2 && inputDb < t + k / 2) {
+          const x = inputDb - t + k / 2;
+          compressed = inputDb + (1 / r - 1) * x * x / (2 * k);
+        } else if (inputDb >= t + k / 2) {
+          compressed = t + (inputDb - t) / r;
+        }
+        return compressed + m;
+      };
+
+      // Transfer curve
+      ctx.beginPath();
+      for (let db = -60; db <= 0; db += 1) {
+        const outDb = clamp(transfer(db), -60, 0);
+        const cx = xDb(db), cy = yDb(outDb);
+        db === -60 ? ctx.moveTo(cx, cy) : ctx.lineTo(cx, cy);
+      }
+      ctx.strokeStyle = "#ff9d43";
+      ctx.lineWidth = 2.4;
+      ctx.stroke();
+
+      // Cyan Threshold line & handle
+      const threshY = yDb(v.threshold);
+      ctx.beginPath();
+      ctx.moveTo(pad.left, threshY);
+      ctx.lineTo(w - pad.right, threshY);
+      ctx.strokeStyle = "#56e0ff";
+      ctx.lineWidth = 1.6;
+      ctx.stroke();
+
+      const kneeX = xDb(v.threshold);
+      const kneeY = yDb(clamp(transfer(v.threshold), -60, 0));
+      ctx.beginPath();
+      ctx.arc(kneeX, kneeY, 7, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(20, 21, 23, 0.85)";
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#ffd09c";
+      ctx.stroke();
+
+      // Pink Gain Reduction trace
+      const gr = (!processedAudio.paused && liveHandles.compNode) ? Math.abs(Number(liveHandles.compNode.reduction) || 0) : 0;
+      if (!processedAudio.paused) {
+        v.grHistory.push(gr);
+        if (v.grHistory.length > 120) v.grHistory.shift();
+      }
+      ctx.beginPath();
+      for (let i = 0; i < v.grHistory.length; i++) {
+        const gx = pad.left + (i / (v.grHistory.length - 1)) * plotW;
+        const gy = pad.top + (clamp(v.grHistory[i], 0, 24) / 24) * (plotH * 0.45);
+        i === 0 ? ctx.moveTo(gx, gy) : ctx.lineTo(gx, gy);
+      }
+      ctx.strokeStyle = "#ff7eb6";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Live GR text & meters
+      ctx.font = "700 13px Montserrat, sans-serif";
+      ctx.textAlign = "right";
+      ctx.textBaseline = "bottom";
+      ctx.fillStyle = "#ff7eb6";
+      ctx.fillText(gr > 0.01 ? `-${gr.toFixed(2)} dB` : "0.00 dB", w - pad.right - 8, pad.top + plotH - 6);
+
+      const grValEl = document.getElementById("comp-gr-val");
+      const grBarEl = document.getElementById("comp-gr-bar");
+      const inRmsEl = document.getElementById("comp-in-rms");
+      const outRmsEl = document.getElementById("comp-out-rms");
+      if (grValEl) grValEl.textContent = `${gr.toFixed(1)} dB`;
+      if (grBarEl) grBarEl.style.width = `${clamp((gr / 24) * 100, 0, 100)}%`;
+
+      if (inRmsEl && outRmsEl && liveHandles.compInAnalyser && liveHandles.compOutAnalyser && !processedAudio.paused) {
+        const calcRmsDb = an => {
+          const buf = new Float32Array(an.fftSize);
+          an.getFloatTimeDomainData(buf);
+          let s = 0;
+          for (let i = 0; i < buf.length; i++) s += buf[i] * buf[i];
+          const rms = Math.sqrt(s / buf.length);
+          return rms > 0 ? Math.max(-100, 20 * Math.log10(rms)).toFixed(1) : "-∞";
+        };
+        inRmsEl.textContent = `${calcRmsDb(liveHandles.compInAnalyser)} dBFS`;
+        outRmsEl.textContent = `${calcRmsDb(liveHandles.compOutAnalyser)} dBFS`;
+      }
+    }
+
+    // 4. GAIN STAGE LED METERS
+    function updateGainStageMeters() {
+      const inStrip = document.getElementById("gain-in-led");
+      const outStrip = document.getElementById("gain-out-led");
+      if (!inStrip || !outStrip) return;
+
+      const setStrip = (el, dbLevel) => {
+        const clamped = clamp(Number.isFinite(dbLevel) ? dbLevel : -60, -60, 0);
+        const active = Math.round(((clamped + 60) / 60) * 24);
+        const kids = el.children;
+        for (let i = 0; i < kids.length; i++) {
+          const lit = i < active;
+          kids[i].classList.toggle("lit", lit);
+          kids[i].classList.toggle("hot", lit && i >= 19);
+          kids[i].classList.toggle("red", lit && i >= 22);
+        }
+      };
+
+      if (!liveHandles.gainInAnalyser || !liveHandles.gainOutAnalyser || processedAudio.paused) {
+        setStrip(inStrip, -60);
+        setStrip(outStrip, -60);
+        return;
+      }
+
+      const measure = an => {
+        const data = new Float32Array(an.fftSize);
+        an.getFloatTimeDomainData(data);
+        let sum = 0, peak = 0;
+        for (let i = 0; i < data.length; i++) {
+          const a = Math.abs(data[i]);
+          if (a > peak) peak = a;
+          sum += data[i] * data[i];
+        }
+        const rms = Math.sqrt(sum / data.length);
+        return {
+          rmsDb: rms > 0.00001 ? 20 * Math.log10(rms) : -Infinity,
+          peakDb: peak > 0.00001 ? 20 * Math.log10(peak) : -Infinity,
+          peak
+        };
+      };
+
+      const inp = measure(liveHandles.gainInAnalyser);
+      const out = measure(liveHandles.gainOutAnalyser);
+      setStrip(inStrip, inp.rmsDb);
+      setStrip(outStrip, out.rmsDb);
+
+      const inTxt = document.getElementById("gain-in-db");
+      const outTxt = document.getElementById("gain-out-db");
+      const hrTxt = document.getElementById("gain-headroom");
+      const pkTxt = document.getElementById("gain-peak");
+      const clipCell = document.getElementById("gain-clip-cell");
+      const clipTxt = document.getElementById("gain-clip-txt");
+
+      if (inTxt) inTxt.textContent = Number.isFinite(inp.rmsDb) ? inp.rmsDb.toFixed(1) : "−∞";
+      if (outTxt) outTxt.textContent = Number.isFinite(out.rmsDb) ? out.rmsDb.toFixed(1) : "−∞";
+      if (hrTxt) hrTxt.textContent = Number.isFinite(out.peakDb) ? `${Math.max(0, -out.peakDb).toFixed(1)} dB` : "60+ dB";
+
+      const v = processorValues["gain-stage"];
+      if (out.peakDb > v.peakHold) {
+        v.peakHold = out.peakDb;
+        v.peakTimer = performance.now();
+      } else if (performance.now() - v.peakTimer > 1500) {
+        v.peakHold = Math.max(out.peakDb, v.peakHold - 0.15);
+      }
+      if (pkTxt) pkTxt.textContent = Number.isFinite(v.peakHold) ? `${v.peakHold.toFixed(1)} dBFS` : "−∞ dBFS";
+
+      const clipping = out.peak >= 0.999;
+      if (clipCell) clipCell.classList.toggle("clipping", clipping);
+      if (clipTxt) clipTxt.textContent = clipping ? "CLIPPING" : "SAFE";
+    }
+
+    // 5. REVERB 3D SPATIAL VISUALIZER
+    function drawReverb3DGraph(now = performance.now()) {
+      const cvs = document.getElementById("canvas-reverb");
+      if (!cvs) return;
+      const res = setupCanvasDPR(cvs);
+      if (!res) return;
+      const { ctx, w, h } = res;
+      const v = processorValues.reverb;
+
+      if (!v.isDragging) {
+        v.rotY += (0.14 + (v.decay / 6.0) * 1.1) * 0.016;
+      }
+
+      const bgGrad = ctx.createRadialGradient(w * 0.5, h * 0.5, 10, w * 0.5, h * 0.5, w * 0.65);
+      bgGrad.addColorStop(0, "rgba(255, 157, 67, 0.09)");
+      bgGrad.addColorStop(1, "#12100e");
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      const cx = w * 0.5, cy = h * 0.5, fov = 420;
+      const roomHalf = (0.14 + (v.roomSize / 100) * 0.25) * Math.min(w, h);
+
+      const project3D = (x, y, z) => {
+        const cosY = Math.cos(v.rotY), sinY = Math.sin(v.rotY);
+        const x1 = x * cosY - z * sinY;
+        const z1 = z * cosY + x * sinY;
+        const cosX = Math.cos(v.rotX), sinX = Math.sin(v.rotX);
+        const y2 = y * cosX - z1 * sinX;
+        const z2 = z1 * cosX + y * sinX;
+        const scale = fov / Math.max(120, fov + z2);
+        return { px: cx + x1 * scale, py: cy + y2 * scale, scale };
+      };
+
+      // Particles
+      const spread = roomHalf * (1.25 + (v.decay / 6.0) * 1.1);
+      const visibleCount = Math.floor(reverbParticles.length * Math.min(1, 0.2 + (v.wet / 100) * 0.6 + (v.decay / 6.0) * 0.4));
+      for (let i = 0; i < visibleCount; i++) {
+        const p = reverbParticles[i];
+        const swirl = now * 0.0006 * (0.4 + v.decay * 0.3) + p.phase;
+        const pt = project3D(
+          p.x * spread + Math.cos(swirl) * (5 + v.decay * 2),
+          p.y * spread + Math.sin(swirl * 0.9) * (5 + v.decay * 2),
+          p.z * spread
+        );
+        const alpha = Math.min(0.85, (0.2 + (v.wet / 100) * 0.55) * pt.scale);
+        ctx.fillStyle = p.tint > 0.45 ? `rgba(255,173,89,${alpha})` : `rgba(255,224,178,${alpha * 0.85})`;
+        ctx.fillRect(pt.px, pt.py, p.size * pt.scale, p.size * pt.scale);
+      }
+
+      // 3D Cube Room
+      const verts = [[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]]
+        .map(([vx, vy, vz]) => project3D(vx * roomHalf, vy * roomHalf, vz * roomHalf));
+      const edges = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+
+      ctx.strokeStyle = "rgba(255, 185, 105, 0.75)";
+      ctx.lineWidth = 1.5;
+      edges.forEach(([a, b]) => {
+        ctx.beginPath(); ctx.moveTo(verts[a].px, verts[a].py); ctx.lineTo(verts[b].px, verts[b].py); ctx.stroke();
+      });
+
+      verts.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.px, p.py, Math.max(2.5, 4 * p.scale), 0, Math.PI * 2);
+        ctx.fillStyle = "#ffd09c";
+        ctx.fill();
+      });
+
+      // Pre-Delay Wave Ring & Dry Core
+      const waveR = 14 + 6 + (v.preDelay / 200) * (roomHalf * 0.62);
+      ctx.beginPath();
+      ctx.arc(cx, cy, waveR, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(232, 160, 77, 0.85)";
+      ctx.lineWidth = 2.2;
+      ctx.setLineDash(v.preDelay > 85 ? [5, 4] : []);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.beginPath();
+      ctx.arc(cx, cy, 12, 0, Math.PI * 2);
+      ctx.fillStyle = "#62d9ad";
+      ctx.fill();
+    }
+
+    // 6. DELAY LAB GRAPH
+    function drawDelayGraph() {
+      const cvs = document.getElementById("canvas-delay");
+      if (!cvs) return;
+      const res = setupCanvasDPR(cvs);
+      if (!res) return;
+      const { ctx, w, h } = res;
+      const v = processorValues.delay;
+
+      const ms = getActiveDelayMs();
+      const fb = v.feedback / 100;
+      const mix = v.mix / 100;
+
+      const pad = { left: 46, right: 18, top: 24, bottom: 26 };
+      const plotW = w - pad.left - pad.right;
+      const plotH = h - pad.top - pad.bottom;
+      const maxMs = Math.max(2000, Math.ceil((ms * 4.5) / 250) * 250);
+      const xForMs = t => pad.left + (t / maxMs) * plotW;
+
+      ctx.fillStyle = "#13110f";
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.font = "9px Montserrat, sans-serif";
+      ctx.textAlign = "right";
+      ctx.textBaseline = "middle";
+      [{ l: "0 dB", r: 0.04 }, { l: "-6 dB", r: 0.35 }, { l: "-12 dB", r: 0.68 }, { l: "-∞", r: 1 }].forEach(row => {
+        const y = pad.top + row.r * plotH;
+        ctx.strokeStyle = "rgba(255,255,255,0.055)";
+        ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(w - pad.right, y); ctx.stroke();
+        ctx.fillStyle = "#8a7c6d";
+        ctx.fillText(row.l, pad.left - 6, y);
+      });
+
+      const stepMs = maxMs <= 2500 ? 250 : 500;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "top";
+      for (let t = 0; t <= maxMs; t += stepMs) {
+        const x = xForMs(t);
+        ctx.strokeStyle = "rgba(255,255,255,0.05)";
+        ctx.beginPath(); ctx.moveTo(x, pad.top); ctx.lineTo(x, pad.top + plotH); ctx.stroke();
+        ctx.fillStyle = "#8a7c6d";
+        ctx.fillText(`${t}ms`, x, pad.top + plotH + 6);
+      }
+
+      drawLiveSpectrumOverlay(ctx, pad, plotW, plotH, "rgba(255, 157, 67, 0.25)", "rgba(255, 200, 125, 0.45)");
+
+      const baseY = pad.top + plotH;
+      const dryX = xForMs(0);
+      const dryTopY = baseY - plotH * 0.80 * (1 - mix * 0.35);
+
+      ctx.strokeStyle = "#4be38a";
+      ctx.lineWidth = 6;
+      ctx.beginPath(); ctx.moveTo(dryX, baseY); ctx.lineTo(dryX, dryTopY); ctx.stroke();
+
+      const taps = [];
+      const maxTaps = Math.min(24, Math.floor(maxMs / Math.max(20, ms)));
+      for (let k = 1; k <= maxTaps; k++) {
+        const tapMs = k * ms;
+        if (tapMs > maxMs) break;
+        const amp = mix * Math.pow(fb, k - 1);
+        if (amp < 0.01) break;
+        const tx = xForMs(tapMs);
+        const tapH = Math.max(4, plotH * 0.80 * amp);
+        taps.push({ k, tx, ty: baseY - tapH, tapH });
+      }
+
+      if (taps.length > 1) {
+        ctx.beginPath();
+        taps.forEach((tap, idx) => idx === 0 ? ctx.moveTo(tap.tx, tap.ty) : ctx.lineTo(tap.tx, tap.ty));
+        ctx.strokeStyle = "#ff9d43";
+        ctx.lineWidth = 1.6;
         ctx.setLineDash([4, 4]);
-        ctx.beginPath(); ctx.moveTo(20, h - 20); ctx.lineTo(w - 20, 20); ctx.stroke();
-        ctx.setLineDash([]);
-
-        ctx.strokeStyle = "#ffad59";
-        ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        ctx.moveTo(20, h - 20);
-        ctx.lineTo(kneeX, kneeY);
-        const endY = kneeY - ((w - 20 - kneeX) / v.ratio);
-        ctx.lineTo(w - 20, endY);
         ctx.stroke();
-
-        ctx.fillStyle = "#ffad59";
-        ctx.beginPath(); ctx.arc(kneeX, kneeY, 5, 0, Math.PI * 2); ctx.fill();
+        ctx.setLineDash([]);
       }
 
-      if (key === "gain-stage") {
-        const norm = (v.gain + 24) / 48;
-        const barW = norm * (w - 40);
-        ctx.fillStyle = "rgba(255,255,255,0.08)";
-        ctx.fillRect(20, h / 2 - 14, w - 40, 28);
-        ctx.fillStyle = v.gain > 12 ? "#ff6b6b" : "#ffad59";
-        ctx.fillRect(20, h / 2 - 14, barW, 28);
-        ctx.fillStyle = "#fff";
-        ctx.font = "bold 12px Montserrat";
-        ctx.fillText(`${v.gain > 0 ? "+" : ""}${v.gain.toFixed(1)} dB`, w / 2 - 24, h / 2 + 4);
-      }
+      taps.forEach(tap => {
+        ctx.fillStyle = "rgba(255, 111, 181, 0.78)";
+        ctx.fillRect(tap.tx - 3, tap.ty, 6, tap.tapH);
+        ctx.beginPath();
+        ctx.arc(tap.tx, tap.ty, 3, 0, Math.PI * 2);
+        ctx.fillStyle = "#ff6fb5";
+        ctx.fill();
+      });
 
-      if (key === "reverb") {
-        // 3D Wireframe Cube Room
-        const cx = w / 2, cy = h / 2;
-        const size = 34 + (v.decay / 5) * 26;
-        const angle = v.rotY || 0.55;
-        const cos = Math.cos(angle), sin = Math.sin(angle);
-        const vertices = [
-          [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
-          [-1, -1, 1],  [1, -1, 1],  [1, 1, 1],  [-1, 1, 1]
-        ].map(([x, y, z]) => {
-          const rx = x * cos - z * sin;
-          const rz = x * sin + z * cos;
-          const scale = 2.4 / (2.4 + rz * 0.5);
-          return [cx + rx * size * scale, cy + y * size * 0.72 * scale];
-        });
-        const edges = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
-        ctx.strokeStyle = "rgba(255, 173, 89, 0.75)";
-        ctx.lineWidth = 1.5;
-        edges.forEach(([a, b]) => {
-          ctx.beginPath(); ctx.moveTo(...vertices[a]); ctx.lineTo(...vertices[b]); ctx.stroke();
-        });
-        // Wet aura circle
-        ctx.fillStyle = `rgba(98, 217, 173, ${0.15 + (v.wet / 100) * 0.45})`;
-        ctx.beginPath(); ctx.arc(cx, cy, 10 + (v.wet / 100) * 18, 0, Math.PI * 2); ctx.fill();
-        ctx.fillStyle = "#62d9ad";
-        ctx.beginPath(); ctx.arc(cx, cy, 6, 0, Math.PI * 2); ctx.fill();
-      }
-
-      if (key === "delay") {
-        const taps = 6;
-        const stepX = (w - 40) / taps;
-        for (let i = 0; i < taps; i++) {
-          const amp = i === 0 ? 1 : (v.mix / 100) * Math.pow(v.feedback / 100, i - 1);
-          const barH = Math.max(4, amp * (h - 32));
-          ctx.fillStyle = i === 0 ? "#62d9ad" : "#ffad59";
-          ctx.fillRect(24 + i * stepX, h - 16 - barH, 14, barH);
-        }
-      }
-
-      if (key === "pitch-shifter") {
-        const midY = h / 2;
-        const shiftY = midY - (v.semitones / 12) * (h * 0.36);
-        ctx.strokeStyle = "rgba(255,255,255,0.2)";
-        ctx.beginPath(); ctx.moveTo(20, midY); ctx.lineTo(w - 20, midY); ctx.stroke();
-        ctx.strokeStyle = "#ffad59";
-        ctx.lineWidth = 3;
-        ctx.beginPath(); ctx.moveTo(30, shiftY); ctx.lineTo(w - 30, shiftY); ctx.stroke();
-        ctx.fillStyle = "#ffad59";
-        ctx.font = "bold 12px Montserrat";
-        ctx.fillText(`${v.semitones > 0 ? "+" : ""}${v.semitones} st`, w / 2 - 18, shiftY - 8);
+      const firstTapX = Math.min(w - pad.right, xForMs(ms));
+      if (firstTapX - dryX > 16) {
+        const arrowY = pad.top + 10;
+        ctx.strokeStyle = "#56d4f5";
+        ctx.beginPath(); ctx.moveTo(dryX + 4, arrowY); ctx.lineTo(firstTapX - 4, arrowY); ctx.stroke();
+        ctx.fillStyle = "#56d4f5";
+        ctx.font = "600 10px Montserrat, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "bottom";
+        ctx.fillText(v.mode === "sync" ? `${v.noteSym} ${ms} ms` : `${ms} ms`, (dryX + firstTapX) / 2, arrowY - 2);
       }
     }
 
-    // -----------------------------------------
-    // RENDER HORIZONTAL RACK
-    // -----------------------------------------
-    function paramRange(key, label, prop, min, max, step, unit, full = false) {
-      const val = processorValues[key][prop];
-      return `
-        <div class="param-item ${full ? "full" : ""}">
-          <div class="param-label"><span>${label}</span><span id="val-${key}-${prop}">${val}${unit}</span></div>
-          <input type="range" min="${min}" max="${max}" step="${step}" value="${val}" data-key="${key}" data-prop="${prop}" data-unit="${unit}">
-        </div>`;
+    // 7. PITCH SHIFTER LAB GRAPH
+    function drawPitchGraph() {
+      const cvs = document.getElementById("canvas-pitch-shifter");
+      if (!cvs) return;
+      const res = setupCanvasDPR(cvs);
+      if (!res) return;
+      const { ctx, w, h } = res;
+      const v = processorValues["pitch-shifter"];
+      const totalSt = v.octave * 12 + v.semitone;
+
+      const pad = { left: 54, right: 20, top: 18, bottom: 18 };
+      const plotW = w - pad.left - pad.right;
+      const plotH = h - pad.top - pad.bottom;
+      const yForSt = st => pad.top + ((36 - st) / 72) * plotH;
+
+      ctx.fillStyle = "#12100d";
+      ctx.fillRect(0, 0, w, h);
+
+      const levels = [36, 24, 12, 0, -12, -24, -36];
+      ctx.font = "600 9px Montserrat, sans-serif";
+      ctx.textAlign = "right";
+      ctx.textBaseline = "middle";
+      levels.forEach(lv => {
+        const y = yForSt(lv);
+        ctx.strokeStyle = lv === 0 ? "rgba(232, 160, 77, 0.72)" : "rgba(232, 160, 77, 0.2)";
+        ctx.setLineDash(lv === 0 ? [] : [4, 4]);
+        ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(w - pad.right, y); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = lv === 0 ? "#f4d08a" : "#9c8767";
+        ctx.fillText(`${lv > 0 ? "+" : ""}${lv} ST`, pad.left - 8, y);
+      });
+
+      drawLiveSpectrumOverlay(ctx, pad, plotW, plotH, "rgba(255, 173, 66, 0.24)", "rgba(255, 216, 125, 0.45)");
+
+      const xStart = pad.left + plotW * 0.1;
+      const xEnd = pad.left + plotW * 0.86;
+      const xMid = (xStart + xEnd) * 0.5;
+      const yZero = yForSt(0);
+      const yTarget = yForSt(totalSt);
+
+      if (totalSt !== 0) {
+        ctx.fillStyle = "rgba(255, 210, 105, 0.16)";
+        ctx.fillRect(xStart, Math.min(yZero, yTarget), xEnd - xStart, Math.abs(yTarget - yZero));
+      }
+
+      if (Math.abs(yTarget - yZero) > 8) {
+        ctx.strokeStyle = "#ffd97d";
+        ctx.lineWidth = 1.8;
+        ctx.beginPath(); ctx.moveTo(xMid, yZero); ctx.lineTo(xMid, yTarget); ctx.stroke();
+      }
+
+      ctx.strokeStyle = "#ffe599";
+      ctx.lineWidth = 3;
+      ctx.shadowColor = "rgba(255, 210, 95, 0.8)";
+      ctx.shadowBlur = 10;
+      ctx.beginPath(); ctx.moveTo(xStart, yTarget); ctx.lineTo(xEnd, yTarget); ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      ctx.beginPath();
+      ctx.arc(xEnd, yTarget, 4.5, 0, Math.PI * 2);
+      ctx.fillStyle = "#fff1bd";
+      ctx.fill();
+
+      ctx.font = "600 11px Kanit, Montserrat, sans-serif";
+      ctx.fillStyle = "#ffe599";
+      ctx.textAlign = "right";
+      ctx.textBaseline = "bottom";
+      ctx.fillText(`${totalSt > 0 ? "+" : ""}${totalSt} ST`, xEnd - 6, yTarget - 6);
     }
 
-    function controlsHTML(key) {
+    function redrawAllLabs(now = performance.now()) {
+      if (selectedProcessors.includes("filter")) drawFilterGraph();
+      if (selectedProcessors.includes("eq")) drawEQGraph();
+      if (selectedProcessors.includes("compressor")) drawCompressorGraph();
+      if (selectedProcessors.includes("gain-stage")) updateGainStageMeters();
+      if (selectedProcessors.includes("reverb")) drawReverb3DGraph(now);
+      if (selectedProcessors.includes("delay")) drawDelayGraph();
+      if (selectedProcessors.includes("pitch-shifter")) drawPitchGraph();
+    }
+
+    // Continuous animation loop for 3D Reverb & Live Audio Spectrum
+    function globalLabLoop(now) {
+      redrawAllLabs(now);
+      requestAnimationFrame(globalLabLoop);
+    }
+    requestAnimationFrame(globalLabLoop);
+
+    // -----------------------------------------
+    // RENDER LAB CARD HTML FOR EACH OF 7 TOOLS
+    // -----------------------------------------
+    const fmtHz = v => `${Math.round(v).toLocaleString("en-US")} Hz`;
+    const fmtEqFreq = f => f >= 1000 ? `${(f / 1000).toFixed(f >= 10000 ? 1 : 2).replace(/\.0+$/, "")} kHz` : `${Math.round(f)} Hz`;
+
+    function buildLabCardInnerHTML(key) {
       if (key === "filter") {
-        const t = processorValues.filter.type;
+        const v = processorValues.filter;
+        const readout = v.type === "bandpass"
+          ? `BPF · ${fmtHz(v.lowerFreq)} – ${fmtHz(v.upperFreq)} · Slope ${v.slope} dB/oct`
+          : `${v.type === "lowpass" ? "LPF" : "HPF"} · ${fmtHz(v.lowerFreq)} · Slope ${v.slope} dB/oct`;
         return `
-          <div class="param-item full">
-            <div class="param-label"><span>Filter Type</span></div>
-            <select data-key="filter" data-prop="type">
-              <option value="lowpass" ${t === "lowpass" ? "selected" : ""}>Low-Pass Filter (LPF)</option>
-              <option value="highpass" ${t === "highpass" ? "selected" : ""}>High-Pass Filter (HPF)</option>
-              <option value="bandpass" ${t === "bandpass" ? "selected" : ""}>Band-Pass Filter (BPF)</option>
-            </select>
+          <div class="lab-canvas-shell">
+            <canvas id="canvas-filter" style="cursor:crosshair;"></canvas>
           </div>
-          ${paramRange("filter", "Cutoff", "cutoff", 80, 16000, 20, " Hz")}
-          ${paramRange("filter", "Slope", "slope", 12, 48, 12, " dB/oct")}`;
+          <div class="lab-controls-grid-2">
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Filter Type</span></div>
+              <select id="filter-type-sel">
+                <option value="lowpass" ${v.type === "lowpass" ? "selected" : ""}>Low-Pass Filter (LPF)</option>
+                <option value="highpass" ${v.type === "highpass" ? "selected" : ""}>High-Pass Filter (HPF)</option>
+                <option value="bandpass" ${v.type === "bandpass" ? "selected" : ""}>Band-Pass Filter (BPF)</option>
+              </select>
+            </div>
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Slope</span><output id="filter-slope-out">${v.slope} dB/oct</output></div>
+              <input id="filter-slope-rng" type="range" min="12" max="96" step="12" value="${v.slope}">
+              <small>ลากจุดวงกลมบนกราฟเพื่อปรับความถี่ได้ทันที</small>
+            </div>
+          </div>
+          <div class="lab-readout-bar" id="filter-readout">${readout}</div>
+        `;
       }
+
       if (key === "eq") {
+        const v = processorValues.eq;
+        const b = v.bands[v.selectedBand] || v.bands[0];
         return `
-          ${paramRange("eq", "Low Gain", "lowGain", -18, 18, 0.5, " dB")}
-          ${paramRange("eq", "Mid Gain", "midGain", -18, 18, 0.5, " dB")}
-          ${paramRange("eq", "High Gain", "highGain", -18, 18, 0.5, " dB")}
-          ${paramRange("eq", "Q Width", "q", 0.2, 6, 0.1, "")}`;
+          <div class="lab-canvas-shell">
+            <canvas id="canvas-eq" style="cursor:crosshair;"></canvas>
+          </div>
+          <div class="lab-legend-row">
+            <span><i style="background:#62d9ad;"></i> Live Spectrum</span>
+            <span><i style="background:#ffb15f;"></i> EQ Curve</span>
+            <span><i style="background:rgba(86,190,160,.45);"></i> ย่านความถี่เสียงพูด</span>
+          </div>
+          <div class="eq-toolbar">
+            <button type="button" class="lab-mini-btn primary" id="eq-add-btn">＋ Add Band</button>
+            <button type="button" class="lab-mini-btn" id="eq-rem-btn" ${v.bands.length <= 1 ? "disabled" : ""}>− Remove</button>
+            <button type="button" class="lab-mini-btn" id="eq-rst-btn">Reset EQ</button>
+            <span style="margin-left:auto; font-size:11px; color:#b9a99a;" id="eq-band-count">${v.bands.length} bands (Band ${v.selectedBand + 1})</span>
+          </div>
+          <div class="lab-controls-grid-4">
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Type</span></div>
+              <select id="eq-type-sel">
+                <option value="peaking" ${b.type === "peaking" ? "selected" : ""}>Bell / Peaking</option>
+                <option value="lowshelf" ${b.type === "lowshelf" ? "selected" : ""}>Low Shelf</option>
+                <option value="highshelf" ${b.type === "highshelf" ? "selected" : ""}>High Shelf</option>
+                <option value="notch" ${b.type === "notch" ? "selected" : ""}>Notch</option>
+              </select>
+            </div>
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Freq</span><output id="eq-freq-out">${fmtEqFreq(b.frequency)}</output></div>
+              <input id="eq-freq-rng" type="range" min="20" max="20000" step="1" value="${b.frequency}">
+            </div>
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Gain</span><output id="eq-gain-out">${b.gain > 0 ? "+" : ""}${b.gain.toFixed(1)} dB</output></div>
+              <input id="eq-gain-rng" type="range" min="-18" max="18" step="0.1" value="${b.gain}">
+            </div>
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Q</span><output id="eq-q-out">${b.q.toFixed(1)}</output></div>
+              <input id="eq-q-rng" type="range" min="0.1" max="12" step="0.1" value="${b.q}" ${b.type === "lowshelf" || b.type === "highshelf" ? "disabled" : ""}>
+            </div>
+          </div>
+        `;
       }
+
       if (key === "compressor") {
+        const v = processorValues.compressor;
         return `
-          ${paramRange("compressor", "Threshold", "threshold", -60, 0, 1, " dB")}
-          ${paramRange("compressor", "Ratio", "ratio", 1, 20, 0.5, ":1")}
-          ${paramRange("compressor", "Attack", "attack", 1, 200, 1, " ms")}
-          ${paramRange("compressor", "Release", "release", 10, 1000, 10, " ms")}`;
+          <div class="comp-ab-row">
+            <span><strong>PRE / POST</strong> · สลับฟังก่อนหรือหลังบีบอัด</span>
+            <div style="display:flex; gap:6px;">
+              <button type="button" class="lab-mini-btn ${v.monitor === "pre" ? "active" : ""}" id="comp-pre-btn">PRE</button>
+              <button type="button" class="lab-mini-btn ${v.monitor === "post" ? "active" : ""}" id="comp-post-btn">POST</button>
+            </div>
+          </div>
+          <div class="lab-canvas-shell">
+            <canvas id="canvas-compressor" style="cursor:ns-resize;"></canvas>
+          </div>
+          <div class="lab-legend-row">
+            <span><i style="background:#ff9d43;"></i> Transfer Curve</span>
+            <span><i style="background:#56e0ff;"></i> Threshold (ลากบนกราฟได้)</span>
+            <span><i style="background:#ff7eb6;"></i> Gain Reduction</span>
+          </div>
+          <div class="lab-controls-grid-3">
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Threshold</span><output id="comp-th-out">${v.threshold} dB</output></div>
+              <input id="comp-th-rng" type="range" min="-60" max="0" step="1" value="${v.threshold}">
+            </div>
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Ratio</span><output id="comp-rat-out">${v.ratio}:1</output></div>
+              <input id="comp-rat-rng" type="range" min="1" max="20" step="0.5" value="${v.ratio}">
+            </div>
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Make-up</span><output id="comp-mk-out">+${v.makeup.toFixed(1)} dB</output></div>
+              <input id="comp-mk-rng" type="range" min="0" max="18" step="0.5" value="${v.makeup}">
+            </div>
+          </div>
+          <details class="comp-adv-details">
+            <summary>Advanced Settings (Knee · Attack · Release)</summary>
+            <div class="lab-controls-grid-3">
+              <div class="lab-ctrl-box">
+                <div class="lab-ctrl-head"><span>Knee</span><output id="comp-kn-out">${v.knee} dB</output></div>
+                <input id="comp-kn-rng" type="range" min="0" max="40" step="1" value="${v.knee}">
+              </div>
+              <div class="lab-ctrl-box">
+                <div class="lab-ctrl-head"><span>Attack</span><output id="comp-at-out">${v.attack} ms</output></div>
+                <input id="comp-at-rng" type="range" min="1" max="200" step="1" value="${v.attack}">
+              </div>
+              <div class="lab-ctrl-box">
+                <div class="lab-ctrl-head"><span>Release</span><output id="comp-rl-out">${v.release} ms</output></div>
+                <input id="comp-rl-rng" type="range" min="10" max="1000" step="5" value="${v.release}">
+              </div>
+            </div>
+          </details>
+          <div class="comp-meter-strip">
+            <div class="comp-meter-box">
+              <span>GAIN REDUCTION: <strong id="comp-gr-val" style="color:#ffad59;">0.0 dB</strong></span>
+              <div class="gr-track"><div class="gr-fill" id="comp-gr-bar"></div></div>
+            </div>
+            <div class="comp-meter-box"><span>INPUT RMS</span><strong id="comp-in-rms">-∞ dBFS</strong></div>
+            <div class="comp-meter-box"><span>OUTPUT RMS</span><strong id="comp-out-rms">-∞ dBFS</strong></div>
+          </div>
+        `;
       }
+
       if (key === "gain-stage") {
-        return paramRange("gain-stage", "Output Gain", "gain", -24, 24, 0.5, " dB", true);
+        const v = processorValues["gain-stage"];
+        const leds = Array.from({ length: 24 }, () => "<i></i>").join("");
+        return `
+          <div class="gain-console-box">
+            <div class="gain-meters-pair">
+              <div class="gain-ch-card">
+                <div class="gain-ch-head"><span>INPUT</span><small>PRE GAIN</small></div>
+                <div class="gain-led-body">
+                  <div class="gain-led-scale"><span>0</span><span>-12</span><span>-24</span><span>-48</span><span>-60</span></div>
+                  <div class="gain-led-strip" id="gain-in-led">${leds}</div>
+                  <div class="gain-led-val"><strong id="gain-in-db">−∞</strong><small>dBFS</small></div>
+                </div>
+              </div>
+              <div style="color:var(--orange); font-size:20px; text-align:center;">→</div>
+              <div class="gain-ch-card">
+                <div class="gain-ch-head"><span>OUTPUT</span><small>POST GAIN</small></div>
+                <div class="gain-led-body">
+                  <div class="gain-led-scale"><span>0</span><span>-12</span><span>-24</span><span>-48</span><span>-60</span></div>
+                  <div class="gain-led-strip" id="gain-out-led">${leds}</div>
+                  <div class="gain-led-val"><strong id="gain-out-db">−∞</strong><small>dBFS</small></div>
+                </div>
+              </div>
+            </div>
+            <div class="gain-stats-3">
+              <div class="gain-stat-pill"><span>HEADROOM</span><strong id="gain-headroom">— dB</strong></div>
+              <div class="gain-stat-pill"><span>PEAK HOLD</span><strong id="gain-peak">−∞ dBFS</strong></div>
+              <div class="gain-stat-pill" id="gain-clip-cell"><span>CLIPPING</span><strong id="gain-clip-txt">SAFE</strong></div>
+            </div>
+          </div>
+          <div class="lab-ctrl-box">
+            <div class="lab-ctrl-head"><span>GAIN / TRIM</span><output id="gain-val-out">${v.gain > 0 ? "+" : ""}${v.gain.toFixed(1)} dB</output></div>
+            <input id="gain-rng" type="range" min="-24" max="24" step="0.5" value="${v.gain}">
+            <div style="display:flex; gap:6px; margin-top:8px;">
+              <button type="button" class="lab-mini-btn" data-gpreset="-12">−12 dB</button>
+              <button type="button" class="lab-mini-btn" data-gpreset="0">UNITY</button>
+              <button type="button" class="lab-mini-btn" data-gpreset="6">+6 dB</button>
+              <button type="button" class="lab-mini-btn" data-gpreset="12">+12 dB</button>
+            </div>
+          </div>
+        `;
       }
+
       if (key === "reverb") {
+        const v = processorValues.reverb;
         return `
-          ${paramRange("reverb", "Decay", "decay", 0.2, 5.0, 0.1, " s")}
-          ${paramRange("reverb", "Wet / Dry", "wet", 0, 100, 1, "%")}`;
+          <div class="lab-canvas-shell" id="reverb-3d-shell" style="cursor:grab;">
+            <canvas id="canvas-reverb"></canvas>
+            <div class="reverb-hint-overlay">ลากเมาส์เพื่อหมุนดูรอบห้อง 3D</div>
+            <div class="reverb-hud-overlay">
+              <small>WET / DECAY</small>
+              <strong id="rev-hud-val">${v.wet}% WET / ${v.decay.toFixed(2)} s</strong>
+            </div>
+          </div>
+          <div class="lab-legend-row">
+            <span><i style="background:#ffad59;"></i> ห้อง 3D (Room Size)</span>
+            <span><i style="background:#e8a04d;"></i> Pre-Delay Ring</span>
+            <span><i style="background:#62d9ad;"></i> แกนเสียง Dry</span>
+          </div>
+          <div class="lab-controls-grid-2">
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Pre-Delay</span><output id="rev-pre-out">${v.preDelay} ms</output></div>
+              <input id="rev-pre-rng" type="range" min="0" max="200" step="1" value="${v.preDelay}">
+            </div>
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Room Size</span><output id="rev-size-out">${v.roomSize}%</output></div>
+              <input id="rev-size-rng" type="range" min="10" max="100" step="1" value="${v.roomSize}">
+            </div>
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Decay Time</span><output id="rev-dec-out">${v.decay.toFixed(1)} s</output></div>
+              <input id="rev-dec-rng" type="range" min="0.3" max="6.0" step="0.1" value="${v.decay}">
+            </div>
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Wet / Dry</span><output id="rev-wet-out">${v.wet}%</output></div>
+              <input id="rev-wet-rng" type="range" min="0" max="100" step="1" value="${v.wet}">
+            </div>
+          </div>
+        `;
       }
+
       if (key === "delay") {
+        const v = processorValues.delay;
+        const ms = getActiveDelayMs();
         return `
-          ${paramRange("delay", "Time", "time", 50, 900, 10, " ms")}
-          ${paramRange("delay", "Feedback", "feedback", 0, 80, 1, "%")}
-          ${paramRange("delay", "Mix", "mix", 0, 100, 1, "%", true)}`;
+          <div class="lab-canvas-shell">
+            <canvas id="canvas-delay"></canvas>
+          </div>
+          <div class="lab-ctrl-box">
+            <div class="lab-ctrl-head">
+              <span>Delay Time: <output id="del-time-out">${ms} ms</output></span>
+              <div style="display:flex; gap:5px;">
+                <button type="button" class="lab-mini-btn ${v.mode === "free" ? "active" : ""}" id="del-free-btn">Free (ms)</button>
+                <button type="button" class="lab-mini-btn ${v.mode === "sync" ? "active" : ""}" id="del-sync-btn">Tempo Sync</button>
+              </div>
+            </div>
+            <div id="del-free-pane" ${v.mode === "free" ? "" : "hidden"}>
+              <input id="del-time-rng" type="range" min="20" max="1500" step="1" value="${v.time}">
+            </div>
+            <div id="del-sync-pane" ${v.mode === "sync" ? "" : "hidden"}>
+              <div class="lab-ctrl-head"><span>BPM</span><output id="del-bpm-out">${v.bpm} BPM</output></div>
+              <input id="del-bpm-rng" type="range" min="60" max="200" step="1" value="${v.bpm}">
+              <div class="delay-note-row">
+                ${[
+                  { m: 4, s: "𝅝", l: "1/1" },
+                  { m: 2, s: "𝅗𝅥", l: "1/2" },
+                  { m: 1, s: "♩", l: "1/4" },
+                  { m: 0.5, s: "♪", l: "1/8" },
+                  { m: 0.75, s: "♪.", l: "1/8." },
+                  { m: 0.25, s: "♬", l: "1/16" }
+                ].map(n => `<button type="button" class="delay-note-chip ${v.noteMult === n.m ? "active" : ""}" data-mult="${n.m}" data-sym="${n.s}">${n.s} ${n.l}</button>`).join("")}
+              </div>
+            </div>
+          </div>
+          <div class="lab-controls-grid-2">
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Feedback (Repeats)</span><output id="del-fb-out">${v.feedback}%</output></div>
+              <input id="del-fb-rng" type="range" min="0" max="90" step="1" value="${v.feedback}">
+            </div>
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Wet / Dry Mix</span><output id="del-mix-out">${v.mix}%</output></div>
+              <input id="del-mix-rng" type="range" min="0" max="100" step="1" value="${v.mix}">
+            </div>
+          </div>
+        `;
       }
+
       if (key === "pitch-shifter") {
-        return paramRange("pitch-shifter", "Semitones", "semitones", -12, 12, 1, " st", true);
+        const v = processorValues["pitch-shifter"];
+        const totalSt = v.octave * 12 + v.semitone;
+        return `
+          <div class="lab-canvas-shell">
+            <canvas id="canvas-pitch-shifter"></canvas>
+          </div>
+          <div class="lab-legend-row">
+            <span><i style="background:#d99b38;"></i> ต้นฉบับ (0 ST)</span>
+            <span><i style="background:#ffe082;"></i> Shifted Pitch</span>
+            <span style="margin-left:auto; color:#ffd09c; font-weight:600;" id="pitch-sum-out">${totalSt > 0 ? "+" : ""}${totalSt} ST (${Math.pow(2, totalSt / 12).toFixed(3)}x)</span>
+          </div>
+          <div class="lab-controls-grid-2">
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Semitone</span><output id="pitch-semi-out">${v.semitone > 0 ? "+" : ""}${v.semitone}</output></div>
+              <input id="pitch-semi-rng" type="range" min="-12" max="12" step="1" value="${v.semitone}">
+              <small>เลื่อนละเอียดทีละ 1 ครึ่งเสียง</small>
+            </div>
+            <div class="lab-ctrl-box">
+              <div class="lab-ctrl-head"><span>Octave</span><output id="pitch-oct-out">${v.octave > 0 ? "+" : ""}${v.octave}</output></div>
+              <input id="pitch-oct-rng" type="range" min="-2" max="2" step="1" value="${v.octave}">
+              <small>เลื่อนทีละคู่แปด (12 Semitones)</small>
+            </div>
+          </div>
+        `;
       }
       return "";
     }
 
+    // -----------------------------------------
+    // BIND EVENTS FOR EACH LAB DEVICE
+    // -----------------------------------------
+    function bindLabCardEvents(key) {
+      if (key === "filter") {
+        const v = processorValues.filter;
+        const cvs = document.getElementById("canvas-filter");
+        const typeSel = document.getElementById("filter-type-sel");
+        const slopeRng = document.getElementById("filter-slope-rng");
+
+        const refresh = () => {
+          document.getElementById("filter-slope-out").textContent = `${v.slope} dB/oct`;
+          document.getElementById("filter-readout").textContent = v.type === "bandpass"
+            ? `BPF · ${fmtHz(v.lowerFreq)} – ${fmtHz(v.upperFreq)} · Slope ${v.slope} dB/oct`
+            : `${v.type === "lowpass" ? "LPF" : "HPF"} · ${fmtHz(v.lowerFreq)} · Slope ${v.slope} dB/oct`;
+          drawFilterGraph();
+          buildLiveChain().catch(console.error);
+        };
+
+        typeSel.addEventListener("change", () => { v.type = typeSel.value; refresh(); });
+        slopeRng.addEventListener("input", () => { v.slope = Number(slopeRng.value); refresh(); });
+
+        // Interactive graph drag for Cutoff Frequency
+        let dragMarker = null;
+        const getFreqAt = e => {
+          const rect = cvs.getBoundingClientRect();
+          const padL = 46, padR = 14, plotW = rect.width - padL - padR;
+          const norm = clamp((e.clientX - rect.left - padL) / plotW, 0, 1);
+          return 20 * Math.pow(20000 / 20, norm);
+        };
+        cvs.addEventListener("pointerdown", e => {
+          const f = getFreqAt(e);
+          if (v.type === "bandpass") {
+            dragMarker = Math.abs(Math.log10(f) - Math.log10(v.lowerFreq)) <= Math.abs(Math.log10(f) - Math.log10(v.upperFreq)) ? "lower" : "upper";
+          } else {
+            dragMarker = "lower";
+          }
+          cvs.setPointerCapture(e.pointerId);
+          if (dragMarker === "lower") v.lowerFreq = clamp(f, 20, v.type === "bandpass" ? v.upperFreq / 1.05 : 19900);
+          else v.upperFreq = clamp(f, v.lowerFreq * 1.05, 20000);
+          refresh();
+        });
+        cvs.addEventListener("pointermove", e => {
+          if (!dragMarker) return;
+          const f = getFreqAt(e);
+          if (dragMarker === "lower") v.lowerFreq = clamp(f, 20, v.type === "bandpass" ? v.upperFreq / 1.05 : 19900);
+          else v.upperFreq = clamp(f, v.lowerFreq * 1.05, 20000);
+          refresh();
+        });
+        cvs.addEventListener("pointerup", () => dragMarker = null);
+      }
+
+      if (key === "eq") {
+        const v = processorValues.eq;
+        const cvs = document.getElementById("canvas-eq");
+        const typeSel = document.getElementById("eq-type-sel");
+        const freqRng = document.getElementById("eq-freq-rng");
+        const gainRng = document.getElementById("eq-gain-rng");
+        const qRng = document.getElementById("eq-q-rng");
+
+        const syncUI = () => {
+          const b = v.bands[v.selectedBand];
+          typeSel.value = b.type;
+          freqRng.value = b.frequency;
+          gainRng.value = b.gain;
+          qRng.value = b.q;
+          qRng.disabled = b.type === "lowshelf" || b.type === "highshelf";
+          document.getElementById("eq-freq-out").textContent = fmtEqFreq(b.frequency);
+          document.getElementById("eq-gain-out").textContent = `${b.gain > 0 ? "+" : ""}${b.gain.toFixed(1)} dB`;
+          document.getElementById("eq-q-out").textContent = qRng.disabled ? "N/A" : b.q.toFixed(1);
+          document.getElementById("eq-band-count").textContent = `${v.bands.length} bands (Band ${v.selectedBand + 1})`;
+          document.getElementById("eq-rem-btn").disabled = v.bands.length <= 1;
+          drawEQGraph();
+          buildLiveChain().catch(console.error);
+        };
+
+        [typeSel, freqRng, gainRng, qRng].forEach(el => {
+          el.addEventListener(el.tagName === "SELECT" ? "change" : "input", () => {
+            const b = v.bands[v.selectedBand];
+            b.type = typeSel.value;
+            b.frequency = Number(freqRng.value);
+            b.gain = Number(gainRng.value);
+            b.q = Number(qRng.value);
+            syncUI();
+          });
+        });
+
+        document.getElementById("eq-add-btn").addEventListener("click", () => {
+          v.bands.push({ type: "peaking", frequency: 1000, gain: 0, q: 1.0 });
+          v.selectedBand = v.bands.length - 1;
+          syncUI();
+        });
+        document.getElementById("eq-rem-btn").addEventListener("click", () => {
+          if (v.bands.length <= 1) return;
+          v.bands.splice(v.selectedBand, 1);
+          v.selectedBand = Math.min(v.selectedBand, v.bands.length - 1);
+          syncUI();
+        });
+        document.getElementById("eq-rst-btn").addEventListener("click", () => {
+          v.bands = [
+            { type: "lowshelf", frequency: 120, gain: 0, q: 0.8 },
+            { type: "peaking", frequency: 350, gain: 0, q: 1.0 },
+            { type: "peaking", frequency: 2500, gain: 0, q: 1.2 },
+            { type: "highshelf", frequency: 8000, gain: 0, q: 0.8 }
+          ];
+          v.selectedBand = 1;
+          syncUI();
+        });
+
+        // Interactive click & drag nodes on EQ canvas
+        let dragging = false;
+        const getCoords = e => {
+          const r = cvs.getBoundingClientRect();
+          const pad = { left: 46, right: 14, top: 14, bottom: 26 };
+          const pw = r.width - pad.left - pad.right, ph = r.height - pad.top - pad.bottom;
+          const xOf = f => pad.left + (Math.log10(f / 20) / Math.log10(20000 / 20)) * pw;
+          const yOf = db => pad.top + ((24 - clamp(db, -24, 24)) / 48) * ph;
+          const fAt = px => 20 * Math.pow(20000 / 20, clamp((px - pad.left) / pw, 0, 1));
+          const dbAt = py => clamp(((pad.top + ph / 2 - py) / ph) * 48, -18, 18);
+          return { x: e.clientX - r.left, y: e.clientY - r.top, xOf, yOf, fAt, dbAt };
+        };
+
+        cvs.addEventListener("pointerdown", e => {
+          const c = getCoords(e);
+          let hit = -1, minDist = 22;
+          v.bands.forEach((b, i) => {
+            const d = Math.hypot(c.x - c.xOf(b.frequency), c.y - c.yOf(b.gain));
+            if (d < minDist) { minDist = d; hit = i; }
+          });
+          if (hit >= 0) {
+            v.selectedBand = hit;
+          } else {
+            v.bands.push({ type: "peaking", frequency: c.fAt(c.x), gain: c.dbAt(c.y), q: 1.0 });
+            v.selectedBand = v.bands.length - 1;
+          }
+          dragging = true;
+          cvs.setPointerCapture(e.pointerId);
+          syncUI();
+        });
+        cvs.addEventListener("pointermove", e => {
+          if (!dragging) return;
+          const c = getCoords(e);
+          const b = v.bands[v.selectedBand];
+          b.frequency = c.fAt(c.x);
+          b.gain = c.dbAt(c.y);
+          syncUI();
+        });
+        cvs.addEventListener("pointerup", () => dragging = false);
+      }
+
+      if (key === "compressor") {
+        const v = processorValues.compressor;
+        const cvs = document.getElementById("canvas-compressor");
+        const refresh = () => {
+          document.getElementById("comp-th-out").textContent = `${v.threshold} dB`;
+          document.getElementById("comp-rat-out").textContent = `${v.ratio}:1`;
+          document.getElementById("comp-mk-out").textContent = `+${v.makeup.toFixed(1)} dB`;
+          document.getElementById("comp-kn-out").textContent = `${v.knee} dB`;
+          document.getElementById("comp-at-out").textContent = `${v.attack} ms`;
+          document.getElementById("comp-rl-out").textContent = `${v.release} ms`;
+          drawCompressorGraph();
+          buildLiveChain().catch(console.error);
+        };
+
+        document.getElementById("comp-th-rng").addEventListener("input", e => { v.threshold = Number(e.target.value); refresh(); });
+        document.getElementById("comp-rat-rng").addEventListener("input", e => { v.ratio = Number(e.target.value); refresh(); });
+        document.getElementById("comp-mk-rng").addEventListener("input", e => { v.makeup = Number(e.target.value); refresh(); });
+        document.getElementById("comp-kn-rng").addEventListener("input", e => { v.knee = Number(e.target.value); refresh(); });
+        document.getElementById("comp-at-rng").addEventListener("input", e => { v.attack = Number(e.target.value); refresh(); });
+        document.getElementById("comp-rl-rng").addEventListener("input", e => { v.release = Number(e.target.value); refresh(); });
+
+        document.getElementById("comp-pre-btn").addEventListener("click", () => { v.monitor = "pre"; renderRack(); buildLiveChain().catch(console.error); });
+        document.getElementById("comp-post-btn").addEventListener("click", () => { v.monitor = "post"; renderRack(); buildLiveChain().catch(console.error); });
+
+        // Drag Threshold on graph
+        let dragTh = false;
+        const setThFromY = e => {
+          const r = cvs.getBoundingClientRect();
+          const ph = r.height - 40;
+          const norm = clamp((e.clientY - r.top - 14) / ph, 0, 1);
+          v.threshold = Math.round(0 - norm * 60);
+          document.getElementById("comp-th-rng").value = v.threshold;
+          refresh();
+        };
+        cvs.addEventListener("pointerdown", e => { dragTh = true; cvs.setPointerCapture(e.pointerId); setThFromY(e); });
+        cvs.addEventListener("pointermove", e => { if (dragTh) setThFromY(e); });
+        cvs.addEventListener("pointerup", () => dragTh = false);
+      }
+
+      if (key === "gain-stage") {
+        const v = processorValues["gain-stage"];
+        const rng = document.getElementById("gain-rng");
+        const update = () => {
+          document.getElementById("gain-val-out").textContent = `${v.gain > 0 ? "+" : ""}${v.gain.toFixed(1)} dB`;
+          buildLiveChain().catch(console.error);
+        };
+        rng.addEventListener("input", () => { v.gain = Number(rng.value); update(); });
+        processorRack.querySelectorAll("[data-gpreset]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            v.gain = Number(btn.dataset.gpreset);
+            rng.value = v.gain;
+            update();
+          });
+        });
+      }
+
+      if (key === "reverb") {
+        const v = processorValues.reverb;
+        const shell = document.getElementById("reverb-3d-shell");
+        const update = (rebuild = false) => {
+          document.getElementById("rev-pre-out").textContent = `${v.preDelay} ms`;
+          document.getElementById("rev-size-out").textContent = `${v.roomSize}%`;
+          document.getElementById("rev-dec-out").textContent = `${v.decay.toFixed(1)} s`;
+          document.getElementById("rev-wet-out").textContent = `${v.wet}%`;
+          document.getElementById("rev-hud-val").textContent = `${v.wet}% WET / ${v.decay.toFixed(2)} s`;
+          if (rebuild) buildLiveChain().catch(console.error);
+        };
+        document.getElementById("rev-pre-rng").addEventListener("input", e => { v.preDelay = Number(e.target.value); update(true); });
+        document.getElementById("rev-size-rng").addEventListener("input", e => { v.roomSize = Number(e.target.value); update(true); });
+        document.getElementById("rev-dec-rng").addEventListener("input", e => { v.decay = Number(e.target.value); update(true); });
+        document.getElementById("rev-wet-rng").addEventListener("input", e => { v.wet = Number(e.target.value); update(true); });
+
+        let lx = 0, ly = 0;
+        shell.addEventListener("pointerdown", e => { v.isDragging = true; lx = e.clientX; ly = e.clientY; shell.setPointerCapture(e.pointerId); });
+        shell.addEventListener("pointermove", e => {
+          if (!v.isDragging) return;
+          v.rotY += (e.clientX - lx) * 0.009;
+          v.rotX = clamp(v.rotX + (e.clientY - ly) * 0.009, -1.25, 1.25);
+          lx = e.clientX; ly = e.clientY;
+        });
+        shell.addEventListener("pointerup", () => v.isDragging = false);
+      }
+
+      if (key === "delay") {
+        const v = processorValues.delay;
+        const refresh = () => {
+          const ms = getActiveDelayMs();
+          document.getElementById("del-time-out").textContent = `${ms} ms`;
+          document.getElementById("del-bpm-out").textContent = `${v.bpm} BPM`;
+          document.getElementById("del-fb-out").textContent = `${v.feedback}%`;
+          document.getElementById("del-mix-out").textContent = `${v.mix}%`;
+          drawDelayGraph();
+          buildLiveChain().catch(console.error);
+        };
+
+        document.getElementById("del-free-btn").addEventListener("click", () => { v.mode = "free"; renderRack(); buildLiveChain().catch(console.error); });
+        document.getElementById("del-sync-btn").addEventListener("click", () => { v.mode = "sync"; renderRack(); buildLiveChain().catch(console.error); });
+        document.getElementById("del-time-rng").addEventListener("input", e => { v.time = Number(e.target.value); refresh(); });
+        document.getElementById("del-bpm-rng").addEventListener("input", e => { v.bpm = Number(e.target.value); refresh(); });
+        document.getElementById("del-fb-rng").addEventListener("input", e => { v.feedback = Number(e.target.value); refresh(); });
+        document.getElementById("del-mix-rng").addEventListener("input", e => { v.mix = Number(e.target.value); refresh(); });
+
+        processorRack.querySelectorAll(".delay-note-chip").forEach(btn => {
+          btn.addEventListener("click", () => {
+            v.noteMult = Number(btn.dataset.mult);
+            v.noteSym = btn.dataset.sym;
+            renderRack();
+            buildLiveChain().catch(console.error);
+          });
+        });
+      }
+
+      if (key === "pitch-shifter") {
+        const v = processorValues["pitch-shifter"];
+        const refresh = () => {
+          const totalSt = v.octave * 12 + v.semitone;
+          document.getElementById("pitch-semi-out").textContent = `${v.semitone > 0 ? "+" : ""}${v.semitone}`;
+          document.getElementById("pitch-oct-out").textContent = `${v.octave > 0 ? "+" : ""}${v.octave}`;
+          document.getElementById("pitch-sum-out").textContent = `${totalSt > 0 ? "+" : ""}${totalSt} ST (${Math.pow(2, totalSt / 12).toFixed(3)}x)`;
+          drawPitchGraph();
+          buildLiveChain().catch(console.error);
+        };
+        document.getElementById("pitch-semi-rng").addEventListener("input", e => { v.semitone = Number(e.target.value); refresh(); });
+        document.getElementById("pitch-oct-rng").addEventListener("input", e => { v.octave = Number(e.target.value); refresh(); });
+      }
+    }
+
+    // -----------------------------------------
+    // RENDER HORIZONTAL PROCESSOR RACK
+    // -----------------------------------------
     function renderRack() {
       const cardsHTML = selectedProcessors.map((key, idx) => {
         const v = processorValues[key];
@@ -1052,16 +2612,14 @@
               <div class="device-title-group">
                 <span class="device-index">${idx + 1}</span>
                 <span class="device-title">${PROCESSORS[key].title}</span>
+                <span class="device-live-pill"><i></i> LAB</span>
               </div>
               <div class="device-actions">
                 <button type="button" class="bypass-btn ${v.enabled ? "" : "off"}" data-bypass="${key}">${v.enabled ? "ON" : "OFF"}</button>
                 <button type="button" class="remove-device-btn" data-remove="${key}" title="Remove">×</button>
               </div>
             </div>
-            <div class="device-visual-box">
-              <canvas class="device-canvas" id="canvas-${key}" width="350" height="155"></canvas>
-            </div>
-            <div class="device-params">${controlsHTML(key)}</div>
+            <div class="device-lab-body">${buildLabCardInnerHTML(key)}</div>
           </article>`;
       }).join("");
 
@@ -1085,36 +2643,9 @@
 
       processorRack.innerHTML = cardsHTML + addSlotHTML;
 
-      // Draw all canvases & attach interactive drag for Reverb 3D / Filter
-      selectedProcessors.forEach(key => {
-        drawProcessorVisual(key);
-        const cvs = document.getElementById(`canvas-${key}`);
-        if (cvs && key === "reverb") {
-          let dragging = false, lastX = 0;
-          cvs.addEventListener("pointerdown", e => { dragging = true; lastX = e.clientX; });
-          window.addEventListener("pointerup", () => dragging = false);
-          cvs.addEventListener("pointermove", e => {
-            if (!dragging) return;
-            processorValues.reverb.rotY += (e.clientX - lastX) * 0.02;
-            lastX = e.clientX;
-            drawProcessorVisual("reverb");
-          });
-        }
-      });
+      selectedProcessors.forEach(key => bindLabCardEvents(key));
+      redrawAllLabs();
 
-      // Bind Sliders & Selects
-      processorRack.querySelectorAll("input[type=range], select[data-key]").forEach(el => {
-        el.addEventListener(el.tagName === "SELECT" ? "change" : "input", () => {
-          const { key, prop, unit } = el.dataset;
-          processorValues[key][prop] = el.tagName === "SELECT" ? el.value : Number(el.value);
-          const label = document.getElementById(`val-${key}-${prop}`);
-          if (label) label.textContent = `${el.value}${unit || ""}`;
-          drawProcessorVisual(key);
-          buildLiveChain().catch(console.error);
-        });
-      });
-
-      // Bind Bypass & Remove
       processorRack.querySelectorAll("[data-bypass]").forEach(btn => {
         btn.addEventListener("click", () => {
           const k = btn.dataset.bypass;
@@ -1123,6 +2654,7 @@
           buildLiveChain().catch(console.error);
         });
       });
+
       processorRack.querySelectorAll("[data-remove]").forEach(btn => {
         btn.addEventListener("click", () => {
           const idx = selectedProcessors.indexOf(btn.dataset.remove);
@@ -1132,11 +2664,11 @@
         });
       });
 
-      // Bind Add Processor Menu
       $("togglePickerBtn").addEventListener("click", () => {
         pickerOpen = !pickerOpen;
         $("processorMenu").hidden = !pickerOpen;
       });
+
       processorRack.querySelectorAll("[data-add]").forEach(btn => {
         btn.addEventListener("click", () => {
           const k = btn.dataset.add;
@@ -1155,8 +2687,7 @@
     // AUDIO PLAYBACK & SAMPLE CHANGE
     // -----------------------------------------
     function formatSec(s) {
-      if (!isFinite(s)) return "0.00";
-      return s.toFixed(2);
+      return isFinite(s) ? s.toFixed(2) : "0.00";
     }
 
     function bindAudioPlayer(audio, btn, timeEl, canvasId, baseColor, seed, isProcessed) {
@@ -1208,7 +2739,7 @@
     });
 
     // -----------------------------------------
-    // EVALUATION & SUBMIT (CONTINUE OR FINISH)
+    // OFFLINE EVALUATION & SUBMIT
     // -----------------------------------------
     function fft(real, imag) {
       const n = real.length;
@@ -1271,30 +2802,52 @@
       const ctx = new Offline(sourceBuffer.numberOfChannels, frames, sourceBuffer.sampleRate);
       const src = ctx.createBufferSource(); src.buffer = sourceBuffer;
       let cur = src;
+
       keys.forEach(key => {
         const v = processorValues[key]; if (!v.enabled) return;
         if (key === "filter") {
-          const st = Math.max(1, Math.min(4, Math.round(v.slope / 12)));
-          for (let i = 0; i < st; i++) { const n = ctx.createBiquadFilter(); n.type = v.type; n.frequency.value = v.cutoff; cur.connect(n); cur = n; }
+          const st = Math.max(1, Math.round(v.slope / 12));
+          const addSt = (kind, f) => {
+            for (let i = 0; i < st; i++) { const n = ctx.createBiquadFilter(); n.type = kind; n.frequency.value = f; cur.connect(n); cur = n; }
+          };
+          if (v.type === "lowpass") addSt("lowpass", v.lowerFreq);
+          else if (v.type === "highpass") addSt("highpass", v.lowerFreq);
+          else { addSt("highpass", v.lowerFreq); addSt("lowpass", v.upperFreq); }
         } else if (key === "eq") {
-          [{ type: "lowshelf", frequency: v.lowFreq, gain: v.lowGain }, { type: "peaking", frequency: v.midFreq, gain: v.midGain, Q: v.q }, { type: "highshelf", frequency: v.highFreq, gain: v.highGain }]
-            .forEach(c => { const n = ctx.createBiquadFilter(); n.type = c.type; n.frequency.value = c.frequency; n.gain.value = c.gain; if (c.Q) n.Q.value = c.Q; cur.connect(n); cur = n; });
+          v.bands.forEach(b => {
+            const n = ctx.createBiquadFilter(); n.type = b.type; n.frequency.value = b.frequency; n.gain.value = b.gain; n.Q.value = b.q;
+            cur.connect(n); cur = n;
+          });
         } else if (key === "compressor") {
-          const n = ctx.createDynamicsCompressor(); n.threshold.value = v.threshold; n.ratio.value = v.ratio; n.attack.value = v.attack / 1000; n.release.value = v.release / 1000; cur.connect(n); cur = n;
+          const n = ctx.createDynamicsCompressor();
+          n.threshold.value = v.threshold; n.ratio.value = v.ratio; n.knee.value = v.knee;
+          n.attack.value = v.attack / 1000; n.release.value = v.release / 1000;
+          const mk = ctx.createGain(); mk.gain.value = Math.pow(10, v.makeup / 20);
+          cur.connect(n); n.connect(mk); cur = mk;
         } else if (key === "gain-stage") {
           const n = ctx.createGain(); n.gain.value = Math.pow(10, v.gain / 20); cur.connect(n); cur = n;
         } else if (key === "reverb") {
+          const pre = ctx.createDelay(1.0); pre.delayTime.value = v.preDelay / 1000;
+          const rf = ctx.createBiquadFilter(); rf.type = "lowpass"; rf.frequency.value = 2800 + (v.roomSize / 100) * 9500;
           const dry = ctx.createGain(), wet = ctx.createGain(), conv = ctx.createConvolver(), out = ctx.createGain();
-          conv.buffer = makeImpulse(ctx, v.decay); dry.gain.value = 1 - v.wet / 100; wet.gain.value = v.wet / 100;
-          cur.connect(dry); cur.connect(conv); conv.connect(wet); dry.connect(out); wet.connect(out); cur = out;
+          conv.buffer = buildReverbImpulse(ctx, v.decay, v.roomSize);
+          const mix = v.wet / 100;
+          dry.gain.value = 1 - mix * 0.45; wet.gain.value = mix * 1.15;
+          cur.connect(dry); cur.connect(pre); pre.connect(rf); rf.connect(conv); conv.connect(wet);
+          dry.connect(out); wet.connect(out); cur = out;
         } else if (key === "delay") {
-          const d = ctx.createDelay(2), fb = ctx.createGain(), dry = ctx.createGain(), wet = ctx.createGain(), out = ctx.createGain();
-          d.delayTime.value = v.time / 1000; fb.gain.value = Math.min(0.85, v.feedback / 100); dry.gain.value = 1 - v.mix / 100; wet.gain.value = v.mix / 100;
-          cur.connect(dry); cur.connect(d); d.connect(wet); d.connect(fb); fb.connect(d); dry.connect(out); wet.connect(out); cur = out;
+          const d = ctx.createDelay(4.5), fb = ctx.createGain(), dry = ctx.createGain(), wet = ctx.createGain(), out = ctx.createGain();
+          d.delayTime.value = getActiveDelayMs() / 1000; fb.gain.value = v.feedback / 100;
+          const mix = v.mix / 100;
+          dry.gain.value = 1 - mix * 0.35; wet.gain.value = mix;
+          cur.connect(dry); cur.connect(d); d.connect(wet); d.connect(fb); fb.connect(d);
+          dry.connect(out); wet.connect(out); cur = out;
         } else if (key === "pitch-shifter") {
-          src.playbackRate.value = Math.pow(2, v.semitones / 12);
+          const totalSt = v.octave * 12 + v.semitone;
+          src.playbackRate.value = Math.pow(2, totalSt / 12);
         }
       });
+
       cur.connect(ctx.destination); src.start(0);
       return await ctx.startRendering();
     }
