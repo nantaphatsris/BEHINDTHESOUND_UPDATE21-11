@@ -72,6 +72,7 @@
       justify-self: end;
       display: flex;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
     .top-pill-btn {
@@ -150,7 +151,7 @@
       cursor: pointer;
     }
 
-    /* CHALLENGE BRIEF BANNER */
+    /* CHALLENGE BRIEF BANNER + PROCESSOR HINT */
     .challenge-brief-bar {
       background: rgba(255, 173, 89, 0.06);
       border: 1px solid rgba(232, 160, 77, 0.25);
@@ -177,11 +178,38 @@
       padding: 3px 8px;
       border-radius: 6px;
       letter-spacing: 0.8px;
+      flex-shrink: 0;
     }
-    .brief-hint {
-      font: 300 12px 'Kanit', sans-serif;
-      color: var(--muted);
+    .hint-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
     }
+    .hint-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .hint-chips[hidden] { display: none; }
+    .hint-proc-chip {
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(98, 217, 173, 0.14);
+      border: 1px solid rgba(98, 217, 173, 0.45);
+      color: var(--mint);
+      font: 600 11.5px 'Kanit', 'Montserrat', sans-serif;
+    }
+    .toggle-hint-btn {
+      padding: 5px 11px;
+      border-radius: 8px;
+      border: 1px solid rgba(232, 160, 77, 0.45);
+      background: rgba(255, 173, 89, 0.1);
+      color: var(--orange);
+      font: 500 12px 'Kanit', sans-serif;
+      cursor: pointer;
+    }
+    .toggle-hint-btn:hover { background: rgba(255, 173, 89, 0.2); }
 
     /* A/B WAVEFORM COMPARISON */
     .waveform-grid {
@@ -283,8 +311,10 @@
     /* HORIZONTAL ABLETON-STYLE RACK */
     .rack-section-head {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+      gap: 8px;
       margin-bottom: 12px;
     }
     .rack-section-head span {
@@ -652,6 +682,7 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 16px;
@@ -783,6 +814,7 @@
     <div class="header-title">PRACTICE</div>
     <div class="header-right-tools">
       <button class="top-pill-btn accent" id="scrambleButton" type="button">🎲 สุ่มโจทย์ใหม่</button>
+      <button class="top-pill-btn" id="copyJsonButton" type="button" title="ก๊อปปี้ค่าพารามิเตอร์ของ Chain ปัจจุบันไปวางใน TARGET_PRESETS">📋 Copy JSON</button>
       <button class="top-pill-btn" id="resetButton" type="button">ล้าง Chain</button>
     </div>
   </header>
@@ -792,7 +824,7 @@
     <div class="top-workspace-bar">
       <div class="hero-title">
         <h1>Ear Training <span>Practice</span></h1>
-        <p>เลือกโจทย์เสียง Target ฟังเปรียบเทียบกับเสียงที่ระบบสุ่มค่าไว้ แล้วปรับแก้ Processor ให้เหมือนต้นฉบับ</p>
+        <p>เลือกโจทย์เสียง Target กด + Add Processor เลือกเครื่องมือเอง แล้วปรับค่าพารามิเตอร์ให้เหมือนต้นฉบับ</p>
       </div>
       <div class="sound-selector-box">
         <label for="presetSelect">TARGET PRESET</label>
@@ -800,13 +832,16 @@
       </div>
     </div>
 
-    <!-- CHALLENGE BRIEF -->
+    <!-- CHALLENGE BRIEF & PROCESSOR HINT -->
     <div class="challenge-brief-bar">
       <div class="brief-left">
         <span class="brief-tag">MISSION</span>
-        <span id="missionDescription">ฟังเสียง Target ด้านซ้าย แล้วปรับเสียงด้านขวาให้ใกล้เคียงที่สุด</span>
+        <span id="missionDescription">ฟังเสียง Target ด้านซ้าย แล้วเลือก Processor + ปรับค่าให้ใกล้เคียงที่สุด</span>
       </div>
-      <span class="brief-hint" id="missionHint">ระบบสุ่มค่าเริ่มต้นให้แล้ว ลองกดฟัง A/B เทียบกันได้เลย</span>
+      <div class="hint-box">
+        <div class="hint-chips" id="hintChipsContainer" hidden></div>
+        <button type="button" class="toggle-hint-btn" id="toggleHintBtn">💡 ดู Hint ว่าใช้ Processor อะไร</button>
+      </div>
     </div>
 
     <!-- A/B WAVEFORM COMPARISON -->
@@ -829,7 +864,7 @@
       <div class="wave-card processed">
         <div class="wave-card-header">
           <div class="wave-card-title">
-            <span class="wave-badge">YOUR SOUND (SCRAMBLED)</span>
+            <span class="wave-badge">YOUR SOUND</span>
             <h3>เสียงที่กำลังปรับแก้</h3>
           </div>
           <span class="wave-time" id="processedTime">0.00 / 0.00</span>
@@ -845,14 +880,14 @@
     <!-- HORIZONTAL ABLETON-STYLE RACK -->
     <div class="rack-section-head">
       <span>YOUR PROCESSOR CHAIN (เลื่อนปัดแนวนอน ◄ ─── ►)</span>
-      <span class="rack-hint" id="audioNote">ปรับพารามิเตอร์หรือเพิ่ม/ลบ Processor ให้ได้คาแรคเตอร์เสียงเหมือน Target</span>
+      <span class="rack-hint" id="audioNote">เริ่มจาก Chain ว่างเปล่า — กด + Add Processor เพื่อเลือกเครื่องมือที่คุณคิดว่าจะใช้</span>
     </div>
 
     <section class="processor-rack-scroll" id="processorRack"></section>
 
     <!-- SUBMIT BAR -->
     <section class="bottom-action-bar">
-      <div class="status-text" id="saveStatus">ฟังเปรียบเทียบเสียง Target กับเสียงของคุณจนพอใจ แล้วกด Submit เพื่อตรวจคะแนน</div>
+      <div class="status-text" id="saveStatus">เลือก Processor และปรับค่าให้ใกล้เคียง Target แล้วกด Submit เพื่อตรวจคะแนน</div>
       <button class="submit-btn" id="submitButton" type="button">SUBMIT →</button>
     </section>
   </main>
@@ -887,7 +922,9 @@
     let currentUser = null;
 
     // -----------------------------------------
-    // TARGET PRESET DATABASE (เสียงเป้าหมาย + เฉลยพารามิเตอร์จริง)
+    // TARGET PRESET DATABASE (ใส่ไฟล์เสียง + เฉลยพารามิเตอร์ตรงนี้)
+    // วิธีง่ายๆ: ปรับ Chain บนหน้าเว็บให้ตรงกับเสียงที่ทำไว้ แล้วกด "📋 Copy JSON" ด้านบน
+    // จากนั้นนำ JSON ที่ได้มาวางใน solution: { ... } ของข้อนั้นได้เลย
     // -----------------------------------------
     const TARGET_PRESETS = [
       {
@@ -895,7 +932,6 @@
         name: "01. Lo-Fi Radio Trash (Foley 01)",
         audioUrl: "assets/crape-6-foley-1-trash-koh.mp3",
         description: "เสียงขยำขยะที่ถูกบีบย่านความถี่ให้แคบเหมือนเสียงออกจากวิทยุเก่า และกดไดนามิกให้แน่น",
-        hint: "สังเกตว่าย่านเบสลึกและแหลมจัดหายไป และความดังค่อนข้างนิ่งสม่ำเสมอ",
         solution: {
           filter: { enabled: true, type: "bandpass", lowerFreq: 480, upperFreq: 2600, slope: 24 },
           compressor: { enabled: true, threshold: -28, ratio: 6, knee: 10, attack: 8, release: 120, makeup: 4.5, monitor: "post" }
@@ -906,7 +942,6 @@
         name: "02. Deep Cave Echo (Foley 02)",
         audioUrl: "assets/crape-2-foley-6-table-toob.mp3",
         description: "เสียงเคาะโต๊ะที่ถูกกดให้ทุ้มต่ำลงและก้องสะท้อนอยู่ในโถงถ้ำขนาดใหญ่",
-        hint: "ลองฟังระดับ Pitch ที่ต่ำลง พร้อมหางเสียงก้องที่ยาวและกว้าง",
         solution: {
           "pitch-shifter": { enabled: true, semitone: -5, octave: 0 },
           reverb: { enabled: true, preDelay: 45, roomSize: 82, decay: 3.6, wet: 48 }
@@ -917,7 +952,6 @@
         name: "03. Dub Slapback Delay (Foley 01)",
         audioUrl: "assets/crape-6-foley-1-trash-koh.mp3",
         description: "เสียง Foley ที่เพิ่มความใสย่านกลางแหลม และมีเสียงสะท้อนตามหลังเป็นจังหวะต่อเนื่อง",
-        hint: "จับจังหวะระยะห่างของเสียงสะท้อน (Delay Time) และจำนวนครั้งที่วนซ้ำ (Feedback)",
         solution: {
           eq: {
             enabled: true,
@@ -937,7 +971,6 @@
         name: "04. Crisp Punchy Table (Foley 02)",
         audioUrl: "assets/crape-2-foley-6-table-toob.mp3",
         description: "เสียงเคาะที่ถูกคัดย่านต่ำรบกวนออก บีบหัวเสียงให้กระชับ และดันระดับสัญญาณให้พุ่งเด่น",
-        hint: "มีทั้งการตัดย่านต่ำ, การบีบอัดไดนามิก และการเร่งเกนสัญญาณขาออก",
         solution: {
           filter: { enabled: true, type: "highpass", lowerFreq: 180, upperFreq: 3000, slope: 24 },
           compressor: { enabled: true, threshold: -22, ratio: 4.5, knee: 6, attack: 15, release: 100, makeup: 3, monitor: "post" },
@@ -949,7 +982,6 @@
         name: "05. High-Pitch Space (Foley 01)",
         audioUrl: "assets/crape-6-foley-1-trash-koh.mp3",
         description: "เสียงที่ถูกยกโทนให้สูงขึ้น 1 คู่แปดเต็ม พร้อมมิติ Reverb ระยะสั้นและ Delay เบาๆ",
-        hint: "ระดับเสียงสูงขึ้นชัดเจน (+12 ST) ลองฟังหางเสียงทั้งแบบห้องและแบบสะท้อน",
         solution: {
           "pitch-shifter": { enabled: true, semitone: 0, octave: 1 },
           reverb: { enabled: true, preDelay: 20, roomSize: 55, decay: 1.8, wet: 30 },
@@ -968,7 +1000,7 @@
       "pitch-shifter": { title: "Pitch Shifter" }
     };
 
-    const ALL_PROC_KEYS = Object.keys(PROCESSORS);
+    // เริ่มต้น Chain ว่างเปล่า ให้ผู้ใช้เลือก Processor เอง
     const selectedProcessors = [];
 
     function getDefaultState() {
@@ -989,7 +1021,7 @@
           grHistory: new Array(120).fill(0)
         },
         "gain-stage": { enabled: true, gain: 0, peakHold: -Infinity, peakTimer: 0 },
-        reverb: { enabled: true, preDelay: 25, roomSize: 45, decay: 1.8, wet: 25, rotX: 0.42, rotY: 0.58 },
+        reverb: { enabled: true, preDelay: 25, roomSize: 45, decay: 1.8, wet: 25, rotX: 0.42, rotY: 0.58, isDragging: false },
         delay: { enabled: true, mode: "free", time: 400, bpm: 120, noteMult: 0.5, noteSym: "♪", feedback: 45, mix: 30 },
         "pitch-shifter": { enabled: true, semitone: 0, octave: 0 }
       };
@@ -997,11 +1029,10 @@
 
     let processorValues = getDefaultState();
     let activePreset = TARGET_PRESETS[0];
+    let hintVisible = false;
 
     const $ = id => document.getElementById(id);
     const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
-    const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-    const randChoice = arr => arr[Math.floor(Math.random() * arr.length)];
 
     const presetSelect = $("presetSelect");
     const processorRack = $("processorRack");
@@ -1034,7 +1065,6 @@
       size: 1.2 + Math.random() * 2.0, phase: Math.random() * Math.PI * 2, tint: Math.random()
     }));
 
-    // Populate Preset Dropdown
     TARGET_PRESETS.forEach(p => {
       const opt = document.createElement("option");
       opt.value = p.id;
@@ -1042,86 +1072,48 @@
       presetSelect.appendChild(opt);
     });
 
-    // -----------------------------------------
-    // RANDOMIZE / SCRAMBLE GENERATOR
-    // -----------------------------------------
-    function randomizeParameterForKey(key, solParam) {
-      const state = getDefaultState()[key];
-      if (key === "filter") {
-        const types = ["lowpass", "highpass", "bandpass"];
-        state.type = solParam ? randChoice(types) : randChoice(types);
-        state.lowerFreq = randInt(120, 2200);
-        state.upperFreq = randInt(2800, 9000);
-        state.slope = randChoice([12, 24, 48]);
-      } else if (key === "eq") {
-        state.bands[1].gain = randInt(-9, 9);
-        state.bands[2].frequency = randInt(1200, 5000);
-        state.bands[2].gain = randInt(-10, 10);
-      } else if (key === "compressor") {
-        state.threshold = randInt(-42, -8);
-        state.ratio = randChoice([2, 3, 4, 6, 8, 10]);
-        state.makeup = randInt(0, 8);
-      } else if (key === "gain-stage") {
-        state.gain = randInt(-12, 12);
-        if (solParam && Math.abs(state.gain - solParam.gain) < 3) state.gain = -state.gain || 6;
-      } else if (key === "reverb") {
-        state.preDelay = randInt(5, 130);
-        state.roomSize = randInt(20, 95);
-        state.decay = Number((0.6 + Math.random() * 4.2).toFixed(1));
-        state.wet = randInt(10, 75);
-      } else if (key === "delay") {
-        state.mode = "free";
-        state.time = randInt(120, 950);
-        state.feedback = randInt(15, 80);
-        state.mix = randInt(15, 70);
-      } else if (key === "pitch-shifter") {
-        let st = randInt(-9, 9);
-        if (solParam && st === solParam.semitone) st = st >= 0 ? st - 4 : st + 4;
-        state.semitone = st;
-        state.octave = 0;
-      }
-      return state;
+    function updateHintChips() {
+      const solKeys = Object.keys(activePreset.solution || {});
+      $("hintChipsContainer").innerHTML = solKeys.length
+        ? solKeys.map(k => `<span class="hint-proc-chip">ใช้ ${PROCESSORS[k]?.title || k}</span>`).join("")
+        : `<span class="hint-proc-chip">ไม่ต้องใช้ Processor</span>`;
     }
 
-    function loadPresetAndScramble(presetId) {
-      activePreset = TARGET_PRESETS.find(p => p.id === presetId) || TARGET_PRESETS[0];
+    // เลือกโจทย์หรือกดสุ่มโจทย์ -> Chain ว่างเปล่าเสมอ ให้ผู้ใช้เลือก Processor เอง
+    function loadPresetEmptyChain(presetId, isRandom = false) {
+      if (isRandom) {
+        const others = TARGET_PRESETS.filter(p => p.id !== activePreset.id);
+        const pool = others.length ? others : TARGET_PRESETS;
+        activePreset = pool[Math.floor(Math.random() * pool.length)];
+        presetSelect.value = activePreset.id;
+      } else {
+        activePreset = TARGET_PRESETS.find(p => p.id === presetId) || TARGET_PRESETS[0];
+      }
+
       $("targetName").textContent = activePreset.name;
       $("missionDescription").textContent = activePreset.description;
-      $("missionHint").textContent = `คำใบ้: ${activePreset.hint}`;
+      updateHintChips();
 
-      // Stop audio
       [targetAudio, processedAudio].forEach(a => { a.pause(); a.currentTime = 0; });
       $("targetPlayButton").textContent = "▶";
       $("processedPlayButton").textContent = "▶";
       $("targetPlayButton").classList.remove("playing");
       $("processedPlayButton").classList.remove("playing");
 
-      // Both players load the same underlying source audio so DSP difference is 100% pure
       targetAudio.src = activePreset.audioUrl;
       processedAudio.src = activePreset.audioUrl;
       targetAudio.load();
       processedAudio.load();
 
-      // Build scrambled starting rack from solution keys (+ optional decoy processor)
       processorValues = getDefaultState();
       selectedProcessors.length = 0;
-
-      const solKeys = Object.keys(activePreset.solution);
-      solKeys.forEach(k => {
-        selectedProcessors.push(k);
-        processorValues[k] = randomizeParameterForKey(k, activePreset.solution[k]);
-      });
-
-      // Add 1 decoy processor 50% of the time so user also practices removing unneeded tools
-      const remaining = ALL_PROC_KEYS.filter(k => !solKeys.includes(k));
-      if (remaining.length && Math.random() > 0.45) {
-        const decoy = randChoice(remaining);
-        selectedProcessors.push(decoy);
-        processorValues[decoy] = randomizeParameterForKey(decoy, null);
-      }
-
+      pickerOpen = false;
       renderRack();
-      saveStatus.textContent = `โหลดโจทย์ "${activePreset.name}" และสุ่มค่าเริ่มต้นใหม่แล้ว — ลองกดฟังเทียบกันได้เลย`;
+      buildLiveChain().catch(console.error);
+
+      saveStatus.textContent = isRandom
+        ? `สุ่มโจทย์ "${activePreset.name}" แล้ว — กด + Add Processor เพื่อเลือกเครื่องมือเองได้เลย`
+        : `โหลดโจทย์ "${activePreset.name}" แล้ว — กด + Add Processor เพื่อเริ่มปรับแต่ง`;
     }
 
     // -----------------------------------------
@@ -1306,8 +1298,8 @@
       await ensureAudioContext();
       try { targetMediaSource.disconnect(); } catch (_) {}
       targetNodes.forEach(n => { try { n.disconnect(); } catch (_) {} });
-      const solKeys = Object.keys(activePreset.solution);
-      const res = wireChainOnContext(audioContext, targetMediaSource, targetAudio, solKeys, activePreset.solution, false);
+      const solKeys = Object.keys(activePreset.solution || {});
+      const res = wireChainOnContext(audioContext, targetMediaSource, targetAudio, solKeys, activePreset.solution || {}, false);
       targetNodes = res.nodes;
       res.tail.connect(audioContext.destination);
     }
@@ -2653,13 +2645,43 @@
     bindAudioPlayer(targetAudio, $("targetPlayButton"), $("targetTime"), "targetWaveCanvas", "rgba(98,217,173,0.35)", "#62d9ad", 1.2, "target");
     bindAudioPlayer(processedAudio, $("processedPlayButton"), $("processedTime"), "processedWaveCanvas", "rgba(255,173,89,0.42)", "#ffad59", 2.7, "user");
 
-    presetSelect.addEventListener("change", () => loadPresetAndScramble(presetSelect.value));
-    $("scrambleButton").addEventListener("click", () => loadPresetAndScramble(presetSelect.value));
+    presetSelect.addEventListener("change", () => loadPresetEmptyChain(presetSelect.value, false));
+    $("scrambleButton").addEventListener("click", () => loadPresetEmptyChain(null, true));
+
     $("resetButton").addEventListener("click", () => {
+      processorValues = getDefaultState();
       selectedProcessors.length = 0;
+      pickerOpen = false;
       renderRack();
       buildLiveChain().catch(console.error);
       saveStatus.textContent = "ล้าง Processor Chain เรียบร้อยแล้ว";
+    });
+
+    $("toggleHintBtn").addEventListener("click", () => {
+      hintVisible = !hintVisible;
+      $("hintChipsContainer").hidden = !hintVisible;
+      $("toggleHintBtn").textContent = hintVisible ? "🙈 ซ่อน Hint" : "💡 ดู Hint ว่าใช้ Processor อะไร";
+    });
+
+    $("copyJsonButton").addEventListener("click", async () => {
+      const exported = {};
+      selectedProcessors.forEach(k => {
+        const clean = { ...processorValues[k] };
+        delete clean.grHistory;
+        delete clean.peakHold;
+        delete clean.peakTimer;
+        delete clean.rotX;
+        delete clean.rotY;
+        delete clean.isDragging;
+        exported[k] = clean;
+      });
+      const jsonStr = JSON.stringify(exported, null, 2);
+      try {
+        await navigator.clipboard.writeText(jsonStr);
+        saveStatus.textContent = "ก๊อปปี้พารามิเตอร์ (JSON) ของ Chain ปัจจุบันลง Clipboard แล้ว! นำไปวางใน solution ของ TARGET_PRESETS ได้เลย";
+      } catch (_) {
+        prompt("ก๊อปปี้ JSON นี้ไปวางใน solution ของ TARGET_PRESETS:", jsonStr);
+      }
     });
 
     // -----------------------------------------
@@ -2676,14 +2698,13 @@
     }
 
     function evaluateSubmission() {
-      const sol = activePreset.solution;
+      const sol = activePreset.solution || {};
       const solKeys = Object.keys(sol);
       const userActiveKeys = selectedProcessors.filter(k => processorValues[k]?.enabled);
 
       const matchRows = [];
       const advices = [];
 
-      // 1. Processor Selection Score (Max 35 pts)
       let hitCount = 0;
       solKeys.forEach(k => {
         if (userActiveKeys.includes(k)) {
@@ -2705,11 +2726,10 @@
       const extraPenalty = extraKeys.length * 0.12;
       const selectionScore = Math.round(clamp(baseSelectionRatio - extraPenalty, 0, 1) * 35);
 
-      // 2. Parameter Accuracy Score (Max 65 pts)
       let paramScoreSum = 0;
 
       solKeys.forEach(k => {
-        if (!userActiveKeys.includes(k)) return; // 0 pts if missing
+        if (!userActiveKeys.includes(k)) return;
         const u = processorValues[k];
         const t = sol[k];
 
@@ -2735,8 +2755,7 @@
         }
 
         if (k === "eq") {
-          // Compare peak energy region around target boosted/cut bands
-          const targetMid = t.bands[2];
+          const targetMid = t.bands[2] || t.bands[0];
           const userMid = u.bands[2] || u.bands[0];
           const freqS = logFreqScore(userMid.frequency, targetMid.frequency, 1.5);
           const gainS = proximityScore(userMid.gain, targetMid.gain, 10);
@@ -2903,8 +2922,8 @@
       if (!user) window.location.href = "login.html";
     });
 
-    // Initialize first preset & scramble on load
-    loadPresetAndScramble(TARGET_PRESETS[0].id);
+    // Initialize first preset with empty chain
+    loadPresetEmptyChain(TARGET_PRESETS[0].id, false);
   </script>
 </body>
 </html>
