@@ -58,11 +58,8 @@ button {
   font-family: inherit;
 }
 
-
 /* =========================================
    1. HEADER
-   รูปแบบเดียวกับ Landing Page
-   ☰ ซ้าย + Logo ถัดมา
 ========================================= */
 
 .main-header {
@@ -82,16 +79,12 @@ button {
   z-index: 1000;
 }
 
-/* Header left group */
-
 .header-left {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 16px;
 }
-
-/* Hamburger */
 
 .menu-button {
   display: flex;
@@ -116,8 +109,6 @@ button {
   transform: scale(1.08);
 }
 
-/* Logo */
-
 .logo {
   font-size: 23px;
   font-weight: 800;
@@ -127,7 +118,6 @@ button {
   letter-spacing: -.5px;
   white-space: nowrap;
 }
-
 
 /* =========================================
    2. SIDE MENU
@@ -211,7 +201,6 @@ button {
   box-shadow: 0 0 15px rgba(255,157,67,.3);
 }
 
-
 /* =========================================
    3. MAIN CONTAINER
 ========================================= */
@@ -224,24 +213,12 @@ button {
   padding: 55px 35px 30px;
 }
 
-
 /* =========================================
    4. SECTION HEADING
 ========================================= */
 
 .section-heading {
   margin-bottom: 20px;
-}
-
-.section-label {
-  color: var(--orange);
-
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-
-  letter-spacing: 2.5px;
-  margin-bottom: 8px;
 }
 
 .section-heading h1,
@@ -252,14 +229,13 @@ button {
   letter-spacing: -.7px;
 }
 
-
 /* =========================================
-   5. LEARNING PROGRESS CARD
+   5. OVERVIEW CARD & USER SUMMARY BANNER
 ========================================= */
 
 .progress-card {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr 1fr;
 
   gap: 20px;
   padding: 25px;
@@ -279,124 +255,128 @@ button {
   overflow: hidden;
 }
 
-.progress-left {
+/* แถบการ์ดข้อมูลผู้ใช้แบบยาวอันเดียว */
+.user-summary-banner {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  padding: 18px 22px;
+  background: linear-gradient(90deg, rgba(255,157,67,.12) 0%, rgba(255,157,67,.03) 100%);
+  border: 1px solid rgba(255,157,67,.35);
+  border-radius: 14px;
+
+  transition: .25s ease;
+  cursor: pointer;
+}
+
+.user-summary-banner:hover {
+  border-color: var(--orange);
+  background: linear-gradient(90deg, rgba(255,157,67,.18) 0%, rgba(255,157,67,.05) 100%);
+  transform: translateY(-2px);
+}
+
+.user-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
   min-width: 0;
 }
 
-.progress-caption {
-  color: var(--muted);
-  font-size: 13px;
-  margin-bottom: 5px;
-}
+.user-avatar {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
 
-.progress-left h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+  background: linear-gradient(145deg, #55371f, #2a1d14);
+  border: 1px solid var(--orange);
+
   color: var(--orange);
   font-family: 'Montserrat', sans-serif;
-  font-size: 35px;
+  font-size: 21px;
   font-weight: 800;
 }
 
-.progress-left h2 span {
-  color: var(--muted);
-  font-size: 19px;
-  font-weight: 500;
+.user-banner-info {
+  min-width: 0;
 }
 
-.progress-description {
+.user-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.user-name-row h2 {
+  font-family: 'Montserrat', 'Kanit', sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-rank-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--orange);
+  background: rgba(255,157,67,.15);
+  border: 1px solid rgba(255,157,67,.4);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.user-banner-sub {
   color: var(--muted);
   font-size: 12px;
-  margin-top: -2px;
 }
 
-
-/* Progress Bar */
-
-.progress-bar {
-  width: 100%;
-  max-width: 350px;
-  height: 5px;
-
-  margin-top: 17px;
-
-  background: #352a21;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.progress-bar-fill {
-  width: 0%;
-  height: 100%;
-
-  background: linear-gradient(
-    90deg,
-    var(--orange),
-    var(--gold)
-  );
-
-  border-radius: 10px;
-  transition: width .5s ease;
-}
-
-
-/* Progress Circle */
-
-.progress-right {
+.user-banner-right {
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 26px;
+  flex-shrink: 0;
 }
 
-.progress-circle {
-  width: 105px;
-  height: 105px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 50%;
-
-  background: conic-gradient(
-    var(--orange) 0deg,
-    #392b20 0deg
-  );
-
-  position: relative;
+.user-stat-box {
+  text-align: right;
 }
 
-.progress-circle::before {
-  content: "";
-
-  width: 85px;
-  height: 85px;
-
-  position: absolute;
-
-  background: var(--panel);
-  border-radius: 50%;
-}
-
-.circle-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  position: relative;
-  z-index: 1;
-}
-
-.circle-inner strong {
-  color: var(--orange);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 19px;
-  font-weight: 800;
-}
-
-.circle-inner span {
+.user-stat-label {
+  display: block;
+  font-size: 11px;
   color: var(--muted);
-  font-size: 10px;
+  margin-bottom: 2px;
 }
 
+.user-stat-val {
+  font-family: 'Montserrat', 'Kanit', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--orange);
+}
+
+.banner-arrow {
+  color: var(--orange);
+  font-size: 19px;
+  opacity: .8;
+  transition: .25s;
+}
+
+.user-summary-banner:hover .banner-arrow {
+  opacity: 1;
+  transform: translate(3px, -3px);
+}
 
 /* =========================================
    6. DIVIDER
@@ -412,9 +392,8 @@ button {
   margin: 2px 0;
 }
 
-
 /* =========================================
-   7. PRETEST + RECENT LESSON
+   7. PRETEST + RECENT LESSON (คงไว้เหมือนเดิม)
 ========================================= */
 
 .info-item {
@@ -483,7 +462,6 @@ button {
   font-size: 10px;
 }
 
-
 /* =========================================
    8. START EXPLORING
 ========================================= */
@@ -502,17 +480,11 @@ button {
   margin-top: 8px;
 }
 
-
-/* Three Cards */
-
 .explore-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
 }
-
-
-/* Card */
 
 .explore-card {
   min-height: 185px;
@@ -560,9 +532,6 @@ button {
   transform: scale(1.5);
 }
 
-
-/* Icon */
-
 .explore-icon {
   width: 60px;
   height: 60px;
@@ -591,9 +560,6 @@ button {
   width: 39px;
   height: 39px;
 }
-
-
-/* Card Text */
 
 .explore-card-text {
   margin-top: 16px;
@@ -633,7 +599,6 @@ button {
   transform: translate(3px,-3px);
 }
 
-
 /* =========================================
    9. FOOTER
 ========================================= */
@@ -662,26 +627,35 @@ button {
   letter-spacing: 1px;
 }
 
-
 /* =========================================
-   10. TABLET
+   10. RESPONSIVE
 ========================================= */
 
 @media (max-width: 850px) {
-
   .home-container {
     padding: 40px 25px 25px;
   }
-
 }
 
+@media (max-width: 720px) {
+  .user-summary-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-/* =========================================
-   11. MOBILE
-========================================= */
+  .user-banner-right {
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,157,67,.15);
+  }
+
+  .user-stat-box {
+    text-align: left;
+  }
+}
 
 @media (max-width: 600px) {
-
   .main-header {
     height: 62px;
     padding: 0 20px;
@@ -716,30 +690,7 @@ button {
 
   .progress-card {
     padding: 18px;
-    grid-template-columns: 1fr auto;
     gap: 12px;
-  }
-
-  .progress-left h2 {
-    font-size: 30px;
-  }
-
-  .progress-circle {
-    width: 88px;
-    height: 88px;
-  }
-
-  .progress-circle::before {
-    width: 71px;
-    height: 71px;
-  }
-
-  .circle-inner strong {
-    font-size: 16px;
-  }
-
-  .circle-inner span {
-    font-size: 9px;
   }
 
   .info-item {
@@ -800,34 +751,15 @@ button {
   .home-footer {
     margin-top: 45px;
   }
-
 }
 
-
-/* =========================================
-   12. SMALL MOBILE
-========================================= */
-
 @media (max-width: 360px) {
-
   .progress-card {
     padding: 14px;
   }
-
-  .progress-circle {
-    width: 76px;
-    height: 76px;
-  }
-
-  .progress-circle::before {
-    width: 62px;
-    height: 62px;
-  }
-
   .explore-card {
     padding: 12px;
   }
-
 }
 
 </style>
@@ -836,8 +768,7 @@ button {
 <body>
 
   <!-- =====================================
-       HEADER : เหมือน Landing Page
-       ☰ อยู่ซ้าย + Logo อยู่ถัดไป
+       HEADER
   ====================================== -->
 
   <header class="main-header">
@@ -858,11 +789,13 @@ button {
 
     </div>
 
-    <!-- SIDE MENU -->
+    <!-- SIDE MENU (เพิ่มเมนู My Profile) -->
 
     <nav class="main-menu" id="mainMenu">
 
       <a href="home.html">Home</a>
+
+      <a href="profile.html">My Profile</a>
 
       <a href="pretest.html">Pre Test</a>
 
@@ -889,69 +822,51 @@ button {
 
   <main class="home-container">
 
-    <!-- LEARNING PROGRESS -->
+    <!-- USER OVERVIEW -->
 
     <section class="progress-section">
 
       <div class="section-heading">
-        
-        <h1>Learning Progress</h1>
+        <h1>Overview</h1>
       </div>
-
 
       <div class="progress-card">
 
-        <!-- LEFT : LESSON COUNT -->
+        <!-- แถบการ์ดข้อมูลผู้ใช้แบบยาวอันเดียว -->
+        <a href="profile.html" class="user-summary-banner">
 
-        <div class="progress-left">
-
-          <p class="progress-caption">
-            Completed Lessons
-          </p>
-
-          <h2 id="lessonCount">
-            0 <span>/ 7</span>
-          </h2>
-
-          <p class="progress-description">
-            Keep learning and discover more about sound.
-          </p>
-
-          <div class="progress-bar">
-            <div
-              class="progress-bar-fill"
-              id="progressBarFill">
+          <div class="user-banner-left">
+            <div class="user-avatar" id="userAvatarInitial">U</div>
+            <div class="user-banner-info">
+              <div class="user-name-row">
+                <h2 id="userDisplayName">Loading...</h2>
+                <span class="user-rank-badge" id="userSkillRank">Newcomer</span>
+              </div>
+              <p class="user-banner-sub">
+                คลิกเพื่อดูโปรไฟล์และประวัติพัฒนาการฝึกปรับเสียงทั้งหมด
+              </p>
             </div>
           </div>
 
-        </div>
-
-
-        <!-- RIGHT : CIRCLE PROGRESS -->
-
-        <div class="progress-right">
-
-          <div class="progress-circle" id="progressCircle">
-
-            <div class="circle-inner">
-
-              <strong id="progressPercent">0%</strong>
-
-              <span>Completed</span>
-
+          <div class="user-banner-right">
+            <div class="user-stat-box">
+              <span class="user-stat-label">Practice Attempts</span>
+              <span class="user-stat-val" id="practiceAttemptCount">0 ครั้ง</span>
             </div>
-
+            <div class="user-stat-box">
+              <span class="user-stat-label">Avg. Accuracy</span>
+              <span class="user-stat-val" id="practiceAvgScore">0%</span>
+            </div>
+            <span class="banner-arrow">↗</span>
           </div>
 
-        </div>
-
+        </a>
 
         <!-- DIVIDER -->
 
         <div class="progress-divider"></div>
 
-
-        <!-- PRETEST SCORE -->
+        <!-- PRETEST SCORE (คงไว้เหมือนเดิม) -->
 
         <a href="pretest.html" class="info-item">
 
@@ -980,8 +895,7 @@ button {
 
         </a>
 
-
-        <!-- RECENT LESSON -->
+        <!-- RECENT LESSON (คงไว้เหมือนเดิม) -->
 
         <a id="recentLessonLink" href="learning.html" class="info-item">
 
@@ -1024,7 +938,6 @@ button {
 
       <div class="section-heading explore-heading">
 
-
         <h2>Start Exploring</h2>
 
         <p class="explore-description">
@@ -1033,9 +946,7 @@ button {
 
       </div>
 
-
       <div class="explore-grid">
-
 
         <!-- LEARNING -->
 
@@ -1050,11 +961,8 @@ button {
               stroke-linecap="round" stroke-linejoin="round">
 
               <path d="M7 9.5A3.5 3.5 0 0 1 10.5 6H40v33H10.5A3.5 3.5 0 0 0 7 42.5Z"/>
-
               <path d="M7 9.5v33"/>
-
               <path d="M14 13h18M14 19h18M14 25h12"/>
-
               <path d="M10.5 39H40"/>
 
             </svg>
@@ -1073,7 +981,6 @@ button {
 
         </a>
 
-
         <!-- PRACTICE -->
 
         <a href="practice.html" class="explore-card">
@@ -1087,11 +994,8 @@ button {
               stroke-linecap="round" stroke-linejoin="round">
 
               <rect x="7" y="7" width="34" height="34" rx="7"/>
-
               <path d="M15 17h18M15 24h18M15 31h9"/>
-
               <circle cx="34" cy="31" r="5"/>
-
               <path d="M32 31l1.5 1.5L36 29"/>
 
             </svg>
@@ -1110,7 +1014,6 @@ button {
 
         </a>
 
-
         <!-- POST TEST -->
 
         <a href="posttest.html" class="explore-card">
@@ -1124,11 +1027,8 @@ button {
               stroke-linecap="round" stroke-linejoin="round">
 
               <rect x="8" y="5" width="27" height="37" rx="4"/>
-
               <path d="M15 14h13M15 21h13M15 28h6"/>
-
               <circle cx="34" cy="33" r="9"/>
-
               <path d="M34 28v5l3 2"/>
 
             </svg>
@@ -1147,21 +1047,19 @@ button {
 
         </a>
 
-
       </div>
 
     </section>
 
+    <footer class="home-footer">
+      <span>BEHIND THE SOUND</span>
+      <p>INTERACTIVE AUDIO LEARNING &amp; SOUND PROCESSING LAB</p>
+    </footer>
 
+  </main>
 
   <!-- JAVASCRIPT -->
   <script type="module">
-
-/* =========================================
-   BEHIND THE SOUND
-   HOME PAGE SCRIPT
-   Firebase Authentication + Firestore
-========================================= */
 
 import { auth, db } from "./firebase-config.js";
 
@@ -1172,29 +1070,24 @@ import {
 
 import {
   collection,
+  doc,
+  getDoc,
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-
 // =========================================
-// 1. SETTINGS
-// =========================================
-
-const TOTAL_LESSONS = 7;
-
-
-// =========================================
-// 2. HTML ELEMENTS
+// 1. HTML ELEMENTS
 // =========================================
 
 const menuButton = document.getElementById("menuButton");
 const mainMenu = document.getElementById("mainMenu");
 const logoutButton = document.getElementById("logoutButton");
 
-const lessonCount = document.getElementById("lessonCount");
-const progressPercent = document.getElementById("progressPercent");
-const progressCircle = document.getElementById("progressCircle");
-const progressBarFill = document.getElementById("progressBarFill");
+const userAvatarInitial = document.getElementById("userAvatarInitial");
+const userDisplayName = document.getElementById("userDisplayName");
+const userSkillRank = document.getElementById("userSkillRank");
+const practiceAttemptCount = document.getElementById("practiceAttemptCount");
+const practiceAvgScore = document.getElementById("practiceAvgScore");
 
 const pretestScore = document.getElementById("pretestScore");
 const pretestStatus = document.getElementById("pretestStatus");
@@ -1203,259 +1096,118 @@ const recentLesson = document.getElementById("recentLesson");
 const recentLessonStatus = document.getElementById("recentLessonStatus");
 const recentLessonLink = document.getElementById("recentLessonLink");
 
-
 // =========================================
-// 3. HAMBURGER MENU
+// 2. HAMBURGER MENU
 // =========================================
 
 function toggleMenu() {
-
   const isOpen = mainMenu.classList.toggle("active");
-
-  menuButton.setAttribute(
-    "aria-expanded",
-    isOpen ? "true" : "false"
-  );
-
+  menuButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
 }
 
 function closeMenu() {
-
   mainMenu.classList.remove("active");
-
   menuButton.setAttribute("aria-expanded", "false");
-
 }
-
-
-// Open menu
 
 menuButton.addEventListener("click", toggleMenu);
 
-
-// Close when clicking outside
-
 document.addEventListener("click", (event) => {
-
   const clickedMenu = mainMenu.contains(event.target);
   const clickedButton = menuButton.contains(event.target);
-
   if (!clickedMenu && !clickedButton) {
     closeMenu();
   }
-
 });
 
-
-// Close with Escape
-
 document.addEventListener("keydown", (event) => {
-
   if (event.key === "Escape") {
     closeMenu();
   }
-
 });
 
-
 // =========================================
-// 4. LOG OUT
+// 3. LOG OUT
 // =========================================
 
 logoutButton.addEventListener("click", async () => {
-
   try {
-
     await signOut(auth);
-
     window.location.href = "index.html";
-
   } catch (error) {
-
     console.error("Logout error:", error);
-
     alert("Unable to log out. Please try again.");
-
   }
-
 });
 
-
 // =========================================
-// 5. DEFAULT DISPLAY
-// =========================================
-
-function showDefaultProgress() {
-
-  lessonCount.innerHTML = `0 <span>/ ${TOTAL_LESSONS}</span>`;
-
-  progressPercent.textContent = "0%";
-
-  progressBarFill.style.width = "0%";
-
-  progressCircle.style.background =
-    "conic-gradient(#ff9d43 0deg, #392b20 0deg)";
-
-  pretestScore.textContent = "0";
-
-  pretestStatus.textContent = "Not completed";
-
-  recentLesson.textContent = "Not started";
-
-  recentLessonStatus.textContent = "Start learning";
-
-}
-
-
-// =========================================
-// 6. GET RECORD TIME
+// 4. HELPERS
 // =========================================
 
 function getRecordTime(record) {
-
   const dateValue = record.updatedAt || record.createdAt;
-
   if (!dateValue) return 0;
-
-  if (typeof dateValue.toMillis === "function") {
-    return dateValue.toMillis();
-  }
-
-  if (typeof dateValue.seconds === "number") {
-    return dateValue.seconds * 1000;
-  }
-
-  if (dateValue instanceof Date) {
-    return dateValue.getTime();
-  }
-
+  if (typeof dateValue.toMillis === "function") return dateValue.toMillis();
+  if (typeof dateValue.seconds === "number") return dateValue.seconds * 1000;
+  if (dateValue instanceof Date) return dateValue.getTime();
   return 0;
-
 }
 
-
 // =========================================
-// 7. LEARNING PROGRESS
+// 5. UPDATE USER BANNER (PRACTICE SUMMARY)
 // =========================================
 
-function updateLearningProgress(records) {
+function updateUserPracticeBanner(records) {
+  const practiceRecords = records.filter(item => item.type === "practice");
+  const totalAttempts = practiceRecords.length;
 
-  const completedLessons = records.filter((item) => {
+  if (totalAttempts === 0) {
+    practiceAttemptCount.textContent = "0 ครั้ง";
+    practiceAvgScore.textContent = "0%";
+    userSkillRank.textContent = "Newcomer";
+    return;
+  }
 
-    return (
-      item.type === "lesson" &&
-      (
-        item.completed === true ||
-        item.status === "completed"
-      )
-    );
+  const totalScore = practiceRecords.reduce((sum, item) => sum + Number(item.score ?? 0), 0);
+  const avgScore = Math.round(totalScore / totalAttempts);
 
-  });
+  practiceAttemptCount.textContent = `${totalAttempts} ครั้ง`;
+  practiceAvgScore.textContent = `${avgScore}%`;
 
-
-  // Count unique lessons
-
-  const completedLessonIds = new Set(
-
-    completedLessons
-      .map(item => item.lessonId)
-      .filter(Boolean)
-
-  );
-
-
-  const completedCount = Math.min(
-    completedLessonIds.size,
-    TOTAL_LESSONS
-  );
-
-
-  // Calculate percentage
-
-  const percentage = Math.round(
-    (completedCount / TOTAL_LESSONS) * 100
-  );
-
-
-  // Update text
-
-  lessonCount.innerHTML =
-    `${completedCount} <span>/ ${TOTAL_LESSONS}</span>`;
-
-
-  progressPercent.textContent = `${percentage}%`;
-
-
-  // Update progress bar
-
-  progressBarFill.style.width = `${percentage}%`;
-
-
-  // Update circular progress
-
-  const degree = percentage * 3.6;
-
-  progressCircle.style.background =
-    `conic-gradient(
-      #ff9d43 ${degree}deg,
-      #392b20 ${degree}deg
-    )`;
-
+  if (avgScore >= 85) {
+    userSkillRank.textContent = "Master Sound Engineer";
+  } else if (avgScore >= 65) {
+    userSkillRank.textContent = "Audio Specialist";
+  } else {
+    userSkillRank.textContent = "Sound Explorer";
+  }
 }
 
-
 // =========================================
-// 8. PRETEST SCORE
+// 6. PRETEST SCORE
 // =========================================
 
 function updatePretestScore(records) {
-
   const pretests = records
-
     .filter(item => item.type === "pretest")
-
     .sort((a, b) => getRecordTime(b) - getRecordTime(a));
 
-
-  // No pretest yet
-
   if (pretests.length === 0) {
-
     pretestScore.textContent = "0";
-
     pretestStatus.textContent = "Not completed";
-
     return;
-
   }
-
-
-  // Get latest pretest
 
   const latestPretest = pretests[0];
-
   const score = Number(latestPretest.score ?? 0);
-
   const maxScore = Number(latestPretest.maxScore ?? 0);
 
-
-  if (maxScore > 0) {
-
-    pretestScore.textContent = `${score}/${maxScore}`;
-
-  } else {
-
-    pretestScore.textContent = `${score}`;
-
-  }
-
+  pretestScore.textContent = maxScore > 0 ? `${score}/${maxScore}` : `${score}`;
   pretestStatus.textContent = "Completed";
-
 }
 
-
 // =========================================
-// 9. RECENT LESSON
+// 7. RECENT LESSON
 // =========================================
 
 function getLessonUrl(lesson) {
@@ -1484,11 +1236,8 @@ function getLessonUrl(lesson) {
 }
 
 function updateRecentLesson(records) {
-
   const lessons = records
-
     .filter(item => item.type === "lesson")
-
     .sort((a, b) => getRecordTime(b) - getRecordTime(a));
 
   let latestLesson = lessons[0] || null;
@@ -1496,151 +1245,82 @@ function updateRecentLesson(records) {
   if (!latestLesson) {
     try {
       const localRaw = localStorage.getItem("bts_recent_lesson");
-      if (localRaw) {
-        latestLesson = JSON.parse(localRaw);
-      }
+      if (localRaw) latestLesson = JSON.parse(localRaw);
     } catch (_) {}
   }
 
-  // No lesson yet
-
   if (!latestLesson) {
-
     recentLesson.textContent = "Not started";
-
     recentLessonStatus.textContent = "Start learning";
-
     if (recentLessonLink) recentLessonLink.href = "learning.html";
-
     return;
-
   }
 
-
-  // Get latest lesson
-
-  recentLesson.textContent =
-    latestLesson.lessonName ||
-    latestLesson.lessonId ||
-    "Learning";
-
-
-  const isCompleted =
-    latestLesson.completed === true ||
-    latestLesson.status === "completed";
-
-
-  recentLessonStatus.textContent =
-    isCompleted ? "Completed" : "In progress";
+  recentLesson.textContent = latestLesson.lessonName || latestLesson.lessonId || "Learning";
+  const isCompleted = latestLesson.completed === true || latestLesson.status === "completed";
+  recentLessonStatus.textContent = isCompleted ? "Completed" : "In progress";
 
   if (recentLessonLink) {
     recentLessonLink.href = getLessonUrl(latestLesson);
   }
-
 }
 
-
 // =========================================
-// 10. FIRESTORE
+// 8. FIRESTORE & AUTH
 // =========================================
 
 let unsubscribeProgress = null;
 
+async function loadUserProfileInfo(user) {
+  let name = user.displayName || (user.email ? user.email.split("@")[0] : "Sound Learner");
+  try {
+    const userSnap = await getDoc(doc(db, "users", user.uid));
+    if (userSnap.exists() && userSnap.data().username) {
+      name = userSnap.data().username;
+    }
+  } catch (_) {}
+
+  userDisplayName.textContent = name;
+  userAvatarInitial.textContent = name.charAt(0).toUpperCase();
+}
 
 function loadUserProgress(user) {
-
-  // Stop previous listener
-
   if (unsubscribeProgress) {
     unsubscribeProgress();
   }
 
-
-  // Firestore collection
-
-  const resultsRef = collection(
-    db,
-    "users",
-    user.uid,
-    "learningResults"
-  );
-
-
-  // Listen for database changes
+  const resultsRef = collection(db, "users", user.uid, "learningResults");
 
   unsubscribeProgress = onSnapshot(
-
     resultsRef,
-
     (snapshot) => {
-
       const records = snapshot.docs.map((doc) => ({
-
         id: doc.id,
-
         ...doc.data()
-
       }));
 
-
-      // Update Home page
-
-      updateLearningProgress(records);
-
+      updateUserPracticeBanner(records);
       updatePretestScore(records);
-
       updateRecentLesson(records);
-
     },
-
     (error) => {
-
       console.error("Firestore error:", error);
-
     }
-
   );
-
 }
 
-
-// =========================================
-// 11. AUTHENTICATION CHECK
-// =========================================
-
-showDefaultProgress();
-
-
 onAuthStateChanged(auth, (user) => {
-
   if (user) {
-
-    // Logged in
-
+    loadUserProfileInfo(user);
     loadUserProgress(user);
-
   } else {
-
-    // Not logged in
-
     if (unsubscribeProgress) {
-
       unsubscribeProgress();
-
       unsubscribeProgress = null;
-
     }
-
     window.location.href = "login.html";
-
   }
-
 });
-
-
-// =========================================
-// END OF HOME PAGE
-// =========================================
 
 </script>
 
