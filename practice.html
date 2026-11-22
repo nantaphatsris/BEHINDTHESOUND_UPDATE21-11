@@ -13,6 +13,7 @@
       --orange: #ffad59;
       --gold: #e8a04d;
       --mint: #62d9ad;
+      --danger: #ff6b6b;
       --text: #f4e7d9;
       --muted: #b9a99a;
       --border: rgba(232, 160, 77, 0.38);
@@ -67,9 +68,14 @@
       color: var(--text);
     }
 
-    .reset-top-btn {
+    .header-right-tools {
       justify-self: end;
-      padding: 8px 14px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .top-pill-btn {
+      padding: 8px 13px;
       border-radius: 8px;
       border: 1px solid var(--border);
       background: rgba(255, 255, 255, 0.03);
@@ -78,14 +84,19 @@
       cursor: pointer;
       transition: 0.2s;
     }
-    .reset-top-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .top-pill-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .top-pill-btn.accent {
+      border-color: rgba(255, 173, 89, 0.6);
+      background: rgba(255, 173, 89, 0.12);
+      color: var(--orange);
+    }
 
     /* MAIN LAYOUT */
     .practice-container {
       width: 100%;
       max-width: 1440px;
       margin: 0 auto;
-      padding: 28px 28px 50px;
+      padding: 26px 28px 50px;
     }
 
     /* TOP BAR: TITLE + SOUND SELECTOR */
@@ -95,28 +106,29 @@
       justify-content: space-between;
       align-items: flex-end;
       gap: 20px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     .hero-title h1 {
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 800;
       letter-spacing: -0.5px;
       color: var(--text);
     }
     .hero-title h1 span { color: var(--orange); }
     .hero-title p {
-      font: 300 14px 'Kanit', sans-serif;
+      font: 300 13.5px 'Kanit', sans-serif;
       color: var(--muted);
       margin-top: 4px;
     }
 
     .sound-selector-box {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       background: var(--panel);
-      padding: 10px 16px;
+      padding: 10px 14px;
       border-radius: 12px;
       border: 1px solid var(--border);
     }
@@ -136,6 +148,39 @@
       font: 500 13px 'Kanit', sans-serif;
       outline: none;
       cursor: pointer;
+    }
+
+    /* CHALLENGE BRIEF BANNER */
+    .challenge-brief-bar {
+      background: rgba(255, 173, 89, 0.06);
+      border: 1px solid rgba(232, 160, 77, 0.25);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .brief-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font: 400 13px 'Kanit', sans-serif;
+      color: #e6d5c3;
+    }
+    .brief-tag {
+      background: var(--orange);
+      color: #1a120b;
+      font: 700 10px 'Montserrat', sans-serif;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.8px;
+    }
+    .brief-hint {
+      font: 300 12px 'Kanit', sans-serif;
+      color: var(--muted);
     }
 
     /* A/B WAVEFORM COMPARISON */
@@ -174,7 +219,11 @@
       letter-spacing: 1.2px;
       padding: 4px 8px;
       border-radius: 6px;
-      background: rgba(255, 173, 89, 0.14);
+      background: rgba(98, 217, 173, 0.14);
+      color: var(--mint);
+    }
+    .wave-card.processed .wave-badge {
+      background: rgba(255, 173, 89, 0.16);
       color: var(--orange);
     }
     .wave-card-title h3 {
@@ -196,9 +245,9 @@
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      border: 1.5px solid var(--orange);
-      background: rgba(255, 173, 89, 0.12);
-      color: var(--orange);
+      border: 1.5px solid var(--mint);
+      background: rgba(98, 217, 173, 0.12);
+      color: var(--mint);
       font-size: 15px;
       display: grid;
       place-items: center;
@@ -207,6 +256,17 @@
       transition: 0.2s;
     }
     .circle-play-btn:hover, .circle-play-btn.playing {
+      background: var(--mint);
+      color: #101915;
+    }
+
+    .wave-card.processed .circle-play-btn {
+      border-color: var(--orange);
+      background: rgba(255, 173, 89, 0.12);
+      color: var(--orange);
+    }
+    .wave-card.processed .circle-play-btn:hover,
+    .wave-card.processed .circle-play-btn.playing {
       background: var(--orange);
       color: #1a120b;
     }
@@ -259,7 +319,7 @@
       flex-shrink: 0;
     }
 
-    /* PROCESSOR DEVICE CARD (LAB GRADE) */
+    /* PROCESSOR DEVICE CARD */
     .device-card {
       width: 560px;
       min-width: 560px;
@@ -354,7 +414,7 @@
     }
     .remove-device-btn:hover { border-color: #ff6b6b; color: #ff6b6b; }
 
-    /* LAB BODY INSIDE DEVICE CARD */
+    /* LAB BODY */
     .device-lab-body {
       padding: 16px 18px 18px;
       display: flex;
@@ -397,21 +457,9 @@
       border-radius: 3px;
     }
 
-    .lab-controls-grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-    .lab-controls-grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-    }
-    .lab-controls-grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 8px;
-    }
+    .lab-controls-grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .lab-controls-grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .lab-controls-grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
 
     .lab-ctrl-box {
       padding: 10px 12px;
@@ -463,13 +511,7 @@
       font: 400 11px 'Kanit', 'Montserrat', sans-serif;
     }
 
-    /* EQ SPECIFIC */
-    .eq-toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 7px;
-    }
+    .eq-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
     .lab-mini-btn {
       padding: 6px 10px;
       border-radius: 7px;
@@ -480,19 +522,14 @@
       cursor: pointer;
       transition: 0.15s;
     }
-    .lab-mini-btn.primary {
-      background: var(--orange);
-      color: #1f140a;
-      border-color: var(--orange);
-    }
-    .lab-mini-btn.active {
+    .lab-mini-btn.primary, .lab-mini-btn.active {
       background: var(--orange);
       color: #1f140a;
       border-color: var(--orange);
     }
     .lab-mini-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
-    /* COMPRESSOR SPECIFIC */
+    /* COMPRESSOR */
     .comp-ab-row {
       display: flex;
       justify-content: space-between;
@@ -504,202 +541,53 @@
       font: 400 11px 'Kanit', sans-serif;
       color: #cbbba9;
     }
-    .comp-meter-strip {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
-      gap: 8px;
-    }
+    .comp-meter-strip { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 8px; }
     .comp-meter-box {
       padding: 9px 11px;
       background: rgba(255, 255, 255, 0.025);
       border: 1px solid rgba(232, 160, 77, 0.14);
       border-radius: 9px;
     }
-    .comp-meter-box span {
-      display: block;
-      font: 700 8.5px 'Montserrat', sans-serif;
-      color: #a99886;
-      letter-spacing: 0.8px;
-    }
-    .comp-meter-box strong {
-      font: 700 13px 'Montserrat', sans-serif;
-      color: #f4e7d9;
-    }
-    .gr-track {
-      height: 8px;
-      margin-top: 5px;
-      background: #0d0c0b;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .gr-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #72c99e, #e9c46a, #ff7eb6);
-      transition: width 0.06s linear;
-    }
-    .comp-adv-details {
-      border: 1px solid rgba(232, 160, 77, 0.18);
-      border-radius: 9px;
-      background: rgba(255, 255, 255, 0.02);
-    }
-    .comp-adv-details summary {
-      padding: 8px 12px;
-      font: 600 11px 'Kanit', sans-serif;
-      color: #e8c49d;
-      cursor: pointer;
-    }
-    .comp-adv-details .lab-controls-grid-3 {
-      padding: 0 10px 10px;
-    }
+    .comp-meter-box span { display: block; font: 700 8.5px 'Montserrat', sans-serif; color: #a99886; letter-spacing: 0.8px; }
+    .comp-meter-box strong { font: 700 13px 'Montserrat', sans-serif; color: #f4e7d9; }
+    .gr-track { height: 8px; margin-top: 5px; background: #0d0c0b; border-radius: 10px; overflow: hidden; }
+    .gr-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #72c99e, #e9c46a, #ff7eb6); transition: width 0.06s linear; }
+    .comp-adv-details { border: 1px solid rgba(232, 160, 77, 0.18); border-radius: 9px; background: rgba(255, 255, 255, 0.02); }
+    .comp-adv-details summary { padding: 8px 12px; font: 600 11px 'Kanit', sans-serif; color: #e8c49d; cursor: pointer; }
+    .comp-adv-details .lab-controls-grid-3 { padding: 0 10px 10px; }
 
     /* GAIN STAGE LED METERS */
-    .gain-console-box {
-      padding: 14px;
-      background: #151412;
-      border: 1px solid rgba(232, 160, 77, 0.25);
-      border-radius: 12px;
-    }
-    .gain-meters-pair {
-      display: grid;
-      grid-template-columns: 1fr 24px 1fr;
-      gap: 8px;
-      align-items: center;
-    }
-    .gain-ch-card {
-      padding: 10px;
-      background: #0f100e;
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 10px;
-    }
-    .gain-ch-head {
-      display: flex;
-      justify-content: space-between;
-      font: 700 10px 'Montserrat', sans-serif;
-      color: #e8c49d;
-      margin-bottom: 8px;
-    }
-    .gain-led-body {
-      display: grid;
-      grid-template-columns: 22px 1fr 54px;
-      gap: 6px;
-      height: 165px;
-      align-items: stretch;
-    }
-    .gain-led-scale {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      font: 8px 'Montserrat', sans-serif;
-      color: #7e756a;
-      text-align: right;
-    }
-    .gain-led-strip {
-      display: flex;
-      flex-direction: column-reverse;
-      gap: 2px;
-      padding: 4px;
-      background: #090a09;
-      border: 1px solid #2c2f29;
-      border-radius: 4px;
-    }
-    .gain-led-strip i {
-      display: block;
-      flex: 1;
-      background: #232b25;
-      border-radius: 1px;
-    }
+    .gain-console-box { padding: 14px; background: #151412; border: 1px solid rgba(232, 160, 77, 0.25); border-radius: 12px; }
+    .gain-meters-pair { display: grid; grid-template-columns: 1fr 24px 1fr; gap: 8px; align-items: center; }
+    .gain-ch-card { padding: 10px; background: #0f100e; border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 10px; }
+    .gain-ch-head { display: flex; justify-content: space-between; font: 700 10px 'Montserrat', sans-serif; color: #e8c49d; margin-bottom: 8px; }
+    .gain-led-body { display: grid; grid-template-columns: 22px 1fr 54px; gap: 6px; height: 165px; align-items: stretch; }
+    .gain-led-scale { display: flex; flex-direction: column; justify-content: space-between; font: 8px 'Montserrat', sans-serif; color: #7e756a; text-align: right; }
+    .gain-led-strip { display: flex; flex-direction: column-reverse; gap: 2px; padding: 4px; background: #090a09; border: 1px solid #2c2f29; border-radius: 4px; }
+    .gain-led-strip i { display: block; flex: 1; background: #232b25; border-radius: 1px; }
     .gain-led-strip i.lit { background: #39b86f; box-shadow: 0 0 4px rgba(57,184,111,0.4); }
     .gain-led-strip i.hot { background: #d5b83d; }
     .gain-led-strip i.red { background: #dc5147; }
-    .gain-led-val {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-    .gain-led-val strong {
-      font: 700 14px 'Montserrat', sans-serif;
-      color: #8ce0a9;
-    }
-    .gain-led-val small {
-      font: 8px 'Montserrat', sans-serif;
-      color: #888;
-    }
-    .gain-stats-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .gain-stat-pill {
-      padding: 7px 9px;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-    .gain-stat-pill span {
-      display: block;
-      font: 700 8px 'Montserrat', sans-serif;
-      color: #998c7c;
-    }
-    .gain-stat-pill strong {
-      font: 700 12px 'Montserrat', sans-serif;
-      color: #e8c18f;
-    }
-    .gain-stat-pill.clipping {
-      background: rgba(220, 81, 71, 0.18);
-      border-color: #ff665c;
-    }
+    .gain-led-val { display: flex; flex-direction: column; justify-content: flex-end; }
+    .gain-led-val strong { font: 700 14px 'Montserrat', sans-serif; color: #8ce0a9; }
+    .gain-led-val small { font: 8px 'Montserrat', sans-serif; color: #888; }
+    .gain-stats-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+    .gain-stat-pill { padding: 7px 9px; background: rgba(255, 255, 255, 0.03); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.06); }
+    .gain-stat-pill span { display: block; font: 700 8px 'Montserrat', sans-serif; color: #998c7c; }
+    .gain-stat-pill strong { font: 700 12px 'Montserrat', sans-serif; color: #e8c18f; }
+    .gain-stat-pill.clipping { background: rgba(220, 81, 71, 0.18); border-color: #ff665c; }
     .gain-stat-pill.clipping strong { color: #ff665c; }
 
-    /* REVERB 3D HUD & SUMMARY */
-    .reverb-hud-overlay {
-      position: absolute;
-      right: 12px;
-      bottom: 10px;
-      text-align: right;
-      pointer-events: none;
-    }
-    .reverb-hud-overlay small {
-      display: block;
-      font: 700 8px 'Montserrat', sans-serif;
-      color: #9e8d7b;
-    }
-    .reverb-hud-overlay strong {
-      font: 700 13px 'Montserrat', sans-serif;
-      color: var(--orange);
-    }
-    .reverb-hint-overlay {
-      position: absolute;
-      left: 12px;
-      bottom: 10px;
-      font: 300 10px 'Kanit', sans-serif;
-      color: #9e8d7b;
-      pointer-events: none;
-    }
+    /* REVERB HUD */
+    .reverb-hud-overlay { position: absolute; right: 12px; bottom: 10px; text-align: right; pointer-events: none; }
+    .reverb-hud-overlay small { display: block; font: 700 8px 'Montserrat', sans-serif; color: #9e8d7b; }
+    .reverb-hud-overlay strong { font: 700 13px 'Montserrat', sans-serif; color: var(--orange); }
+    .reverb-hint-overlay { position: absolute; left: 12px; bottom: 10px; font: 300 10px 'Kanit', sans-serif; color: #9e8d7b; pointer-events: none; }
 
-    /* DELAY NOTE BUTTONS */
-    .delay-note-row {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 5px;
-      margin-top: 8px;
-    }
-    .delay-note-chip {
-      padding: 6px 3px;
-      border-radius: 7px;
-      border: 1px solid rgba(232, 160, 77, 0.22);
-      background: #161310;
-      color: #d9cec2;
-      font: 500 10px 'Kanit', sans-serif;
-      cursor: pointer;
-      text-align: center;
-    }
-    .delay-note-chip.active {
-      border-color: var(--orange);
-      background: rgba(255, 157, 67, 0.18);
-      color: #ffd09c;
-    }
+    /* DELAY NOTE CHIPS */
+    .delay-note-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; margin-top: 8px; }
+    .delay-note-chip { padding: 6px 3px; border-radius: 7px; border: 1px solid rgba(232, 160, 77, 0.22); background: #161310; color: #d9cec2; font: 500 10px 'Kanit', sans-serif; cursor: pointer; text-align: center; }
+    .delay-note-chip.active { border-color: var(--orange); background: rgba(255, 157, 67, 0.18); color: #ffd09c; }
 
     /* ADD PROCESSOR SLOT */
     .add-processor-slot {
@@ -717,11 +605,7 @@
       flex-shrink: 0;
       transition: 0.2s;
     }
-    .add-processor-slot:hover {
-      border-color: var(--orange);
-      background: rgba(255, 173, 89, 0.07);
-    }
-
+    .add-processor-slot:hover { border-color: var(--orange); background: rgba(255, 173, 89, 0.07); }
     .add-processor-trigger {
       display: flex;
       flex-direction: column;
@@ -743,14 +627,7 @@
       font-size: 26px;
       background: rgba(255, 173, 89, 0.12);
     }
-
-    .processor-menu {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 12px;
-    }
+    .processor-menu { width: 100%; display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
     .processor-menu[hidden] { display: none; }
     .proc-option-btn {
       width: 100%;
@@ -764,14 +641,8 @@
       cursor: pointer;
       transition: 0.15s;
     }
-    .proc-option-btn:hover:not(:disabled) {
-      border-color: var(--orange);
-      background: rgba(255, 173, 89, 0.15);
-    }
-    .proc-option-btn:disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-    }
+    .proc-option-btn:hover:not(:disabled) { border-color: var(--orange); background: rgba(255, 173, 89, 0.15); }
+    .proc-option-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
     /* FOOTER SUBMIT BAR */
     .bottom-action-bar {
@@ -785,10 +656,7 @@
       align-items: center;
       gap: 16px;
     }
-    .status-text {
-      font: 400 13px 'Kanit', sans-serif;
-      color: var(--muted);
-    }
+    .status-text { font: 400 13px 'Kanit', sans-serif; color: var(--muted); }
     .submit-btn {
       padding: 13px 34px;
       border-radius: 12px;
@@ -808,7 +676,7 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.82);
+      background: rgba(0, 0, 0, 0.84);
       display: none;
       align-items: center;
       justify-content: center;
@@ -819,49 +687,67 @@
 
     .modal-card {
       width: 100%;
-      max-width: 500px;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
       background: #211d17;
       border: 1.5px solid var(--border);
       border-radius: 20px;
-      padding: 30px;
+      padding: 28px;
       text-align: center;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
     }
-    .modal-eyebrow {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: var(--orange);
-    }
-    .modal-score {
-      font-size: 58px;
-      font-weight: 800;
-      color: #ffbe78;
-      margin: 10px 0 4px;
-    }
+    .modal-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--orange); }
+    .modal-score { font-size: 56px; font-weight: 800; color: #ffbe78; margin: 6px 0 2px; }
     .modal-score span { font-size: 20px; color: var(--muted); }
-    .modal-msg {
-      font: 400 14px 'Kanit', sans-serif;
-      color: var(--text);
-      margin-bottom: 16px;
-    }
-    .modal-feedback {
-      text-align: left;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(232, 160, 77, 0.22);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 22px;
-      font: 300 13px/1.6 'Kanit', sans-serif;
-      color: #d6c6b5;
-    }
-    .modal-feedback ul { padding-left: 18px; margin-top: 6px; }
+    .modal-msg { font: 400 14px 'Kanit', sans-serif; color: var(--text); margin-bottom: 14px; }
 
-    .modal-choice-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+    .score-breakdown-box {
+      text-align: left;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(232, 160, 77, 0.25);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 20px;
     }
+    .breakdown-section-title {
+      font: 700 11px 'Montserrat', sans-serif;
+      color: var(--orange);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .proc-score-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font: 400 13px 'Kanit', sans-serif;
+    }
+    .proc-score-row:last-child { border-bottom: none; }
+    .badge-ok { color: var(--mint); font-weight: 600; }
+    .badge-warn { color: #ffd166; font-weight: 600; }
+    .badge-miss { color: var(--danger); font-weight: 600; }
+
+    .advice-list {
+      list-style: none;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      font: 300 13px/1.5 'Kanit', sans-serif;
+      color: #e4d5c5;
+    }
+    .advice-list li {
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 3px solid var(--orange);
+    }
+    .advice-list li.good { border-left-color: var(--mint); }
+
+    .modal-choice-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .btn-continue {
       padding: 13px;
       border-radius: 11px;
@@ -872,7 +758,6 @@
       cursor: pointer;
     }
     .btn-continue:hover { background: rgba(255, 173, 89, 0.22); }
-
     .btn-finish {
       padding: 13px;
       border-radius: 11px;
@@ -896,23 +781,32 @@
   <header class="practice-header">
     <button class="back-button" id="backButton" type="button" aria-label="Back">‹</button>
     <div class="header-title">PRACTICE</div>
-    <button class="reset-top-btn" id="resetButton" type="button">Reset Chain</button>
+    <div class="header-right-tools">
+      <button class="top-pill-btn accent" id="scrambleButton" type="button">🎲 สุ่มโจทย์ใหม่</button>
+      <button class="top-pill-btn" id="resetButton" type="button">ล้าง Chain</button>
+    </div>
   </header>
 
   <main class="practice-container">
     <!-- TOP BAR -->
     <div class="top-workspace-bar">
       <div class="hero-title">
-        <h1>Practice Your <span>Sound</span></h1>
-        <p>เลือกเสียงเป้าหมาย เพิ่ม Processor ทั้ง 7 ตัวแบบ Audio Processor Lab แล้วปรับกราฟให้ใกล้เคียงต้นฉบับ</p>
+        <h1>Ear Training <span>Practice</span></h1>
+        <p>เลือกโจทย์เสียง Target ฟังเปรียบเทียบกับเสียงที่ระบบสุ่มค่าไว้ แล้วปรับแก้ Processor ให้เหมือนต้นฉบับ</p>
       </div>
       <div class="sound-selector-box">
-        <label for="sampleSelect">TARGET SOUND</label>
-        <select id="sampleSelect">
-          <option value="assets/crape-6-foley-1-trash-koh.mp3">Trash / Foley 01</option>
-          <option value="assets/crape-2-foley-6-table-toob.mp3">Table / Foley 02</option>
-        </select>
+        <label for="presetSelect">TARGET PRESET</label>
+        <select id="presetSelect"></select>
       </div>
+    </div>
+
+    <!-- CHALLENGE BRIEF -->
+    <div class="challenge-brief-bar">
+      <div class="brief-left">
+        <span class="brief-tag">MISSION</span>
+        <span id="missionDescription">ฟังเสียง Target ด้านซ้าย แล้วปรับเสียงด้านขวาให้ใกล้เคียงที่สุด</span>
+      </div>
+      <span class="brief-hint" id="missionHint">ระบบสุ่มค่าเริ่มต้นให้แล้ว ลองกดฟัง A/B เทียบกันได้เลย</span>
     </div>
 
     <!-- A/B WAVEFORM COMPARISON -->
@@ -920,8 +814,8 @@
       <div class="wave-card">
         <div class="wave-card-header">
           <div class="wave-card-title">
-            <span class="wave-badge">ORIGINAL</span>
-            <h3 id="targetName">Trash / Foley 01</h3>
+            <span class="wave-badge">TARGET SOUND</span>
+            <h3 id="targetName">01. Lo-Fi Radio Trash</h3>
           </div>
           <span class="wave-time" id="targetTime">0.00 / 0.00</span>
         </div>
@@ -935,8 +829,8 @@
       <div class="wave-card processed">
         <div class="wave-card-header">
           <div class="wave-card-title">
-            <span class="wave-badge">YOUR ADJUSTED</span>
-            <h3>Processed Sound</h3>
+            <span class="wave-badge">YOUR SOUND (SCRAMBLED)</span>
+            <h3>เสียงที่กำลังปรับแก้</h3>
           </div>
           <span class="wave-time" id="processedTime">0.00 / 0.00</span>
         </div>
@@ -944,23 +838,21 @@
           <button class="circle-play-btn" id="processedPlayButton" type="button">▶</button>
           <canvas class="wave-canvas" id="processedWaveCanvas" width="460" height="54"></canvas>
         </div>
-        <audio id="processedAudio" preload="auto" src="assets/practice-source.wav"></audio>
+        <audio id="processedAudio" preload="auto"></audio>
       </div>
     </section>
 
-    <!-- HORIZONTAL PROCESSOR RACK -->
+    <!-- HORIZONTAL ABLETON-STYLE RACK -->
     <div class="rack-section-head">
-      <span>AUDIO PROCESSOR CHAIN (เลื่อนปัดแนวนอน ◄ ─── ►)</span>
-      <span class="rack-hint" id="audioNote">กด + Add Processor เพื่อเพิ่มเครื่องมือแบบ Audio Processor Lab</span>
+      <span>YOUR PROCESSOR CHAIN (เลื่อนปัดแนวนอน ◄ ─── ►)</span>
+      <span class="rack-hint" id="audioNote">ปรับพารามิเตอร์หรือเพิ่ม/ลบ Processor ให้ได้คาแรคเตอร์เสียงเหมือน Target</span>
     </div>
 
-    <section class="processor-rack-scroll" id="processorRack">
-      <!-- Dynamic Lab Device Cards + Add Processor Slot rendered via JS -->
-    </section>
+    <section class="processor-rack-scroll" id="processorRack"></section>
 
     <!-- SUBMIT BAR -->
     <section class="bottom-action-bar">
-      <div class="status-text" id="saveStatus">ปรับแต่งเสียงใน Chain เสร็จแล้วกด Submit เพื่อส่งประเมินผล</div>
+      <div class="status-text" id="saveStatus">ฟังเปรียบเทียบเสียง Target กับเสียงของคุณจนพอใจ แล้วกด Submit เพื่อตรวจคะแนน</div>
       <button class="submit-btn" id="submitButton" type="button">SUBMIT →</button>
     </section>
   </main>
@@ -968,13 +860,18 @@
   <!-- POST-SUBMIT MODAL -->
   <div class="modal-overlay" id="resultOverlay" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true">
-      <div class="modal-eyebrow">PRACTICE RESULT</div>
+      <div class="modal-eyebrow">PRACTICE SCORE & DIAGNOSIS</div>
       <div class="modal-score"><strong id="finalScore">0</strong><span> / 100</span></div>
-      <p class="modal-msg" id="resultMessage">ประเมินผลเสร็จสิ้น</p>
-      <div class="modal-feedback">
-        <p id="processorFeedback"></p>
-        <ul id="suggestionList"></ul>
+      <p class="modal-msg" id="resultMessage">ผลการวิเคราะห์พารามิเตอร์เทียบกับ Target</p>
+
+      <div class="score-breakdown-box">
+        <div class="breakdown-section-title">1. ความถูกต้องของการเลือก Processor (35 คะแนน)</div>
+        <div id="processorMatchList"></div>
+
+        <div class="breakdown-section-title" style="margin-top:14px;">2. ความแม่นยำของค่าพารามิเตอร์ & คำแนะนำ (65 คะแนน)</div>
+        <ul class="advice-list" id="suggestionList"></ul>
       </div>
+
       <div class="modal-choice-buttons">
         <button type="button" class="btn-continue" id="tryAgainButton">ปรับแต่งต่อ (Continue)</button>
         <button type="button" class="btn-finish" id="resultHomeButton">จบเลย (Finish)</button>
@@ -988,11 +885,78 @@
     import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     let currentUser = null;
-    const SOURCE_URL = "assets/practice-source.wav";
-    const SAMPLE_OPTIONS = {
-      "assets/crape-6-foley-1-trash-koh.mp3": { name: "Trash / Foley 01" },
-      "assets/crape-2-foley-6-table-toob.mp3": { name: "Table / Foley 02" }
-    };
+
+    // -----------------------------------------
+    // TARGET PRESET DATABASE (เสียงเป้าหมาย + เฉลยพารามิเตอร์จริง)
+    // -----------------------------------------
+    const TARGET_PRESETS = [
+      {
+        id: "lofi-radio-trash",
+        name: "01. Lo-Fi Radio Trash (Foley 01)",
+        audioUrl: "assets/crape-6-foley-1-trash-koh.mp3",
+        description: "เสียงขยำขยะที่ถูกบีบย่านความถี่ให้แคบเหมือนเสียงออกจากวิทยุเก่า และกดไดนามิกให้แน่น",
+        hint: "สังเกตว่าย่านเบสลึกและแหลมจัดหายไป และความดังค่อนข้างนิ่งสม่ำเสมอ",
+        solution: {
+          filter: { enabled: true, type: "bandpass", lowerFreq: 480, upperFreq: 2600, slope: 24 },
+          compressor: { enabled: true, threshold: -28, ratio: 6, knee: 10, attack: 8, release: 120, makeup: 4.5, monitor: "post" }
+        }
+      },
+      {
+        id: "deep-cave-table",
+        name: "02. Deep Cave Echo (Foley 02)",
+        audioUrl: "assets/crape-2-foley-6-table-toob.mp3",
+        description: "เสียงเคาะโต๊ะที่ถูกกดให้ทุ้มต่ำลงและก้องสะท้อนอยู่ในโถงถ้ำขนาดใหญ่",
+        hint: "ลองฟังระดับ Pitch ที่ต่ำลง พร้อมหางเสียงก้องที่ยาวและกว้าง",
+        solution: {
+          "pitch-shifter": { enabled: true, semitone: -5, octave: 0 },
+          reverb: { enabled: true, preDelay: 45, roomSize: 82, decay: 3.6, wet: 48 }
+        }
+      },
+      {
+        id: "dub-slapback-trash",
+        name: "03. Dub Slapback Delay (Foley 01)",
+        audioUrl: "assets/crape-6-foley-1-trash-koh.mp3",
+        description: "เสียง Foley ที่เพิ่มความใสย่านกลางแหลม และมีเสียงสะท้อนตามหลังเป็นจังหวะต่อเนื่อง",
+        hint: "จับจังหวะระยะห่างของเสียงสะท้อน (Delay Time) และจำนวนครั้งที่วนซ้ำ (Feedback)",
+        solution: {
+          eq: {
+            enabled: true,
+            selectedBand: 2,
+            bands: [
+              { type: "lowshelf", frequency: 120, gain: -3, q: 0.8 },
+              { type: "peaking", frequency: 350, gain: 0, q: 1.0 },
+              { type: "peaking", frequency: 2800, gain: 6.5, q: 1.4 },
+              { type: "highshelf", frequency: 8000, gain: 2, q: 0.8 }
+            ]
+          },
+          delay: { enabled: true, mode: "free", time: 320, bpm: 120, noteMult: 0.5, noteSym: "♪", feedback: 58, mix: 42 }
+        }
+      },
+      {
+        id: "punchy-boost-table",
+        name: "04. Crisp Punchy Table (Foley 02)",
+        audioUrl: "assets/crape-2-foley-6-table-toob.mp3",
+        description: "เสียงเคาะที่ถูกคัดย่านต่ำรบกวนออก บีบหัวเสียงให้กระชับ และดันระดับสัญญาณให้พุ่งเด่น",
+        hint: "มีทั้งการตัดย่านต่ำ, การบีบอัดไดนามิก และการเร่งเกนสัญญาณขาออก",
+        solution: {
+          filter: { enabled: true, type: "highpass", lowerFreq: 180, upperFreq: 3000, slope: 24 },
+          compressor: { enabled: true, threshold: -22, ratio: 4.5, knee: 6, attack: 15, release: 100, makeup: 3, monitor: "post" },
+          "gain-stage": { enabled: true, gain: 5.5 }
+        }
+      },
+      {
+        id: "bright-space-trash",
+        name: "05. High-Pitch Space (Foley 01)",
+        audioUrl: "assets/crape-6-foley-1-trash-koh.mp3",
+        description: "เสียงที่ถูกยกโทนให้สูงขึ้น 1 คู่แปดเต็ม พร้อมมิติ Reverb ระยะสั้นและ Delay เบาๆ",
+        hint: "ระดับเสียงสูงขึ้นชัดเจน (+12 ST) ลองฟังหางเสียงทั้งแบบห้องและแบบสะท้อน",
+        solution: {
+          "pitch-shifter": { enabled: true, semitone: 0, octave: 1 },
+          reverb: { enabled: true, preDelay: 20, roomSize: 55, decay: 1.8, wet: 30 },
+          delay: { enabled: true, mode: "free", time: 210, bpm: 120, noteMult: 0.5, noteSym: "♪", feedback: 35, mix: 25 }
+        }
+      }
+    ];
 
     const PROCESSORS = {
       filter: { title: "Filter" },
@@ -1004,58 +968,42 @@
       "pitch-shifter": { title: "Pitch Shifter" }
     };
 
+    const ALL_PROC_KEYS = Object.keys(PROCESSORS);
     const selectedProcessors = [];
 
-    // Lab-identical state for all 7 processors
-    const processorValues = {
-      filter: { enabled: true, type: "lowpass", lowerFreq: 1000, upperFreq: 3000, slope: 24 },
-      eq: {
-        enabled: true,
-        selectedBand: 1,
-        bands: [
-          { type: "lowshelf", frequency: 120, gain: 0, q: 0.8 },
-          { type: "peaking", frequency: 350, gain: 0, q: 1.0 },
-          { type: "peaking", frequency: 2500, gain: 0, q: 1.2 },
-          { type: "highshelf", frequency: 8000, gain: 0, q: 0.8 }
-        ]
-      },
-      compressor: {
-        enabled: true,
-        threshold: -24,
-        ratio: 4,
-        knee: 12,
-        attack: 10,
-        release: 150,
-        makeup: 0,
-        monitor: "post",
-        grHistory: new Array(120).fill(0)
-      },
-      "gain-stage": { enabled: true, gain: 0, peakHold: -Infinity, peakTimer: 0 },
-      reverb: {
-        enabled: true,
-        preDelay: 35,
-        roomSize: 55,
-        decay: 2.2,
-        wet: 25,
-        rotX: 0.42,
-        rotY: 0.58
-      },
-      delay: {
-        enabled: true,
-        mode: "free",
-        time: 435,
-        bpm: 120,
-        noteMult: 0.5,
-        noteSym: "♪",
-        feedback: 55,
-        mix: 35
-      },
-      "pitch-shifter": { enabled: true, semitone: 0, octave: 0 }
-    };
+    function getDefaultState() {
+      return {
+        filter: { enabled: true, type: "lowpass", lowerFreq: 1200, upperFreq: 4000, slope: 24 },
+        eq: {
+          enabled: true,
+          selectedBand: 1,
+          bands: [
+            { type: "lowshelf", frequency: 120, gain: 0, q: 0.8 },
+            { type: "peaking", frequency: 350, gain: 0, q: 1.0 },
+            { type: "peaking", frequency: 2500, gain: 0, q: 1.2 },
+            { type: "highshelf", frequency: 8000, gain: 0, q: 0.8 }
+          ]
+        },
+        compressor: {
+          enabled: true, threshold: -20, ratio: 3, knee: 12, attack: 10, release: 150, makeup: 0, monitor: "post",
+          grHistory: new Array(120).fill(0)
+        },
+        "gain-stage": { enabled: true, gain: 0, peakHold: -Infinity, peakTimer: 0 },
+        reverb: { enabled: true, preDelay: 25, roomSize: 45, decay: 1.8, wet: 25, rotX: 0.42, rotY: 0.58 },
+        delay: { enabled: true, mode: "free", time: 400, bpm: 120, noteMult: 0.5, noteSym: "♪", feedback: 45, mix: 30 },
+        "pitch-shifter": { enabled: true, semitone: 0, octave: 0 }
+      };
+    }
+
+    let processorValues = getDefaultState();
+    let activePreset = TARGET_PRESETS[0];
 
     const $ = id => document.getElementById(id);
     const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
-    const sampleSelect = $("sampleSelect");
+    const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const randChoice = arr => arr[Math.floor(Math.random() * arr.length)];
+
+    const presetSelect = $("presetSelect");
     const processorRack = $("processorRack");
     const targetAudio = $("targetAudio");
     const processedAudio = $("processedAudio");
@@ -1064,12 +1012,13 @@
     const resultOverlay = $("resultOverlay");
 
     let audioContext = null;
+    let targetMediaSource = null;
     let processedMediaSource = null;
+    let targetNodes = [];
     let processingNodes = [];
     let isSubmitting = false;
     let pickerOpen = false;
 
-    // Live analysis handles for visualizers
     const liveHandles = {
       postAnalyser: null,
       postSpectrumData: null,
@@ -1080,20 +1029,105 @@
       gainOutAnalyser: null
     };
 
-    // Reverb 3D particles
     const reverbParticles = Array.from({ length: 110 }, () => ({
-      x: Math.random() * 2 - 1,
-      y: Math.random() * 2 - 1,
-      z: Math.random() * 2 - 1,
-      size: 1.2 + Math.random() * 2.0,
-      phase: Math.random() * Math.PI * 2,
-      tint: Math.random()
+      x: Math.random() * 2 - 1, y: Math.random() * 2 - 1, z: Math.random() * 2 - 1,
+      size: 1.2 + Math.random() * 2.0, phase: Math.random() * Math.PI * 2, tint: Math.random()
     }));
 
+    // Populate Preset Dropdown
+    TARGET_PRESETS.forEach(p => {
+      const opt = document.createElement("option");
+      opt.value = p.id;
+      opt.textContent = p.name;
+      presetSelect.appendChild(opt);
+    });
+
     // -----------------------------------------
-    // WAVEFORM BARS (TOP A/B PLAYER)
+    // RANDOMIZE / SCRAMBLE GENERATOR
     // -----------------------------------------
-    function drawStaticWaveform(canvasId, color, seedOffset = 0, progress = 0) {
+    function randomizeParameterForKey(key, solParam) {
+      const state = getDefaultState()[key];
+      if (key === "filter") {
+        const types = ["lowpass", "highpass", "bandpass"];
+        state.type = solParam ? randChoice(types) : randChoice(types);
+        state.lowerFreq = randInt(120, 2200);
+        state.upperFreq = randInt(2800, 9000);
+        state.slope = randChoice([12, 24, 48]);
+      } else if (key === "eq") {
+        state.bands[1].gain = randInt(-9, 9);
+        state.bands[2].frequency = randInt(1200, 5000);
+        state.bands[2].gain = randInt(-10, 10);
+      } else if (key === "compressor") {
+        state.threshold = randInt(-42, -8);
+        state.ratio = randChoice([2, 3, 4, 6, 8, 10]);
+        state.makeup = randInt(0, 8);
+      } else if (key === "gain-stage") {
+        state.gain = randInt(-12, 12);
+        if (solParam && Math.abs(state.gain - solParam.gain) < 3) state.gain = -state.gain || 6;
+      } else if (key === "reverb") {
+        state.preDelay = randInt(5, 130);
+        state.roomSize = randInt(20, 95);
+        state.decay = Number((0.6 + Math.random() * 4.2).toFixed(1));
+        state.wet = randInt(10, 75);
+      } else if (key === "delay") {
+        state.mode = "free";
+        state.time = randInt(120, 950);
+        state.feedback = randInt(15, 80);
+        state.mix = randInt(15, 70);
+      } else if (key === "pitch-shifter") {
+        let st = randInt(-9, 9);
+        if (solParam && st === solParam.semitone) st = st >= 0 ? st - 4 : st + 4;
+        state.semitone = st;
+        state.octave = 0;
+      }
+      return state;
+    }
+
+    function loadPresetAndScramble(presetId) {
+      activePreset = TARGET_PRESETS.find(p => p.id === presetId) || TARGET_PRESETS[0];
+      $("targetName").textContent = activePreset.name;
+      $("missionDescription").textContent = activePreset.description;
+      $("missionHint").textContent = `คำใบ้: ${activePreset.hint}`;
+
+      // Stop audio
+      [targetAudio, processedAudio].forEach(a => { a.pause(); a.currentTime = 0; });
+      $("targetPlayButton").textContent = "▶";
+      $("processedPlayButton").textContent = "▶";
+      $("targetPlayButton").classList.remove("playing");
+      $("processedPlayButton").classList.remove("playing");
+
+      // Both players load the same underlying source audio so DSP difference is 100% pure
+      targetAudio.src = activePreset.audioUrl;
+      processedAudio.src = activePreset.audioUrl;
+      targetAudio.load();
+      processedAudio.load();
+
+      // Build scrambled starting rack from solution keys (+ optional decoy processor)
+      processorValues = getDefaultState();
+      selectedProcessors.length = 0;
+
+      const solKeys = Object.keys(activePreset.solution);
+      solKeys.forEach(k => {
+        selectedProcessors.push(k);
+        processorValues[k] = randomizeParameterForKey(k, activePreset.solution[k]);
+      });
+
+      // Add 1 decoy processor 50% of the time so user also practices removing unneeded tools
+      const remaining = ALL_PROC_KEYS.filter(k => !solKeys.includes(k));
+      if (remaining.length && Math.random() > 0.45) {
+        const decoy = randChoice(remaining);
+        selectedProcessors.push(decoy);
+        processorValues[decoy] = randomizeParameterForKey(decoy, null);
+      }
+
+      renderRack();
+      saveStatus.textContent = `โหลดโจทย์ "${activePreset.name}" และสุ่มค่าเริ่มต้นใหม่แล้ว — ลองกดฟังเทียบกันได้เลย`;
+    }
+
+    // -----------------------------------------
+    // WAVEFORM BARS
+    // -----------------------------------------
+    function drawStaticWaveform(canvasId, color, activeColor, seedOffset = 0, progress = 0) {
       const canvas = $(canvasId);
       if (!canvas) return;
       const ctx = canvas.getContext("2d");
@@ -1108,22 +1142,23 @@
         const barH = Math.max(4, amp * (h - 14));
         const x = gap + i * (barW + gap);
         const y = (h - barH) / 2;
-        ctx.fillStyle = (norm <= progress && progress > 0) ? "#ffad59" : color;
+        ctx.fillStyle = (norm <= progress && progress > 0) ? activeColor : color;
         ctx.beginPath();
         ctx.roundRect(x, y, barW, barH, 2);
         ctx.fill();
       }
     }
-    drawStaticWaveform("targetWaveCanvas", "rgba(244, 231, 217, 0.45)", 1.2);
-    drawStaticWaveform("processedWaveCanvas", "rgba(255, 173, 89, 0.55)", 2.7);
+    drawStaticWaveform("targetWaveCanvas", "rgba(98, 217, 173, 0.35)", "#62d9ad", 1.2);
+    drawStaticWaveform("processedWaveCanvas", "rgba(255, 173, 89, 0.42)", "#ffad59", 2.7);
 
     // -----------------------------------------
-    // WEB AUDIO ENGINE (MATCHING LAB PARAMS)
+    // SHARED DSP GRAPH BUILDER (FOR BOTH TARGET & USER)
     // -----------------------------------------
     async function ensureAudioContext() {
       const AC = window.AudioContext || window.webkitAudioContext;
       if (!audioContext) audioContext = new AC();
       if (audioContext.state === "suspended") await audioContext.resume();
+      if (!targetMediaSource) targetMediaSource = audioContext.createMediaElementSource(targetAudio);
       if (!processedMediaSource) processedMediaSource = audioContext.createMediaElementSource(processedAudio);
     }
 
@@ -1145,173 +1180,144 @@
       return buf;
     }
 
-    function getActiveDelayMs() {
-      const d = processorValues.delay;
+    function getDelayMsFromObj(d) {
       if (d.mode === "free") return d.time;
-      return Math.round((60000 / d.bpm) * d.noteMult);
+      return Math.round((60000 / (d.bpm || 120)) * (d.noteMult || 0.5));
+    }
+
+    function wireChainOnContext(ctx, startNode, mediaEl, keysList, paramMap, isLiveUser) {
+      const created = [];
+      if (isLiveUser) {
+        liveHandles.compNode = null;
+        liveHandles.compInAnalyser = null;
+        liveHandles.compOutAnalyser = null;
+        liveHandles.gainInAnalyser = null;
+        liveHandles.gainOutAnalyser = null;
+      }
+
+      mediaEl.preservesPitch = false;
+      mediaEl.playbackRate = 1;
+      let current = startNode;
+
+      keysList.forEach(key => {
+        const v = paramMap[key];
+        if (!v || v.enabled === false) return;
+
+        if (key === "filter") {
+          const count = Math.max(1, Math.round(v.slope / 12));
+          const makeStages = (kind, freq) => {
+            for (let i = 0; i < count; i++) {
+              const n = ctx.createBiquadFilter();
+              n.type = kind; n.frequency.value = freq; n.Q.value = 0.7071;
+              created.push(n); current.connect(n); current = n;
+            }
+          };
+          if (v.type === "lowpass") makeStages("lowpass", v.lowerFreq);
+          else if (v.type === "highpass") makeStages("highpass", v.lowerFreq);
+          else { makeStages("highpass", v.lowerFreq); makeStages("lowpass", v.upperFreq); }
+        } else if (key === "eq") {
+          v.bands.forEach(b => {
+            const n = ctx.createBiquadFilter();
+            n.type = b.type; n.frequency.value = b.frequency; n.gain.value = b.gain; n.Q.value = b.q;
+            created.push(n); current.connect(n); current = n;
+          });
+        } else if (key === "compressor") {
+          const comp = ctx.createDynamicsCompressor();
+          comp.threshold.value = v.threshold; comp.ratio.value = v.ratio; comp.knee.value = v.knee;
+          comp.attack.value = v.attack / 1000; comp.release.value = v.release / 1000;
+          const makeup = ctx.createGain();
+          makeup.gain.value = Math.pow(10, (v.makeup || 0) / 20);
+
+          if (isLiveUser) {
+            const inAn = ctx.createAnalyser(), outAn = ctx.createAnalyser();
+            inAn.fftSize = outAn.fftSize = 2048;
+            const preGain = ctx.createGain(), postGain = ctx.createGain(), merge = ctx.createGain();
+            preGain.gain.value = v.monitor === "pre" ? 1 : 0;
+            postGain.gain.value = v.monitor === "post" ? 1 : 0;
+
+            current.connect(inAn);
+            inAn.connect(preGain); preGain.connect(merge);
+            inAn.connect(comp); comp.connect(makeup); makeup.connect(outAn);
+            outAn.connect(postGain); postGain.connect(merge);
+
+            created.push(inAn, outAn, comp, makeup, preGain, postGain, merge);
+            liveHandles.compNode = comp;
+            liveHandles.compInAnalyser = inAn;
+            liveHandles.compOutAnalyser = outAn;
+            current = merge;
+          } else {
+            current.connect(comp); comp.connect(makeup);
+            created.push(comp, makeup);
+            current = makeup;
+          }
+        } else if (key === "gain-stage") {
+          const g = ctx.createGain();
+          g.gain.value = Math.pow(10, v.gain / 20);
+          if (isLiveUser) {
+            const inAn = ctx.createAnalyser(), outAn = ctx.createAnalyser();
+            inAn.fftSize = outAn.fftSize = 2048;
+            current.connect(inAn); inAn.connect(g); g.connect(outAn);
+            created.push(inAn, g, outAn);
+            liveHandles.gainInAnalyser = inAn;
+            liveHandles.gainOutAnalyser = outAn;
+            current = outAn;
+          } else {
+            current.connect(g); created.push(g); current = g;
+          }
+        } else if (key === "reverb") {
+          const preDelay = ctx.createDelay(1.0);
+          preDelay.delayTime.value = v.preDelay / 1000;
+          const roomFilter = ctx.createBiquadFilter();
+          roomFilter.type = "lowpass";
+          roomFilter.frequency.value = 2800 + (v.roomSize / 100) * 9500;
+          const conv = ctx.createConvolver();
+          conv.buffer = buildReverbImpulse(ctx, v.decay, v.roomSize);
+          const mix = v.wet / 100;
+          const dry = ctx.createGain(), wet = ctx.createGain(), out = ctx.createGain();
+          dry.gain.value = 1 - mix * 0.45; wet.gain.value = mix * 1.15;
+
+          current.connect(dry); current.connect(preDelay); preDelay.connect(roomFilter);
+          roomFilter.connect(conv); conv.connect(wet); dry.connect(out); wet.connect(out);
+          created.push(preDelay, roomFilter, conv, dry, wet, out);
+          current = out;
+        } else if (key === "delay") {
+          const ms = getDelayMsFromObj(v);
+          const fb = v.feedback / 100, mix = v.mix / 100;
+          const dNode = ctx.createDelay(4.5), fbGain = ctx.createGain();
+          const dry = ctx.createGain(), wet = ctx.createGain(), out = ctx.createGain();
+          dNode.delayTime.value = ms / 1000; fbGain.gain.value = fb;
+          dry.gain.value = 1 - mix * 0.35; wet.gain.value = mix;
+
+          current.connect(dry); current.connect(dNode); dNode.connect(fbGain); fbGain.connect(dNode);
+          dNode.connect(wet); dry.connect(out); wet.connect(out);
+          created.push(dNode, fbGain, dry, wet, out);
+          current = out;
+        } else if (key === "pitch-shifter") {
+          const totalSt = (v.octave || 0) * 12 + (v.semitone || 0);
+          mediaEl.preservesPitch = false;
+          mediaEl.playbackRate = Math.pow(2, totalSt / 12);
+        }
+      });
+
+      return { tail: current, nodes: created };
+    }
+
+    async function buildTargetChain() {
+      await ensureAudioContext();
+      try { targetMediaSource.disconnect(); } catch (_) {}
+      targetNodes.forEach(n => { try { n.disconnect(); } catch (_) {} });
+      const solKeys = Object.keys(activePreset.solution);
+      const res = wireChainOnContext(audioContext, targetMediaSource, targetAudio, solKeys, activePreset.solution, false);
+      targetNodes = res.nodes;
+      res.tail.connect(audioContext.destination);
     }
 
     async function buildLiveChain() {
       await ensureAudioContext();
       try { processedMediaSource.disconnect(); } catch (_) {}
       processingNodes.forEach(n => { try { n.disconnect(); } catch (_) {} });
-      processingNodes = [];
-
-      liveHandles.compNode = null;
-      liveHandles.compInAnalyser = null;
-      liveHandles.compOutAnalyser = null;
-      liveHandles.gainInAnalyser = null;
-      liveHandles.gainOutAnalyser = null;
-
-      processedAudio.preservesPitch = false;
-      processedAudio.playbackRate = 1;
-      let current = processedMediaSource;
-
-      selectedProcessors.forEach(key => {
-        const v = processorValues[key];
-        if (!v.enabled) return;
-
-        if (key === "filter") {
-          const count = Math.max(1, Math.round(v.slope / 12));
-          const makeStages = (kind, freq) => {
-            for (let i = 0; i < count; i++) {
-              const n = audioContext.createBiquadFilter();
-              n.type = kind;
-              n.frequency.value = freq;
-              n.Q.value = 0.7071;
-              processingNodes.push(n);
-              current.connect(n);
-              current = n;
-            }
-          };
-          if (v.type === "lowpass") makeStages("lowpass", v.lowerFreq);
-          else if (v.type === "highpass") makeStages("highpass", v.lowerFreq);
-          else {
-            makeStages("highpass", v.lowerFreq);
-            makeStages("lowpass", v.upperFreq);
-          }
-        } else if (key === "eq") {
-          v.bands.forEach(b => {
-            const n = audioContext.createBiquadFilter();
-            n.type = b.type;
-            n.frequency.value = b.frequency;
-            n.gain.value = b.gain;
-            n.Q.value = b.q;
-            processingNodes.push(n);
-            current.connect(n);
-            current = n;
-          });
-        } else if (key === "compressor") {
-          const inAn = audioContext.createAnalyser();
-          const outAn = audioContext.createAnalyser();
-          inAn.fftSize = outAn.fftSize = 2048;
-
-          const comp = audioContext.createDynamicsCompressor();
-          comp.threshold.value = v.threshold;
-          comp.ratio.value = v.ratio;
-          comp.knee.value = v.knee;
-          comp.attack.value = v.attack / 1000;
-          comp.release.value = v.release / 1000;
-
-          const makeup = audioContext.createGain();
-          makeup.gain.value = Math.pow(10, v.makeup / 20);
-
-          const preGain = audioContext.createGain();
-          const postGain = audioContext.createGain();
-          preGain.gain.value = v.monitor === "pre" ? 1 : 0;
-          postGain.gain.value = v.monitor === "post" ? 1 : 0;
-
-          const merge = audioContext.createGain();
-
-          current.connect(inAn);
-          inAn.connect(preGain);
-          preGain.connect(merge);
-
-          inAn.connect(comp);
-          comp.connect(makeup);
-          makeup.connect(outAn);
-          outAn.connect(postGain);
-          postGain.connect(merge);
-
-          processingNodes.push(inAn, outAn, comp, makeup, preGain, postGain, merge);
-          liveHandles.compNode = comp;
-          liveHandles.compInAnalyser = inAn;
-          liveHandles.compOutAnalyser = outAn;
-          current = merge;
-        } else if (key === "gain-stage") {
-          const inAn = audioContext.createAnalyser();
-          const outAn = audioContext.createAnalyser();
-          inAn.fftSize = outAn.fftSize = 2048;
-          const g = audioContext.createGain();
-          g.gain.value = Math.pow(10, v.gain / 20);
-
-          current.connect(inAn);
-          inAn.connect(g);
-          g.connect(outAn);
-
-          processingNodes.push(inAn, g, outAn);
-          liveHandles.gainInAnalyser = inAn;
-          liveHandles.gainOutAnalyser = outAn;
-          current = outAn;
-        } else if (key === "reverb") {
-          const preDelay = audioContext.createDelay(1.0);
-          preDelay.delayTime.value = v.preDelay / 1000;
-
-          const roomFilter = audioContext.createBiquadFilter();
-          roomFilter.type = "lowpass";
-          roomFilter.frequency.value = 2800 + (v.roomSize / 100) * 9500;
-
-          const conv = audioContext.createConvolver();
-          conv.buffer = buildReverbImpulse(audioContext, v.decay, v.roomSize);
-
-          const mix = v.wet / 100;
-          const dry = audioContext.createGain();
-          const wet = audioContext.createGain();
-          const out = audioContext.createGain();
-          dry.gain.value = 1 - mix * 0.45;
-          wet.gain.value = mix * 1.15;
-
-          current.connect(dry);
-          current.connect(preDelay);
-          preDelay.connect(roomFilter);
-          roomFilter.connect(conv);
-          conv.connect(wet);
-          dry.connect(out);
-          wet.connect(out);
-
-          processingNodes.push(preDelay, roomFilter, conv, dry, wet, out);
-          current = out;
-        } else if (key === "delay") {
-          const ms = getActiveDelayMs();
-          const fb = v.feedback / 100;
-          const mix = v.mix / 100;
-
-          const dNode = audioContext.createDelay(4.5);
-          dNode.delayTime.value = ms / 1000;
-          const fbGain = audioContext.createGain();
-          fbGain.gain.value = fb;
-          const dry = audioContext.createGain();
-          const wet = audioContext.createGain();
-          const out = audioContext.createGain();
-          dry.gain.value = 1 - mix * 0.35;
-          wet.gain.value = mix;
-
-          current.connect(dry);
-          current.connect(dNode);
-          dNode.connect(fbGain);
-          fbGain.connect(dNode);
-          dNode.connect(wet);
-          dry.connect(out);
-          wet.connect(out);
-
-          processingNodes.push(dNode, fbGain, dry, wet, out);
-          current = out;
-        } else if (key === "pitch-shifter") {
-          const totalSt = v.octave * 12 + v.semitone;
-          processedAudio.preservesPitch = false;
-          processedAudio.playbackRate = Math.pow(2, totalSt / 12);
-        }
-      });
+      const res = wireChainOnContext(audioContext, processedMediaSource, processedAudio, selectedProcessors, processorValues, true);
+      processingNodes = res.nodes;
 
       if (!liveHandles.postAnalyser) {
         liveHandles.postAnalyser = audioContext.createAnalyser();
@@ -1319,12 +1325,12 @@
         liveHandles.postAnalyser.smoothingTimeConstant = 0.8;
         liveHandles.postSpectrumData = new Float32Array(liveHandles.postAnalyser.frequencyBinCount);
       }
-      current.connect(liveHandles.postAnalyser);
+      res.tail.connect(liveHandles.postAnalyser);
       liveHandles.postAnalyser.connect(audioContext.destination);
     }
 
     // -----------------------------------------
-    // LAB VISUALIZERS (100% MATCHING AUDIO LAB)
+    // LAB VISUALIZERS
     // -----------------------------------------
     function setupCanvasDPR(canvas) {
       const rect = canvas.getBoundingClientRect();
@@ -1375,7 +1381,6 @@
       }
     }
 
-    // 1. FILTER LAB GRAPH
     function drawFilterGraph() {
       const cvs = document.getElementById("canvas-filter");
       if (!cvs) return;
@@ -1437,10 +1442,7 @@
       }
       ctx.strokeStyle = "#ffad59";
       ctx.lineWidth = 2.4;
-      ctx.shadowColor = "rgba(255, 173, 89, 0.45)";
-      ctx.shadowBlur = 8;
       ctx.stroke();
-      ctx.shadowBlur = 0;
 
       const markers = v.type === "bandpass" ? [v.lowerFreq, v.upperFreq] : [v.lowerFreq];
       markers.forEach(f => {
@@ -1455,7 +1457,6 @@
       });
     }
 
-    // 2. EQ LAB GRAPH
     function drawEQGraph() {
       const cvs = document.getElementById("canvas-eq");
       if (!cvs) return;
@@ -1474,7 +1475,6 @@
       ctx.fillStyle = "#11100f";
       ctx.fillRect(0, 0, w, h);
 
-      // Speech & Intelligibility highlight
       ctx.fillStyle = "rgba(86,170,190,.075)";
       ctx.fillRect(xFor(100), pad.top, xFor(8000) - xFor(100), plotH);
       ctx.fillStyle = "rgba(86,190,160,.12)";
@@ -1504,7 +1504,6 @@
 
       drawLiveSpectrumOverlay(ctx, pad, plotW, plotH, "rgba(91,220,174,.28)", "#62d9ad");
 
-      // Compute combined Biquad response
       const sampleCount = 320;
       const freqs = new Float32Array(sampleCount);
       for (let i = 0; i < sampleCount; i++) freqs[i] = minFreq * Math.pow(maxFreq / minFreq, i / (sampleCount - 1));
@@ -1529,12 +1528,8 @@
       }
       ctx.strokeStyle = "#ffb15f";
       ctx.lineWidth = 2.4;
-      ctx.shadowColor = "rgba(255,177,95,.45)";
-      ctx.shadowBlur = 8;
       ctx.stroke();
-      ctx.shadowBlur = 0;
 
-      // Band nodes
       v.bands.forEach((b, i) => {
         const xx = xFor(b.frequency), yy = yFor(b.gain);
         const isSel = i === v.selectedBand;
@@ -1546,16 +1541,9 @@
         ctx.lineWidth = 2;
         ctx.strokeStyle = "#21170f";
         ctx.stroke();
-        if (isSel) {
-          ctx.beginPath();
-          ctx.arc(xx, yy, 11, 0, Math.PI * 2);
-          ctx.strokeStyle = "rgba(255,190,120,.65)";
-          ctx.stroke();
-        }
       });
     }
 
-    // 3. COMPRESSOR LAB GRAPH + METERS
     function drawCompressorGraph() {
       const cvs = document.getElementById("canvas-compressor");
       if (!cvs) return;
@@ -1593,7 +1581,6 @@
 
       drawLiveSpectrumOverlay(ctx, pad, plotW, plotH, "rgba(130, 145, 165, 0.24)", "rgba(165, 180, 200, 0.35)");
 
-      // 1:1 Reference line
       ctx.beginPath();
       ctx.moveTo(xDb(-60), yDb(-60));
       ctx.lineTo(xDb(0), yDb(0));
@@ -1614,7 +1601,6 @@
         return compressed + m;
       };
 
-      // Transfer curve
       ctx.beginPath();
       for (let db = -60; db <= 0; db += 1) {
         const outDb = clamp(transfer(db), -60, 0);
@@ -1625,7 +1611,6 @@
       ctx.lineWidth = 2.4;
       ctx.stroke();
 
-      // Cyan Threshold line & handle
       const threshY = yDb(v.threshold);
       ctx.beginPath();
       ctx.moveTo(pad.left, threshY);
@@ -1644,7 +1629,6 @@
       ctx.strokeStyle = "#ffd09c";
       ctx.stroke();
 
-      // Pink Gain Reduction trace
       const gr = (!processedAudio.paused && liveHandles.compNode) ? Math.abs(Number(liveHandles.compNode.reduction) || 0) : 0;
       if (!processedAudio.paused) {
         v.grHistory.push(gr);
@@ -1659,13 +1643,6 @@
       ctx.strokeStyle = "#ff7eb6";
       ctx.lineWidth = 2;
       ctx.stroke();
-
-      // Live GR text & meters
-      ctx.font = "700 13px Montserrat, sans-serif";
-      ctx.textAlign = "right";
-      ctx.textBaseline = "bottom";
-      ctx.fillStyle = "#ff7eb6";
-      ctx.fillText(gr > 0.01 ? `-${gr.toFixed(2)} dB` : "0.00 dB", w - pad.right - 8, pad.top + plotH - 6);
 
       const grValEl = document.getElementById("comp-gr-val");
       const grBarEl = document.getElementById("comp-gr-bar");
@@ -1688,7 +1665,6 @@
       }
     }
 
-    // 4. GAIN STAGE LED METERS
     function updateGainStageMeters() {
       const inStrip = document.getElementById("gain-in-led");
       const outStrip = document.getElementById("gain-out-led");
@@ -1759,7 +1735,6 @@
       if (clipTxt) clipTxt.textContent = clipping ? "CLIPPING" : "SAFE";
     }
 
-    // 5. REVERB 3D SPATIAL VISUALIZER
     function drawReverb3DGraph(now = performance.now()) {
       const cvs = document.getElementById("canvas-reverb");
       if (!cvs) return;
@@ -1792,7 +1767,6 @@
         return { px: cx + x1 * scale, py: cy + y2 * scale, scale };
       };
 
-      // Particles
       const spread = roomHalf * (1.25 + (v.decay / 6.0) * 1.1);
       const visibleCount = Math.floor(reverbParticles.length * Math.min(1, 0.2 + (v.wet / 100) * 0.6 + (v.decay / 6.0) * 0.4));
       for (let i = 0; i < visibleCount; i++) {
@@ -1808,7 +1782,6 @@
         ctx.fillRect(pt.px, pt.py, p.size * pt.scale, p.size * pt.scale);
       }
 
-      // 3D Cube Room
       const verts = [[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]]
         .map(([vx, vy, vz]) => project3D(vx * roomHalf, vy * roomHalf, vz * roomHalf));
       const edges = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
@@ -1826,7 +1799,6 @@
         ctx.fill();
       });
 
-      // Pre-Delay Wave Ring & Dry Core
       const waveR = 14 + 6 + (v.preDelay / 200) * (roomHalf * 0.62);
       ctx.beginPath();
       ctx.arc(cx, cy, waveR, 0, Math.PI * 2);
@@ -1842,7 +1814,6 @@
       ctx.fill();
     }
 
-    // 6. DELAY LAB GRAPH
     function drawDelayGraph() {
       const cvs = document.getElementById("canvas-delay");
       if (!cvs) return;
@@ -1851,7 +1822,7 @@
       const { ctx, w, h } = res;
       const v = processorValues.delay;
 
-      const ms = getActiveDelayMs();
+      const ms = getDelayMsFromObj(v);
       const fb = v.feedback / 100;
       const mix = v.mix / 100;
 
@@ -1940,7 +1911,6 @@
       }
     }
 
-    // 7. PITCH SHIFTER LAB GRAPH
     function drawPitchGraph() {
       const cvs = document.getElementById("canvas-pitch-shifter");
       if (!cvs) return;
@@ -1984,7 +1954,6 @@
         ctx.fillStyle = "rgba(255, 210, 105, 0.16)";
         ctx.fillRect(xStart, Math.min(yZero, yTarget), xEnd - xStart, Math.abs(yTarget - yZero));
       }
-
       if (Math.abs(yTarget - yZero) > 8) {
         ctx.strokeStyle = "#ffd97d";
         ctx.lineWidth = 1.8;
@@ -1993,10 +1962,7 @@
 
       ctx.strokeStyle = "#ffe599";
       ctx.lineWidth = 3;
-      ctx.shadowColor = "rgba(255, 210, 95, 0.8)";
-      ctx.shadowBlur = 10;
       ctx.beginPath(); ctx.moveTo(xStart, yTarget); ctx.lineTo(xEnd, yTarget); ctx.stroke();
-      ctx.shadowBlur = 0;
 
       ctx.beginPath();
       ctx.arc(xEnd, yTarget, 4.5, 0, Math.PI * 2);
@@ -2020,7 +1986,6 @@
       if (selectedProcessors.includes("pitch-shifter")) drawPitchGraph();
     }
 
-    // Continuous animation loop for 3D Reverb & Live Audio Spectrum
     function globalLabLoop(now) {
       redrawAllLabs(now);
       requestAnimationFrame(globalLabLoop);
@@ -2028,7 +1993,7 @@
     requestAnimationFrame(globalLabLoop);
 
     // -----------------------------------------
-    // RENDER LAB CARD HTML FOR EACH OF 7 TOOLS
+    // BUILD & BIND LAB CARD UI
     // -----------------------------------------
     const fmtHz = v => `${Math.round(v).toLocaleString("en-US")} Hz`;
     const fmtEqFreq = f => f >= 1000 ? `${(f / 1000).toFixed(f >= 10000 ? 1 : 2).replace(/\.0+$/, "")} kHz` : `${Math.round(f)} Hz`;
@@ -2068,11 +2033,6 @@
         return `
           <div class="lab-canvas-shell">
             <canvas id="canvas-eq" style="cursor:crosshair;"></canvas>
-          </div>
-          <div class="lab-legend-row">
-            <span><i style="background:#62d9ad;"></i> Live Spectrum</span>
-            <span><i style="background:#ffb15f;"></i> EQ Curve</span>
-            <span><i style="background:rgba(86,190,160,.45);"></i> ย่านความถี่เสียงพูด</span>
           </div>
           <div class="eq-toolbar">
             <button type="button" class="lab-mini-btn primary" id="eq-add-btn">＋ Add Band</button>
@@ -2118,11 +2078,6 @@
           </div>
           <div class="lab-canvas-shell">
             <canvas id="canvas-compressor" style="cursor:ns-resize;"></canvas>
-          </div>
-          <div class="lab-legend-row">
-            <span><i style="background:#ff9d43;"></i> Transfer Curve</span>
-            <span><i style="background:#56e0ff;"></i> Threshold (ลากบนกราฟได้)</span>
-            <span><i style="background:#ff7eb6;"></i> Gain Reduction</span>
           </div>
           <div class="lab-controls-grid-3">
             <div class="lab-ctrl-box">
@@ -2220,11 +2175,6 @@
               <strong id="rev-hud-val">${v.wet}% WET / ${v.decay.toFixed(2)} s</strong>
             </div>
           </div>
-          <div class="lab-legend-row">
-            <span><i style="background:#ffad59;"></i> ห้อง 3D (Room Size)</span>
-            <span><i style="background:#e8a04d;"></i> Pre-Delay Ring</span>
-            <span><i style="background:#62d9ad;"></i> แกนเสียง Dry</span>
-          </div>
           <div class="lab-controls-grid-2">
             <div class="lab-ctrl-box">
               <div class="lab-ctrl-head"><span>Pre-Delay</span><output id="rev-pre-out">${v.preDelay} ms</output></div>
@@ -2248,7 +2198,7 @@
 
       if (key === "delay") {
         const v = processorValues.delay;
-        const ms = getActiveDelayMs();
+        const ms = getDelayMsFromObj(v);
         return `
           <div class="lab-canvas-shell">
             <canvas id="canvas-delay"></canvas>
@@ -2269,12 +2219,8 @@
               <input id="del-bpm-rng" type="range" min="60" max="200" step="1" value="${v.bpm}">
               <div class="delay-note-row">
                 ${[
-                  { m: 4, s: "𝅝", l: "1/1" },
-                  { m: 2, s: "𝅗𝅥", l: "1/2" },
-                  { m: 1, s: "♩", l: "1/4" },
-                  { m: 0.5, s: "♪", l: "1/8" },
-                  { m: 0.75, s: "♪.", l: "1/8." },
-                  { m: 0.25, s: "♬", l: "1/16" }
+                  { m: 4, s: "𝅝", l: "1/1" }, { m: 2, s: "𝅗𝅥", l: "1/2" }, { m: 1, s: "♩", l: "1/4" },
+                  { m: 0.5, s: "♪", l: "1/8" }, { m: 0.75, s: "♪.", l: "1/8." }, { m: 0.25, s: "♬", l: "1/16" }
                 ].map(n => `<button type="button" class="delay-note-chip ${v.noteMult === n.m ? "active" : ""}" data-mult="${n.m}" data-sym="${n.s}">${n.s} ${n.l}</button>`).join("")}
               </div>
             </div>
@@ -2308,12 +2254,10 @@
             <div class="lab-ctrl-box">
               <div class="lab-ctrl-head"><span>Semitone</span><output id="pitch-semi-out">${v.semitone > 0 ? "+" : ""}${v.semitone}</output></div>
               <input id="pitch-semi-rng" type="range" min="-12" max="12" step="1" value="${v.semitone}">
-              <small>เลื่อนละเอียดทีละ 1 ครึ่งเสียง</small>
             </div>
             <div class="lab-ctrl-box">
               <div class="lab-ctrl-head"><span>Octave</span><output id="pitch-oct-out">${v.octave > 0 ? "+" : ""}${v.octave}</output></div>
               <input id="pitch-oct-rng" type="range" min="-2" max="2" step="1" value="${v.octave}">
-              <small>เลื่อนทีละคู่แปด (12 Semitones)</small>
             </div>
           </div>
         `;
@@ -2321,9 +2265,6 @@
       return "";
     }
 
-    // -----------------------------------------
-    // BIND EVENTS FOR EACH LAB DEVICE
-    // -----------------------------------------
     function bindLabCardEvents(key) {
       if (key === "filter") {
         const v = processorValues.filter;
@@ -2343,7 +2284,6 @@
         typeSel.addEventListener("change", () => { v.type = typeSel.value; refresh(); });
         slopeRng.addEventListener("input", () => { v.slope = Number(slopeRng.value); refresh(); });
 
-        // Interactive graph drag for Cutoff Frequency
         let dragMarker = null;
         const getFreqAt = e => {
           const rect = cvs.getBoundingClientRect();
@@ -2355,9 +2295,7 @@
           const f = getFreqAt(e);
           if (v.type === "bandpass") {
             dragMarker = Math.abs(Math.log10(f) - Math.log10(v.lowerFreq)) <= Math.abs(Math.log10(f) - Math.log10(v.upperFreq)) ? "lower" : "upper";
-          } else {
-            dragMarker = "lower";
-          }
+          } else dragMarker = "lower";
           cvs.setPointerCapture(e.pointerId);
           if (dragMarker === "lower") v.lowerFreq = clamp(f, 20, v.type === "bandpass" ? v.upperFreq / 1.05 : 19900);
           else v.upperFreq = clamp(f, v.lowerFreq * 1.05, 20000);
@@ -2420,17 +2358,11 @@
           syncUI();
         });
         document.getElementById("eq-rst-btn").addEventListener("click", () => {
-          v.bands = [
-            { type: "lowshelf", frequency: 120, gain: 0, q: 0.8 },
-            { type: "peaking", frequency: 350, gain: 0, q: 1.0 },
-            { type: "peaking", frequency: 2500, gain: 0, q: 1.2 },
-            { type: "highshelf", frequency: 8000, gain: 0, q: 0.8 }
-          ];
+          v.bands = getDefaultState().eq.bands;
           v.selectedBand = 1;
           syncUI();
         });
 
-        // Interactive click & drag nodes on EQ canvas
         let dragging = false;
         const getCoords = e => {
           const r = cvs.getBoundingClientRect();
@@ -2450,9 +2382,8 @@
             const d = Math.hypot(c.x - c.xOf(b.frequency), c.y - c.yOf(b.gain));
             if (d < minDist) { minDist = d; hit = i; }
           });
-          if (hit >= 0) {
-            v.selectedBand = hit;
-          } else {
+          if (hit >= 0) v.selectedBand = hit;
+          else {
             v.bands.push({ type: "peaking", frequency: c.fAt(c.x), gain: c.dbAt(c.y), q: 1.0 });
             v.selectedBand = v.bands.length - 1;
           }
@@ -2495,7 +2426,6 @@
         document.getElementById("comp-pre-btn").addEventListener("click", () => { v.monitor = "pre"; renderRack(); buildLiveChain().catch(console.error); });
         document.getElementById("comp-post-btn").addEventListener("click", () => { v.monitor = "post"; renderRack(); buildLiveChain().catch(console.error); });
 
-        // Drag Threshold on graph
         let dragTh = false;
         const setThFromY = e => {
           const r = cvs.getBoundingClientRect();
@@ -2557,7 +2487,7 @@
       if (key === "delay") {
         const v = processorValues.delay;
         const refresh = () => {
-          const ms = getActiveDelayMs();
+          const ms = getDelayMsFromObj(v);
           document.getElementById("del-time-out").textContent = `${ms} ms`;
           document.getElementById("del-bpm-out").textContent = `${v.bpm} BPM`;
           document.getElementById("del-fb-out").textContent = `${v.feedback}%`;
@@ -2598,9 +2528,6 @@
       }
     }
 
-    // -----------------------------------------
-    // RENDER HORIZONTAL PROCESSOR RACK
-    // -----------------------------------------
     function renderRack() {
       const cardsHTML = selectedProcessors.map((key, idx) => {
         const v = processorValues[key];
@@ -2684,19 +2611,22 @@
     }
 
     // -----------------------------------------
-    // AUDIO PLAYBACK & SAMPLE CHANGE
+    // AUDIO PLAYBACK & CONTROLS
     // -----------------------------------------
-    function formatSec(s) {
-      return isFinite(s) ? s.toFixed(2) : "0.00";
-    }
+    function formatSec(s) { return isFinite(s) ? s.toFixed(2) : "0.00"; }
 
-    function bindAudioPlayer(audio, btn, timeEl, canvasId, baseColor, seed, isProcessed) {
+    function bindAudioPlayer(audio, btn, timeEl, canvasId, baseColor, activeColor, seed, mode) {
       btn.addEventListener("click", async () => {
         if (audio.paused) {
           [targetAudio, processedAudio].forEach(a => { if (a !== audio) { a.pause(); a.currentTime = 0; } });
           $("targetPlayButton").textContent = "▶";
           $("processedPlayButton").textContent = "▶";
-          if (isProcessed) await buildLiveChain();
+          $("targetPlayButton").classList.remove("playing");
+          $("processedPlayButton").classList.remove("playing");
+
+          if (mode === "target") await buildTargetChain();
+          else await buildLiveChain();
+
           await audio.play();
           btn.textContent = "❚❚";
           btn.classList.add("playing");
@@ -2710,27 +2640,21 @@
       audio.addEventListener("timeupdate", () => {
         const prog = audio.duration ? audio.currentTime / audio.duration : 0;
         timeEl.textContent = `${formatSec(audio.currentTime)} / ${formatSec(audio.duration)}`;
-        drawStaticWaveform(canvasId, baseColor, seed, prog);
+        drawStaticWaveform(canvasId, baseColor, activeColor, seed, prog);
       });
 
       audio.addEventListener("ended", () => {
         btn.textContent = "▶";
         btn.classList.remove("playing");
-        drawStaticWaveform(canvasId, baseColor, seed, 0);
+        drawStaticWaveform(canvasId, baseColor, activeColor, seed, 0);
       });
     }
 
-    bindAudioPlayer(targetAudio, $("targetPlayButton"), $("targetTime"), "targetWaveCanvas", "rgba(244,231,217,0.45)", 1.2, false);
-    bindAudioPlayer(processedAudio, $("processedPlayButton"), $("processedTime"), "processedWaveCanvas", "rgba(255,173,89,0.55)", 2.7, true);
+    bindAudioPlayer(targetAudio, $("targetPlayButton"), $("targetTime"), "targetWaveCanvas", "rgba(98,217,173,0.35)", "#62d9ad", 1.2, "target");
+    bindAudioPlayer(processedAudio, $("processedPlayButton"), $("processedTime"), "processedWaveCanvas", "rgba(255,173,89,0.42)", "#ffad59", 2.7, "user");
 
-    sampleSelect.addEventListener("change", () => {
-      targetAudio.pause();
-      targetAudio.src = sampleSelect.value;
-      targetAudio.load();
-      $("targetName").textContent = SAMPLE_OPTIONS[sampleSelect.value].name;
-    });
-    targetAudio.src = sampleSelect.value;
-
+    presetSelect.addEventListener("change", () => loadPresetAndScramble(presetSelect.value));
+    $("scrambleButton").addEventListener("click", () => loadPresetAndScramble(presetSelect.value));
     $("resetButton").addEventListener("click", () => {
       selectedProcessors.length = 0;
       renderRack();
@@ -2739,171 +2663,237 @@
     });
 
     // -----------------------------------------
-    // OFFLINE EVALUATION & SUBMIT
+    // PARAMETER-BASED SCORING & DIAGNOSIS ENGINE
     // -----------------------------------------
-    function fft(real, imag) {
-      const n = real.length;
-      for (let i = 1, j = 0; i < n; i++) {
-        let bit = n >> 1;
-        for (; j & bit; bit >>= 1) j ^= bit;
-        j ^= bit;
-        if (i < j) { [real[i], real[j]] = [real[j], real[i]]; [imag[i], imag[j]] = [imag[j], imag[i]]; }
-      }
-      for (let len = 2; len <= n; len <<= 1) {
-        const ang = -2 * Math.PI / len, wr0 = Math.cos(ang), wi0 = Math.sin(ang);
-        for (let i = 0; i < n; i += len) {
-          let wr = 1, wi = 0;
-          for (let j = 0; j < len / 2; j++) {
-            const uR = real[i + j], uI = imag[i + j];
-            const vR = real[i + j + len / 2] * wr - imag[i + j + len / 2] * wi;
-            const vI = real[i + j + len / 2] * wi + imag[i + j + len / 2] * wr;
-            real[i + j] = uR + vR; imag[i + j] = uI + vI;
-            real[i + j + len / 2] = uR - vR; imag[i + j + len / 2] = uI - vI;
-            const nxt = wr * wr0 - wi * wi0; wi = wr * wi0 + wi * wr0; wr = nxt;
-          }
-        }
-      }
+    function proximityScore(actual, target, maxTolerance) {
+      const diff = Math.abs(actual - target);
+      return clamp(1 - diff / maxTolerance, 0, 1);
     }
 
-    function describeBuffer(buffer) {
-      const size = 2048, len = buffer.length, sr = buffer.sampleRate;
-      const mono = new Float32Array(len);
-      for (let c = 0; c < buffer.numberOfChannels; c++) {
-        const d = buffer.getChannelData(c);
-        for (let i = 0; i < len; i++) mono[i] += d[i] / buffer.numberOfChannels;
-      }
-      const frames = Math.min(12, Math.max(1, Math.floor(len / size)));
-      const sums = [0, 0, 0]; let rms = 0, used = 0;
-      for (let f = 0; f < frames; f++) {
-        const start = Math.floor(f * Math.max(0, len - size) / Math.max(1, frames - 1));
-        const real = new Float64Array(size), imag = new Float64Array(size); let sq = 0;
-        for (let i = 0; i < size; i++) {
-          const s = mono[Math.min(len - 1, start + i)] || 0;
-          real[i] = s * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / (size - 1)));
-          sq += s * s;
-        }
-        fft(real, imag);
-        let tot = 0; const bands = [0, 0, 0];
-        for (let k = 1; k < size / 2; k++) {
-          const hz = k * sr / size, mag = Math.hypot(real[k], imag[k]), e = mag * mag;
-          tot += e;
-          if (hz < 250) bands[0] += e; else if (hz < 4000) bands[1] += e; else bands[2] += e;
-        }
-        if (tot > 0) { for (let b = 0; b < 3; b++) sums[b] += bands[b] / tot; rms += Math.sqrt(sq / size); used++; }
-      }
-      if (!used) return [0, 0, 0, 0];
-      return [...sums.map(x => x / used), Math.min(1, rms / used)];
+    function logFreqScore(actualHz, targetHz, octavesTol = 1.6) {
+      const octDiff = Math.abs(Math.log2(Math.max(20, actualHz) / Math.max(20, targetHz)));
+      return clamp(1 - octDiff / octavesTol, 0, 1);
     }
 
-    async function renderOffline(sourceBuffer, keys) {
-      const dur = Math.min(sourceBuffer.duration, 8);
-      const frames = Math.max(1, Math.floor(dur * sourceBuffer.sampleRate));
-      const Offline = window.OfflineAudioContext || window.webkitOfflineAudioContext;
-      const ctx = new Offline(sourceBuffer.numberOfChannels, frames, sourceBuffer.sampleRate);
-      const src = ctx.createBufferSource(); src.buffer = sourceBuffer;
-      let cur = src;
+    function evaluateSubmission() {
+      const sol = activePreset.solution;
+      const solKeys = Object.keys(sol);
+      const userActiveKeys = selectedProcessors.filter(k => processorValues[k]?.enabled);
 
-      keys.forEach(key => {
-        const v = processorValues[key]; if (!v.enabled) return;
-        if (key === "filter") {
-          const st = Math.max(1, Math.round(v.slope / 12));
-          const addSt = (kind, f) => {
-            for (let i = 0; i < st; i++) { const n = ctx.createBiquadFilter(); n.type = kind; n.frequency.value = f; cur.connect(n); cur = n; }
-          };
-          if (v.type === "lowpass") addSt("lowpass", v.lowerFreq);
-          else if (v.type === "highpass") addSt("highpass", v.lowerFreq);
-          else { addSt("highpass", v.lowerFreq); addSt("lowpass", v.upperFreq); }
-        } else if (key === "eq") {
-          v.bands.forEach(b => {
-            const n = ctx.createBiquadFilter(); n.type = b.type; n.frequency.value = b.frequency; n.gain.value = b.gain; n.Q.value = b.q;
-            cur.connect(n); cur = n;
-          });
-        } else if (key === "compressor") {
-          const n = ctx.createDynamicsCompressor();
-          n.threshold.value = v.threshold; n.ratio.value = v.ratio; n.knee.value = v.knee;
-          n.attack.value = v.attack / 1000; n.release.value = v.release / 1000;
-          const mk = ctx.createGain(); mk.gain.value = Math.pow(10, v.makeup / 20);
-          cur.connect(n); n.connect(mk); cur = mk;
-        } else if (key === "gain-stage") {
-          const n = ctx.createGain(); n.gain.value = Math.pow(10, v.gain / 20); cur.connect(n); cur = n;
-        } else if (key === "reverb") {
-          const pre = ctx.createDelay(1.0); pre.delayTime.value = v.preDelay / 1000;
-          const rf = ctx.createBiquadFilter(); rf.type = "lowpass"; rf.frequency.value = 2800 + (v.roomSize / 100) * 9500;
-          const dry = ctx.createGain(), wet = ctx.createGain(), conv = ctx.createConvolver(), out = ctx.createGain();
-          conv.buffer = buildReverbImpulse(ctx, v.decay, v.roomSize);
-          const mix = v.wet / 100;
-          dry.gain.value = 1 - mix * 0.45; wet.gain.value = mix * 1.15;
-          cur.connect(dry); cur.connect(pre); pre.connect(rf); rf.connect(conv); conv.connect(wet);
-          dry.connect(out); wet.connect(out); cur = out;
-        } else if (key === "delay") {
-          const d = ctx.createDelay(4.5), fb = ctx.createGain(), dry = ctx.createGain(), wet = ctx.createGain(), out = ctx.createGain();
-          d.delayTime.value = getActiveDelayMs() / 1000; fb.gain.value = v.feedback / 100;
-          const mix = v.mix / 100;
-          dry.gain.value = 1 - mix * 0.35; wet.gain.value = mix;
-          cur.connect(dry); cur.connect(d); d.connect(wet); d.connect(fb); fb.connect(d);
-          dry.connect(out); wet.connect(out); cur = out;
-        } else if (key === "pitch-shifter") {
-          const totalSt = v.octave * 12 + v.semitone;
-          src.playbackRate.value = Math.pow(2, totalSt / 12);
+      const matchRows = [];
+      const advices = [];
+
+      // 1. Processor Selection Score (Max 35 pts)
+      let hitCount = 0;
+      solKeys.forEach(k => {
+        if (userActiveKeys.includes(k)) {
+          hitCount++;
+          matchRows.push({ name: PROCESSORS[k].title, status: "✓ เลือกใช้งานถูกต้อง", cls: "badge-ok" });
+        } else {
+          matchRows.push({ name: PROCESSORS[k].title, status: "✗ ขาด Processor ตัวนี้", cls: "badge-miss" });
+          advices.push({ text: `ควรเพิ่มและเปิดใช้งาน "${PROCESSORS[k].title}" เพื่อให้ได้คาแรคเตอร์เสียงเหมือนต้นฉบับ`, good: false });
         }
       });
 
-      cur.connect(ctx.destination); src.start(0);
-      return await ctx.startRendering();
-    }
+      const extraKeys = userActiveKeys.filter(k => !solKeys.includes(k));
+      extraKeys.forEach(k => {
+        matchRows.push({ name: `${PROCESSORS[k].title} (ส่วนเกิน)`, status: "! ไม่ได้ใช้ในโจทย์นี้", cls: "badge-warn" });
+        advices.push({ text: `โจทย์นี้ไม่ได้ใช้ "${PROCESSORS[k].title}" ลองปิด (OFF) หรือลบออกเพื่อไม่ให้เสียงเพี้ยน`, good: false });
+      });
 
-    async function decodeFile(url) {
-      const res = await fetch(url);
-      const buf = await res.arrayBuffer();
-      await ensureAudioContext();
-      return await audioContext.decodeAudioData(buf.slice(0));
+      const baseSelectionRatio = solKeys.length ? (hitCount / solKeys.length) : 1;
+      const extraPenalty = extraKeys.length * 0.12;
+      const selectionScore = Math.round(clamp(baseSelectionRatio - extraPenalty, 0, 1) * 35);
+
+      // 2. Parameter Accuracy Score (Max 65 pts)
+      let paramScoreSum = 0;
+
+      solKeys.forEach(k => {
+        if (!userActiveKeys.includes(k)) return; // 0 pts if missing
+        const u = processorValues[k];
+        const t = sol[k];
+
+        if (k === "filter") {
+          const typeOk = u.type === t.type ? 1 : 0.25;
+          const lowS = logFreqScore(u.lowerFreq, t.lowerFreq, 1.5);
+          const upS = t.type === "bandpass" ? logFreqScore(u.upperFreq, t.upperFreq, 1.5) : 1;
+          const slopeS = proximityScore(u.slope, t.slope, 48);
+          const itemAvg = typeOk * 0.35 + lowS * 0.3 + upS * 0.2 + slopeS * 0.15;
+          paramScoreSum += itemAvg;
+
+          if (u.type !== t.type) {
+            advices.push({ text: `Filter: ชนิดฟิลเตอร์ยังไม่ตรง (คุณเลือก ${u.type.toUpperCase()}, ต้นฉบับใช้ ${t.type.toUpperCase()})`, good: false });
+          } else if (lowS < 0.75) {
+            const dir = u.lowerFreq > t.lowerFreq ? "สูงเกินไป" : "ต่ำเกินไป";
+            advices.push({ text: `Filter: จุดตัดความถี่หลัก${dir} (ของคุณ ${fmtHz(u.lowerFreq)}, ต้นฉบับประมาณ ${fmtHz(t.lowerFreq)})`, good: false });
+          } else if (t.type === "bandpass" && upS < 0.75) {
+            const dir = u.upperFreq > t.upperFreq ? "สูงเกินไป" : "ต่ำเกินไป";
+            advices.push({ text: `Filter (BPF): ย่านตัดบน${dir} (ของคุณ ${fmtHz(u.upperFreq)}, ต้นฉบับประมาณ ${fmtHz(t.upperFreq)})`, good: false });
+          } else {
+            advices.push({ text: `Filter: ปรับย่านความถี่ได้ใกล้เคียงต้นฉบับมาก!`, good: true });
+          }
+        }
+
+        if (k === "eq") {
+          // Compare peak energy region around target boosted/cut bands
+          const targetMid = t.bands[2];
+          const userMid = u.bands[2] || u.bands[0];
+          const freqS = logFreqScore(userMid.frequency, targetMid.frequency, 1.5);
+          const gainS = proximityScore(userMid.gain, targetMid.gain, 10);
+          const itemAvg = freqS * 0.45 + gainS * 0.55;
+          paramScoreSum += itemAvg;
+
+          if (gainS < 0.72) {
+            const dir = userMid.gain > targetMid.gain ? "บูสต์เยอะเกินไป" : "บูสต์น้อยเกินไป";
+            advices.push({ text: `EQ: ย่านกลาง-แหลม (Band 3) ${dir} (ของคุณ ${userMid.gain.toFixed(1)} dB, ต้นฉบับ ${targetMid.gain.toFixed(1)} dB)`, good: false });
+          } else {
+            advices.push({ text: `EQ: ชดเชยโทนเสียงได้แม่นยำ!`, good: true });
+          }
+        }
+
+        if (k === "compressor") {
+          const thS = proximityScore(u.threshold, t.threshold, 22);
+          const ratS = proximityScore(u.ratio, t.ratio, 8);
+          const mkS = proximityScore(u.makeup, t.makeup, 8);
+          const itemAvg = thS * 0.45 + ratS * 0.35 + mkS * 0.20;
+          paramScoreSum += itemAvg;
+
+          if (thS < 0.72) {
+            const dir = u.threshold > t.threshold ? "สูงไป (บีบอัดน้อยกว่าต้นฉบับ)" : "ต่ำไป (บีบอัดหนักกว่าต้นฉบับ)";
+            advices.push({ text: `Compressor: ค่า Threshold ${dir} (ของคุณ ${u.threshold} dB, ต้นฉบับ ${t.threshold} dB)`, good: false });
+          } else if (ratS < 0.72) {
+            advices.push({ text: `Compressor: Ratio ยังต่างจากต้นฉบับ (ของคุณ ${u.ratio}:1, ต้นฉบับ ${t.ratio}:1)`, good: false });
+          } else {
+            advices.push({ text: `Compressor: คุมไดนามิกและหัวเสียงได้ใกล้เคียงต้นฉบับ!`, good: true });
+          }
+        }
+
+        if (k === "gain-stage") {
+          const gS = proximityScore(u.gain, t.gain, 10);
+          paramScoreSum += gS;
+          if (gS < 0.75) {
+            const dir = u.gain > t.gain ? "ดังเกินไป" : "เบาเกินไป";
+            advices.push({ text: `Gain Stage: ระดับความดังรวม${dir} (ของคุณ ${u.gain > 0 ? "+" : ""}${u.gain} dB, ต้นฉบับ ${t.gain > 0 ? "+" : ""}${t.gain} dB)`, good: false });
+          } else {
+            advices.push({ text: `Gain Stage: ตั้งระดับความแรงสัญญาณได้พอดี!`, good: true });
+          }
+        }
+
+        if (k === "reverb") {
+          const sizeS = proximityScore(u.roomSize, t.roomSize, 45);
+          const decS = proximityScore(u.decay, t.decay, 2.5);
+          const wetS = proximityScore(u.wet, t.wet, 35);
+          const itemAvg = sizeS * 0.3 + decS * 0.35 + wetS * 0.35;
+          paramScoreSum += itemAvg;
+
+          if (wetS < 0.72) {
+            const dir = u.wet > t.wet ? "ก้อง/เปียกเกินไป" : "แห้งเกินไป";
+            advices.push({ text: `Reverb: สัดส่วนเสียงก้อง (Wet) ${dir} (ของคุณ ${u.wet}%, ต้นฉบับ ${t.wet}%)`, good: false });
+          } else if (decS < 0.72) {
+            const dir = u.decay > t.decay ? "หางเสียงยาวเกินไป" : "หางเสียงสั้นเกินไป";
+            advices.push({ text: `Reverb: ค่า Decay Time ${dir} (ของคุณ ${u.decay.toFixed(1)}s, ต้นฉบับ ${t.decay.toFixed(1)}s)`, good: false });
+          } else {
+            advices.push({ text: `Reverb: จำลองขนาดห้องและหางเสียงได้สมจริงใกล้เคียงโจทย์!`, good: true });
+          }
+        }
+
+        if (k === "delay") {
+          const uMs = getDelayMsFromObj(u);
+          const tMs = getDelayMsFromObj(t);
+          const timeS = proximityScore(uMs, tMs, 320);
+          const fbS = proximityScore(u.feedback, t.feedback, 40);
+          const mixS = proximityScore(u.mix, t.mix, 35);
+          const itemAvg = timeS * 0.45 + fbS * 0.3 + mixS * 0.25;
+          paramScoreSum += itemAvg;
+
+          if (timeS < 0.75) {
+            const dir = uMs > tMs ? "ช้า/ห่างเกินไป" : "เร็ว/ถี่เกินไป";
+            advices.push({ text: `Delay: จังหวะเสียงสะท้อน${dir} (ของคุณ ${uMs} ms, ต้นฉบับ ${tMs} ms)`, good: false });
+          } else if (fbS < 0.72) {
+            advices.push({ text: `Delay: จำนวนครั้งที่วนซ้ำ (Feedback) ยังไม่ตรง (ของคุณ ${u.feedback}%, ต้นฉบับ ${t.feedback}%)`, good: false });
+          } else {
+            advices.push({ text: `Delay: จับจังหวะ Echo และหางเสียงสะท้อนได้แม่นยำ!`, good: true });
+          }
+        }
+
+        if (k === "pitch-shifter") {
+          const uSt = (u.octave || 0) * 12 + (u.semitone || 0);
+          const tSt = (t.octave || 0) * 12 + (t.semitone || 0);
+          const stS = proximityScore(uSt, tSt, 8);
+          paramScoreSum += stS;
+
+          if (stS < 0.85) {
+            const dir = uSt > tSt ? "สูงเกินไป" : "ต่ำเกินไป";
+            advices.push({ text: `Pitch Shifter: ระดับเสียงยัง${dir} (ของคุณ ${uSt > 0 ? "+" : ""}${uSt} ST, ต้นฉบับ ${tSt > 0 ? "+" : ""}${tSt} ST)`, good: false });
+          } else {
+            advices.push({ text: `Pitch Shifter: ดึงระดับคีย์เสียงได้ตรงเป๊ะ!`, good: true });
+          }
+        }
+      });
+
+      const paramScore = solKeys.length ? Math.round((paramScoreSum / solKeys.length) * 65) : 65;
+      const totalScore = clamp(selectionScore + paramScore, 0, 100);
+
+      return { totalScore, selectionScore, paramScore, matchRows, advices, userActiveKeys };
     }
 
     submitButton.addEventListener("click", async () => {
       if (isSubmitting) return;
-      isSubmitting = true; submitButton.disabled = true;
-      saveStatus.textContent = "กำลังวิเคราะห์เสียงและคำนวณคะแนน...";
+      isSubmitting = true;
+      submitButton.disabled = true;
+      saveStatus.textContent = "กำลังตรวจเทียบพารามิเตอร์กับเสียง Target...";
+
       try {
-        const [targetBuf, sourceBuf] = await Promise.all([decodeFile(sampleSelect.value), decodeFile(SOURCE_URL)]);
-        const procBuf = await renderOffline(sourceBuf, selectedProcessors);
-        const a = describeBuffer(targetBuf), b = describeBuffer(procBuf);
-        let err = 0;
-        for (let i = 0; i < a.length; i++) err += Math.min(1, Math.abs(a[i] - b[i]));
-        const score = Math.max(0, Math.min(100, Math.round((1 - err / a.length) * 100)));
-        const active = selectedProcessors.filter(k => processorValues[k].enabled);
+        const evalRes = evaluateSubmission();
 
         if (currentUser) {
           await addDoc(collection(db, "users", currentUser.uid, "learningResults"), {
             type: "practice",
-            sampleName: SAMPLE_OPTIONS[sampleSelect.value].name,
-            sampleUrl: sampleSelect.value,
-            score,
+            presetId: activePreset.id,
+            sampleName: activePreset.name,
+            score: evalRes.totalScore,
+            selectionScore: evalRes.selectionScore,
+            parameterScore: evalRes.paramScore,
             maxScore: 100,
-            processors: active,
-            processorSettings: Object.fromEntries(active.map(k => [k, { ...processorValues[k] }])),
+            processors: evalRes.userActiveKeys,
             completed: true,
             createdAt: serverTimestamp()
           });
         }
 
-        $("finalScore").textContent = score;
-        $("resultMessage").textContent = score >= 80 ? "ยอดเยี่ยม! เสียงที่ปรับใกล้เคียงต้นฉบับมาก" : "บันทึกผลเรียบร้อย คุณสามารถปรับแต่งต่อหรือจบการฝึกได้เลย";
-        $("processorFeedback").textContent = active.length ? `Chain ที่ใช้งาน: ${active.map(k => PROCESSORS[k].title).join(" → ")}` : "ยังไม่ได้เปิดใช้งาน Processor ใดๆ";
+        $("finalScore").textContent = evalRes.totalScore;
+        $("resultMessage").textContent =
+          evalRes.totalScore >= 85 ? "สุดยอด! หูทองคำ ปรับเสียงได้ใกล้เคียงต้นฉบับมาก" :
+          evalRes.totalScore >= 60 ? "ทำได้ดี! ใกล้เคียงแล้ว ลองดูคำแนะนำด้านล่างเพื่อเก็บรายละเอียด" :
+          "ยังต่างจาก Target อยู่พอสมควร ลองดูจุดที่พลาดด้านล่างแล้วกลับไปปรับต่อได้เลย";
+
+        $("processorMatchList").innerHTML = evalRes.matchRows.map(r => `
+          <div class="proc-score-row">
+            <span>${r.name}</span>
+            <span class="${r.cls}">${r.status}</span>
+          </div>
+        `).join("");
+
+        $("suggestionList").innerHTML = evalRes.advices.length
+          ? evalRes.advices.map(a => `<li class="${a.good ? "good" : ""}">${a.text}</li>`).join("")
+          : `<li class="good">ยอดเยี่ยม! ทุกพารามิเตอร์ตรงตามโจทย์ครบถ้วน</li>`;
+
         resultOverlay.classList.add("active");
         resultOverlay.setAttribute("aria-hidden", "false");
-        saveStatus.textContent = "บันทึกคะแนนเรียบร้อยแล้ว";
+        saveStatus.textContent = `ตรวจผลเสร็จสิ้น — ได้คะแนน ${evalRes.totalScore} / 100 คะแนน`;
       } catch (e) {
         console.error(e);
-        saveStatus.textContent = "เกิดข้อผิดพลาดในการประเมินผล กรุณาลองใหม่อีกครั้ง";
+        saveStatus.textContent = "เกิดข้อผิดพลาดในการบันทึกผล กรุณาลองใหม่";
       } finally {
-        isSubmitting = false; submitButton.disabled = false;
+        isSubmitting = false;
+        submitButton.disabled = false;
       }
     });
 
     $("tryAgainButton").addEventListener("click", () => {
       resultOverlay.classList.remove("active");
       resultOverlay.setAttribute("aria-hidden", "true");
-      saveStatus.textContent = "ปรับแต่งค่าใน Processor Chain ต่อได้เลย";
+      saveStatus.textContent = "ปรับแต่งค่าต่อตามคำแนะนำได้เลยครับ";
     });
     $("resultHomeButton").addEventListener("click", () => window.location.href = "home.html");
     $("backButton").addEventListener("click", () => window.location.href = "home.html");
@@ -2913,7 +2903,8 @@
       if (!user) window.location.href = "login.html";
     });
 
-    renderRack();
+    // Initialize first preset & scramble on load
+    loadPresetAndScramble(TARGET_PRESETS[0].id);
   </script>
 </body>
 </html>
