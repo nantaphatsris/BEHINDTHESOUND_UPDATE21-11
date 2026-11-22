@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | Behind The Sound</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #100e0c;
+      --panel: #191512;
+      --orange: #ff9d43;
+      --gold: #e8a04d;
+      --text: #f4e7d9;
+      --muted: #b9a99a;
+      --border: rgba(255,157,67,.25);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Montserrat', 'Kanit', sans-serif;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; }
+
+    /* HEADER & SIDE MENU */
+    .main-header {
+      width: 100%;
+      height: 75px;
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+      background: rgba(20,17,14,.97);
+      border-bottom: 1px solid rgba(255,157,67,.25);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-left { display: flex; align-items: center; gap: 16px; }
+
+    .menu-button {
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: none; color: var(--orange);
+      font-size: 29px; line-height: 1; padding: 5px; cursor: pointer; transition: .3s;
+    }
+    .menu-button:hover { color: #ffc078; transform: scale(1.08); }
+
+    .logo {
+      font-size: 23px; font-weight: 800; color: var(--orange);
+      font-family: 'Montserrat', sans-serif; letter-spacing: -.5px;
+    }
+
+    .main-menu {
+      position: fixed; top: 75px; left: 0; width: 290px; height: calc(100vh - 75px);
+      padding: 25px; display: flex; flex-direction: column;
+      background: #191512; border-right: 1px solid var(--border);
+      box-shadow: 0 15px 35px rgba(0,0,0,.5);
+      transform: translateX(-100%); visibility: hidden; transition: .3s ease; overflow-y: auto;
+    }
+    .main-menu.active { transform: translateX(0); visibility: visible; }
+    .main-menu > a {
+      color: #e8d6c5; font-size: 16px; padding: 20px 10px;
+      border-bottom: 1px solid rgba(255,157,67,.15); transition: .3s;
+    }
+    .main-menu > a:hover { color: var(--orange); padding-left: 18px; }
+    .menu-divider { width: 100%; height: 1px; margin: 20px 0; background: var(--border); }
+    .menu-logout {
+      width: 100%; padding: 13px; border: 1px solid var(--orange); border-radius: 25px;
+      background: transparent; color: var(--orange); font-size: 15px; cursor: pointer; transition: .3s;
+    }
+    .menu-logout:hover { box-shadow: 0 0 15px rgba(255,157,67,.3); }
+
+    /* CONTAINER */
+    .profile-container {
+      width: 100%;
+      max-width: 1100px;
+      margin: auto;
+      padding: 50px 35px 40px;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .page-header h1 {
+      font-size: 27px;
+      font-weight: 800;
+    }
+
+    .back-home-btn {
+      padding: 9px 18px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      color: var(--orange);
+      font-size: 13px;
+      font-weight: 600;
+      transition: .25s;
+    }
+    .back-home-btn:hover { background: rgba(255,157,67,.1); border-color: var(--orange); }
+
+    /* USER CARD */
+    .user-hero-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 28px;
+      background: linear-gradient(120deg, rgba(255,157,67,.09), transparent 60%), var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .hero-left { display: flex; align-items: center; gap: 18px; }
+
+    .hero-avatar {
+      width: 68px; height: 68px; border-radius: 16px;
+      background: linear-gradient(145deg, #55371f, #2a1d14);
+      border: 1px solid var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--orange); font-size: 28px; font-weight: 800;
+    }
+
+    .hero-info h2 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+    .hero-info p { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+
+    .rank-pill {
+      display: inline-block;
+      font-size: 11px; font-weight: 600;
+      color: var(--orange); background: rgba(255,157,67,.15);
+      border: 1px solid rgba(255,157,67,.4);
+      padding: 4px 12px; border-radius: 20px;
+    }
+
+    .hero-right {
+      display: flex; gap: 28px;
+    }
+
+    .hero-test-box { text-align: right; }
+    .hero-test-box span { display: block; font-size: 11px; color: var(--muted); margin-bottom: 3px; }
+    .hero-test-box strong { font-size: 22px; color: var(--orange); font-weight: 800; }
+
+    /* SUMMARY STATS */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .stat-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+    }
+    .stat-card span { font-size: 12px; color: var(--muted); display: block; margin-bottom: 6px; }
+    .stat-card strong { font-size: 26px; font-weight: 800; color: var(--orange); }
+
+    /* PRACTICE HISTORY LIST */
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .history-header h2 { font-size: 20px; font-weight: 800; }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .history-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .history-main { flex: 1; min-width: 0; }
+
+    .history-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .history-title-row h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .attempt-badge {
+      font-size: 11px;
+      color: var(--orange);
+      background: rgba(255,157,67,.12);
+      border: 1px solid rgba(255,157,67,.3);
+      padding: 2px 9px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .history-date {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .processor-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .proc-tag {
+      font-size: 11px;
+      background: #251e19;
+      border: 1px solid rgba(255,157,67,.2);
+      color: #e8d6c5;
+      padding: 3px 10px;
+      border-radius: 8px;
+    }
+
+    .suggestion-box {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      background: rgba(0,0,0,.22);
+      padding: 10px 14px;
+      border-radius: 10px;
+      border-left: 3px solid var(--orange);
+    }
+
+    .history-score-box {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .history-score-box strong {
+      display: block;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--orange);
+    }
+    .history-score-box span {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 720px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .history-card { flex-direction: column; }
+      .history-score-box { text-align: left; display: flex; align-items: baseline; gap: 8px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="main-header">
+    <div class="header-left">
+      <button class="menu-button" id="menuButton" aria-label="Open menu">☰</button>
+      <a href="home.html" class="logo">Behind The Sound</a>
+    </div>
+
+    <nav class="main-menu" id="mainMenu">
+      <a href="home.html">Home</a>
+      <a href="profile.html">My Profile</a>
+      <a href="pretest.html">Pre Test</a>
+      <a href="learning.html">Learning</a>
+      <a href="practice.html">Practice</a>
+      <a href="posttest.html">Post Test</a>
+      <div class="menu-divider"></div>
+      <button class="menu-logout" id="logoutButton">Log Out</button>
+    </nav>
+  </header>
+
+  <main class="profile-container">
+
+    <div class="page-header">
+      <h1>My Profile &amp; Progress</h1>
+      <a href="home.html" class="back-home-btn">← Back to Home</a>
+    </div>
+
+    <!-- USER HERO CARD -->
+    <div class="user-hero-card">
+      <div class="hero-left">
+        <div class="hero-avatar" id="profAvatar">U</div>
+        <div class="hero-info">
+          <h2 id="profName">Loading...</h2>
+          <p id="profEmail">...</p>
+          <span class="rank-pill" id="profRank">Newcomer</span>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-test-box">
+          <span>Pretest Score</span>
+          <strong id="profPretest">-</strong>
+        </div>
+        <div class="hero-test-box">
+          <span>Post Test Score</span>
+          <strong id="profPosttest">-</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRACTICE STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span>ฝึกปรับเสียงทั้งหมด (Total Attempts)</span>
+        <strong id="statTotalAttempts">0 ครั้ง</strong>
+      </div>
+      <div class="stat-card">
+        <span>ความแม่นยำเฉลี่ย (Average Accuracy)</span>
+        <strong id="statAvgScore">0%</strong>
+      </div>
+      <div class="stat-card">
+        <span>คะแนนสูงสุดที่ทำได้ (Best Score)</span>
+        <strong id="statBestScore">0%</strong>
+      </div>
+    </div>
+
+    <!-- PRACTICE DEVELOPMENT HISTORY -->
+    <div class="history-header">
+      <h2>Practice History (ประวัติการพัฒนาทุกครั้ง)</h2>
+      <a href="practice.html" class="back-home-btn">+ ฝึกปรับเสียงเพิ่ม</a>
+    </div>
+
+    <div class="history-list" id="practiceHistoryList">
+      <div class="empty-state">กำลังโหลดข้อมูล...</div>
+    </div>
+
+  </main>
+
+  <script type="module">
+    import { auth, db } from "./firebase-config.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { collection, doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // Menu Toggle
+    const menuButton = document.getElementById("menuButton");
+    const mainMenu = document.getElementById("mainMenu");
+    menuButton.addEventListener("click", () => mainMenu.classList.toggle("active"));
+    document.addEventListener("click", (e) => {
+      if (!mainMenu.contains(e.target) && !menuButton.contains(e.target)) {
+        mainMenu.classList.remove("active");
+      }
+    });
+
+    document.getElementById("logoutButton").addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "index.html";
+    });
+
+    function getRecordTime(record) {
+      const dateValue = record.updatedAt || record.createdAt;
+      if (!dateValue) return 0;
+      if (typeof dateValue.toMillis === "function") return dateValue.toMillis();
+      if (typeof dateValue.seconds === "number") return dateValue.seconds * 1000;
+      if (dateValue instanceof Date) return dateValue.getTime();
+      return 0;
+    }
+
+    function formatDate(record) {
+      const ms = getRecordTime(record);
+      if (!ms) return "เพิ่งบันทึก";
+      return new Date(ms).toLocaleString("th-TH", {
+        year: "numeric", month: "short", day: "numeric",
+        hour: "2-digit", minute: "2-digit"
+      });
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      let name = user.displayName || (user.email ? user.email.split("@")[0] : "Sound Learner");
+      try {
+        const userSnap = await getDoc(doc(db, "users", user.uid));
+        if (userSnap.exists() && userSnap.data().username) {
+          name = userSnap.data().username;
+        }
+      } catch (_) {}
+
+      document.getElementById("profName").textContent = name;
+      document.getElementById("profEmail").textContent = user.email || "";
+      document.getElementById("profAvatar").textContent = name.charAt(0).toUpperCase();
+
+      const resultsRef = collection(db, "users", user.uid, "learningResults");
+
+      onSnapshot(resultsRef, (snapshot) => {
+        const records = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+
+        // Pretest
+        const pretests = records.filter(r => r.type === "pretest").sort((a, b) => getRecordTime(b) - getRecordTime(a));
+        if (pretests.length > 0) {
+          const p = pretests[0];
+          document.getElementById("profPretest").textContent = p.maxScore ? `${p.score}/${p.maxScore}` : `${p.score}`;
+        }
+
+        // Posttest
+        const posttests = records.filter(r => r.type === "posttest").sort((a, b) => getRecordTime(b) - getRecordTime(a));
+        if (posttests.length > 0) {
+          const pt = posttests[0];
+          document.getElementById("profPosttest").textContent = pt.maxScore ? `${pt.score}/${pt.maxScore}` : `${pt.score}`;
+        }
+
+        // Practice History (เก็บทั้งหมด เรียงล่าสุดไว้บนสุด)
+        const practices = records
+          .filter(r => r.type === "practice")
+          .sort((a, b) => getRecordTime(b) - getRecordTime(a));
+
+        const listEl = document.getElementById("practiceHistoryList");
+
+        if (practices.length === 0) {
+          document.getElementById("statTotalAttempts").textContent = "0 ครั้ง";
+          document.getElementById("statAvgScore").textContent = "0%";
+          document.getElementById("statBestScore").textContent = "0%";
+          document.getElementById("profRank").textContent = "Newcomer";
+          listEl.innerHTML = `<div class="empty-state">ยังไม่มีประวัติการฝึกปรับเสียง ลองเข้าไปทำแบบฝึกหัดในพาร์ท Practice ดูนะครับ</div>`;
+          return;
+        }
+
+        const total = practices.length;
+        const sumScore = practices.reduce((acc, item) => acc + Number(item.score ?? 0), 0);
+        const avgScore = Math.round(sumScore / total);
+        const bestScore = Math.max(...practices.map(item => Number(item.score ?? 0)));
+
+        document.getElementById("statTotalAttempts").textContent = `${total} ครั้ง`;
+        document.getElementById("statAvgScore").textContent = `${avgScore}%`;
+        document.getElementById("statBestScore").textContent = `${bestScore}%`;
+
+        const rankEl = document.getElementById("profRank");
+        if (avgScore >= 85) rankEl.textContent = "Master Sound Engineer";
+        else if (avgScore >= 65) rankEl.textContent = "Audio Specialist";
+        else rankEl.textContent = "Sound Explorer";
+
+        listEl.innerHTML = practices.map((item, idx) => {
+          const attemptNo = total - idx;
+          const procs = (item.processors && item.processors.length)
+            ? item.processors.map(p => `<span class="proc-tag">${p}</span>`).join("")
+            : `<span class="proc-tag">No Processor</span>`;
+          const tips = (item.suggestions && item.suggestions.length)
+            ? item.suggestions.join(" • ")
+            : "ปรับสมดุลเสียงได้ใกล้เคียงเสียง Target มาก";
+
+          return `
+            <div class="history-card">
+              <div class="history-main">
+                <div class="history-title-row">
+                  <h3>${item.sampleName || "Target Sound"}</h3>
+                  <span class="attempt-badge">ครั้งที่ #${attemptNo}</span>
+                </div>
+                <div class="history-date">${formatDate(item)}</div>
+                <div class="processor-tags">${procs}</div>
+                <div class="suggestion-box">คำแนะนำ: ${tips}</div>
+              </div>
+              <div class="history-score-box">
+                <strong>${item.score ?? 0}%</strong>
+                <span>Similarity Score</span>
+              </div>
+            </div>
+          `;
+        }).join("");
+      });
+    });
+  </script>
+
+</body>
+</html>
