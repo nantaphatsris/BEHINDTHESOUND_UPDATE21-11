@@ -124,7 +124,7 @@
 
     .quiz-container {
       width: 100%;
-      max-width: 750px;
+      max-width: 780px;
 
       margin: auto;
 
@@ -199,7 +199,7 @@
 
 
     /* =========================================
-       ANSWER OPTIONS
+       MCQ ANSWER OPTIONS (Q1 - Q15)
     ========================================= */
 
     .answer-list {
@@ -260,6 +260,154 @@
 
     .option-text {
       line-height: 1.45;
+    }
+
+
+    /* =========================================
+       AUDIO LISTENING OPTIONS (Q16 - Q20)
+       Layout เหมือน Posttest / สี Pretest Dark Gold
+    ========================================= */
+
+    .audio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .audio-card {
+      background: rgba(24, 21, 17, 0.92);
+      border: 1.5px solid rgba(198, 171, 132, 0.35);
+      border-radius: 14px;
+      padding: 18px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .audio-card:hover {
+      border-color: var(--orange);
+      background: rgba(255, 173, 89, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .audio-card.selected {
+      background: rgba(255, 173, 89, 0.14);
+      border-color: var(--orange);
+      box-shadow: 0 0 16px rgba(255, 173, 89, 0.18);
+    }
+
+    .audio-card-title {
+      align-self: flex-start;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #e8a04d;
+      margin-bottom: 14px;
+    }
+
+    .waveform {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      height: 44px;
+      width: 100%;
+      margin-bottom: 16px;
+    }
+
+    .wave-bar {
+      width: 3px;
+      background-color: #d9c8b4;
+      border-radius: 2px;
+      transition: background-color 0.2s;
+    }
+
+    .audio-card.selected .wave-bar,
+    .audio-card.playing .wave-bar {
+      background-color: var(--orange);
+    }
+
+    .audio-card.playing .wave-bar {
+      animation: wavePulse 0.55s infinite alternate ease-in-out;
+    }
+
+    @keyframes wavePulse {
+      from { transform: scaleY(0.6); }
+      to { transform: scaleY(1.3); }
+    }
+
+    .audio-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-width: 96px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--gold);
+      background: rgba(255, 173, 89, 0.1);
+      color: var(--orange);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .audio-toggle-btn:hover {
+      background: var(--orange);
+      color: #1f140a;
+    }
+
+    .audio-toggle-btn.playing {
+      background: #e88c3c;
+      border-color: #ffad59;
+      color: #1a1008;
+    }
+
+    .audio-select-row {
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .audio-select-label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .audio-radio-group {
+      display: flex;
+      justify-content: center;
+      gap: 34px;
+    }
+
+    .audio-radio-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .radio-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid rgba(232, 160, 77, 0.55);
+      transition: 0.2s;
+    }
+
+    .audio-radio-btn.selected .radio-dot {
+      border-color: var(--orange);
+      background-color: var(--orange);
+      box-shadow: 0 0 10px rgba(255, 173, 89, 0.55);
     }
 
 
@@ -547,6 +695,12 @@
        MOBILE
     ========================================= */
 
+    @media (max-width: 650px) {
+      .audio-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 600px) {
 
       .quiz-header {
@@ -625,7 +779,7 @@
 
 <body>
 
-  <!-- HEADER: ไม่มีเมนูสามขีดแล้ว -->
+  <!-- HEADER -->
 
   <header class="quiz-header">
 
@@ -652,7 +806,7 @@
 
     <div class="quiz-top-info">
       <span>PRETEST</span>
-      <span id="questionNumber">Question 1 of 15</span>
+      <span id="questionNumber">Question 1 of 20</span>
     </div>
 
 
@@ -661,7 +815,7 @@
     <section class="question-card">
 
       <div class="question-progress-text" id="questionLabel">
-        Question 1 of 15
+        Question 1 of 20
       </div>
 
       <h2 class="question-text" id="questionText">
@@ -669,9 +823,9 @@
       </h2>
 
 
-      <!-- ANSWERS -->
+      <!-- ANSWERS (MCQ หรือ AUDIO) -->
 
-      <div class="answer-list" id="answerList"></div>
+      <div id="dynamicAnswerArea"></div>
 
 
       <p class="answer-hint" id="answerHint">
@@ -724,7 +878,7 @@
 
     <div class="bottom-progress">
 
-      <span id="answeredCount">0 / 15 Answered</span>
+      <span id="answeredCount">0 / 20 Answered</span>
 
       <span>BEHIND THE SOUND</span>
 
@@ -749,7 +903,7 @@
 
       <div class="result-score">
         <strong id="finalScore">0</strong>
-        <span>/ 15</span>
+        <span>/ 20</span>
       </div>
 
       <p class="result-message" id="resultMessage">
@@ -774,7 +928,7 @@
     /* =========================================
        BEHIND THE SOUND
        PRETEST SYSTEM
-       15 QUESTIONS / 15 MINUTES
+       20 QUESTIONS / 15 MINUTES
     ========================================= */
 
 
@@ -782,7 +936,7 @@
     // 1. SETTINGS
     // =========================================
 
-    const TOTAL_QUESTIONS = 15;
+    const TOTAL_QUESTIONS = 20;
     const TOTAL_TIME = 15 * 60;
 
     let currentQuestion = 0;
@@ -798,14 +952,23 @@
 
     let userAnswers = Array(TOTAL_QUESTIONS).fill(null);
 
+    // ระบบควบคุมเสียงสำหรับข้อ 16 - 20
+    let currentAudio = null;
+    let playingOptionIndex = null;
+    let preloadedAudios = [];
+
+    const waveHeights = [14, 24, 12, 34, 42, 26, 18, 38, 44, 28, 16, 40, 30, 20, 42, 26, 15, 35, 22, 14];
+
 
     // =========================================
-    // 2. QUESTIONS
+    // 2. QUESTIONS (15 MCQ + 5 LISTENING)
     // =========================================
 
     const questions = [
 
+      // --- ข้อ 1 - 15: เลือกตอบ ---
       {
+        type: "mcq",
         question: "เสียงที่เราได้ยินในชีวิตประจำวันเกิดจากอะไร?",
         options: [
           "การสั่นสะเทือนของวัตถุ",
@@ -817,6 +980,7 @@
       },
 
       {
+        type: "mcq",
         question: "ข้อใดเป็นตัวอย่างของเสียงที่เกิดจากการสั่นสะเทือน?",
         options: [
           "แสงไฟเปิดขึ้น",
@@ -828,6 +992,7 @@
       },
 
       {
+        type: "mcq",
         question: "เสียงสามารถเดินทางผ่านสิ่งใดได้บ้าง?",
         options: [
           "อากาศเท่านั้น",
@@ -839,6 +1004,7 @@
       },
 
       {
+        type: "mcq",
         question: "ถ้าเราอยู่ในอวกาศที่ไม่มีอากาศ เราจะได้ยินเสียงตามปกติหรือไม่?",
         options: [
           "ได้ยินเสียงชัดขึ้น",
@@ -850,6 +1016,7 @@
       },
 
       {
+        type: "mcq",
         question: "เสียงที่มีความถี่สูงจะมีลักษณะอย่างไร?",
         options: [
           "เสียงทุ้ม",
@@ -861,6 +1028,7 @@
       },
 
       {
+        type: "mcq",
         question: "หากต้องการให้เสียงมีความนุ่มนวลและลดเสียงแหลมลง ควรใช้เครื่องมือใด?",
         options: [
           "Low-Pass Filter",
@@ -872,6 +1040,7 @@
       },
 
       {
+        type: "mcq",
         question: "หากในเสียงพูดมีเสียงลมหรือเสียงทุ้มที่ไม่ต้องการ ควรใช้เครื่องมือใดช่วยลดเสียงเหล่านี้?",
         options: [
           "Reverb",
@@ -883,6 +1052,7 @@
       },
 
       {
+        type: "mcq",
         question: "EQ เป็นเครื่องมือที่ช่วยในเรื่องใด?",
         options: [
           "เปลี่ยนภาพให้เป็นเสียง",
@@ -894,6 +1064,7 @@
       },
 
       {
+        type: "mcq",
         question: "ถ้าเสียงพูดมีบางช่วงดังมาก บางช่วงเบามาก ควรใช้เครื่องมือใดช่วยปรับเสียงให้สม่ำเสมอ?",
         options: [
           "Compressor",
@@ -905,6 +1076,7 @@
       },
 
       {
+        type: "mcq",
         question: "Reverb เป็นเอฟเฟกต์ที่ทำให้เสียงมีลักษณะอย่างไร?",
         options: [
           "เสียงแห้งและไม่มีมิติ",
@@ -916,6 +1088,7 @@
       },
 
       {
+        type: "mcq",
         question: "Echo แตกต่างจาก Reverb อย่างไร?",
         options: [
           "Echo เป็นเสียงที่สะท้อนกลับมาให้ได้ยินเป็นครั้ง ๆ",
@@ -927,6 +1100,7 @@
       },
 
       {
+        type: "mcq",
         question: "หากต้องการให้เสียงร้องมีเสียงซ้ำตามหลังเสียงต้นฉบับ ควรใช้เอฟเฟกต์ใด?",
         options: [
           "EQ",
@@ -938,6 +1112,7 @@
       },
 
       {
+        type: "mcq",
         question: "หากต้องการเปลี่ยนเสียงให้มีระดับสูงขึ้น ควรใช้เครื่องมือใด?",
         options: [
           "Reverb",
@@ -949,6 +1124,7 @@
       },
 
       {
+        type: "mcq",
         question: "การปรับ Gain มีผลต่อสิ่งใด?",
         options: [
           "ระดับความแรงของสัญญาณเสียง",
@@ -960,6 +1136,7 @@
       },
 
       {
+        type: "mcq",
         question: "ถ้าต้องการให้เสียงที่บันทึกมาฟังดูกลมกลืนและมีมิติมากขึ้น สามารถใช้เอฟเฟกต์ใดได้?",
         options: [
           "Reverb",
@@ -968,6 +1145,62 @@
           "Gain"
         ],
         answer: 0
+      },
+
+      // --- ข้อ 16 - 20: ฟังเสียงแล้วเลือกตอบ (ไม่ขึ้นชื่อไฟล์บนหน้าเว็บ) ---
+      {
+        type: "audio",
+        question: "ข้อ 16 เสียงฝนตก เสียงไหนฟังดูทึบกว่าเสียงอื่น เพราะเสียงแหลมลดลง?",
+        audioFiles: [
+          "./assets/pretest/q16_a.mp3", // A. เสียงฝนปกติ
+          "./assets/pretest/q16_b.mp3", // B. เสียงฝนลดเสียงแหลม
+          "./assets/pretest/q16_c.mp3"  // C. เสียงฝนเพิ่มเสียงแหลม
+        ],
+        answer: 1 // เฉลย B
+      },
+
+      {
+        type: "audio",
+        question: "ข้อ 17 เสียงบีบขวดน้ำ เสียงไหนฟังดูก้องเหมือนอยู่ในห้องกว้าง?",
+        audioFiles: [
+          "./assets/pretest/q17_a.mp3", // A. เสียงขวดปกติ
+          "./assets/pretest/q17_b.mp3", // B. เสียงขวดใส่ Delay
+          "./assets/pretest/q17_c.mp3"  // C. เสียงขวดใส่ Reverb
+        ],
+        answer: 2 // เฉลย C
+      },
+
+      {
+        type: "audio",
+        question: "ข้อ 18 เสียงเท้าเดิน เสียงไหนมีความดังลดลง แต่ยังเป็นเสียงเดิม?",
+        audioFiles: [
+          "./assets/pretest/q18_a.mp3", // A. เสียงเท้าลด Gain
+          "./assets/pretest/q18_b.mp3", // B. เสียงเท้าเพิ่ม Pitch
+          "./assets/pretest/q18_c.mp3"  // C. เสียงเท้าใส่ Reverb
+        ],
+        answer: 0 // เฉลย A
+      },
+
+      {
+        type: "audio",
+        question: "ข้อ 19 เสียงแก้ว เสียงไหนมีความแหลมเด่นขึ้นกว่าเสียงอื่น?",
+        audioFiles: [
+          "./assets/pretest/q19_a.mp3", // A. เสียงแก้วลดเสียงแหลม
+          "./assets/pretest/q19_b.mp3", // B. เสียงแก้วเพิ่มเสียงแหลม
+          "./assets/pretest/q19_c.mp3"  // C. เสียงแก้วลด Gain
+        ],
+        answer: 1 // เฉลย B
+      },
+
+      {
+        type: "audio",
+        question: "ข้อ 20 เสียงฝนตก เสียงไหนมีระดับเสียงสูงขึ้นจากเสียงต้นฉบับ?",
+        audioFiles: [
+          "./assets/pretest/q20_a.mp3", // A. เสียงฝนลด Pitch
+          "./assets/pretest/q20_b.mp3", // B. เสียงฝนเพิ่ม Pitch
+          "./assets/pretest/q20_c.mp3"  // C. เสียงฝนปรับ Gain เพิ่มขึ้น
+        ],
+        answer: 2 // เฉลย C (ตามที่ระบุในโจทย์)
       }
 
     ];
@@ -981,7 +1214,7 @@
     const questionLabel = document.getElementById("questionLabel");
 
     const questionText = document.getElementById("questionText");
-    const answerList = document.getElementById("answerList");
+    const dynamicAnswerArea = document.getElementById("dynamicAnswerArea");
 
     const answerHint = document.getElementById("answerHint");
 
@@ -1004,14 +1237,107 @@
 
 
     // =========================================
-    // 4. RENDER QUESTION
+    // 4. AUDIO PLAYBACK & PRELOAD HELPERS
+    // =========================================
+
+    function preloadAudioForQuestion(q) {
+      preloadedAudios.forEach((a) => {
+        a.pause();
+        a.src = "";
+      });
+      preloadedAudios = [];
+
+      if (!q || q.type !== "audio" || !Array.isArray(q.audioFiles)) return;
+
+      preloadedAudios = q.audioFiles.map((src) => {
+        const audio = new Audio();
+        audio.preload = "auto";
+        audio.loop = false;
+        audio.src = src;
+        audio.load();
+        return audio;
+      });
+    }
+
+    function stopAudioPlayback() {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentAudio.onended = null;
+        currentAudio = null;
+      }
+      playingOptionIndex = null;
+      syncAudioButtonsUI();
+    }
+
+    function syncAudioButtonsUI() {
+      document.querySelectorAll(".audio-card").forEach((card, idx) => {
+        card.classList.toggle("playing", playingOptionIndex === idx);
+      });
+      document.querySelectorAll(".audio-toggle-btn").forEach((btn, idx) => {
+        const isPlaying = playingOptionIndex === idx;
+        btn.classList.toggle("playing", isPlaying);
+        btn.innerHTML = isPlaying ? "■ Stop" : "▶ Play";
+      });
+    }
+
+    function toggleAudioOption(optIndex) {
+      const q = questions[currentQuestion];
+      if (!q || q.type !== "audio") return;
+
+      if (playingOptionIndex === optIndex && currentAudio) {
+        stopAudioPlayback();
+        return;
+      }
+
+      stopAudioPlayback();
+
+      const audio = preloadedAudios[optIndex] || new Audio(q.audioFiles[optIndex]);
+      audio.pause();
+      audio.currentTime = 0;
+      audio.loop = false;
+
+      currentAudio = audio;
+      playingOptionIndex = optIndex;
+      syncAudioButtonsUI();
+
+      audio.onended = () => {
+        if (currentAudio === audio) {
+          currentAudio = null;
+          playingOptionIndex = null;
+          syncAudioButtonsUI();
+        }
+      };
+
+      audio.onerror = () => {
+        if (currentAudio === audio) {
+          currentAudio = null;
+          playingOptionIndex = null;
+          syncAudioButtonsUI();
+        }
+      };
+
+      audio.play().catch(() => {
+        if (currentAudio === audio) {
+          currentAudio = null;
+          playingOptionIndex = null;
+          syncAudioButtonsUI();
+        }
+      });
+    }
+
+
+    // =========================================
+    // 5. RENDER QUESTION
     // =========================================
 
     function renderQuestion() {
 
-      const question = questions[currentQuestion];
+      stopAudioPlayback();
 
+      const question = questions[currentQuestion];
       const number = currentQuestion + 1;
+      const selected = userAnswers[currentQuestion];
 
       questionNumber.textContent =
         `Question ${number} of ${TOTAL_QUESTIONS}`;
@@ -1021,41 +1347,121 @@
 
       questionText.textContent = question.question;
 
-      answerList.innerHTML = "";
+      dynamicAnswerArea.innerHTML = "";
 
-      const letters = ["ก", "ข", "ค", "ง"];
+      if (question.type === "mcq") {
 
-      question.options.forEach((option, index) => {
+        const answerList = document.createElement("div");
+        answerList.className = "answer-list";
 
-        const button = document.createElement("button");
+        const letters = ["ก", "ข", "ค", "ง"];
 
-        button.type = "button";
-        button.className = "answer-option";
+        question.options.forEach((option, index) => {
 
-        const letter = document.createElement("span");
+          const button = document.createElement("button");
 
-        letter.className = "option-letter";
-        letter.textContent = letters[index];
+          button.type = "button";
+          button.className = "answer-option";
 
-        const text = document.createElement("span");
+          const letter = document.createElement("span");
 
-        text.className = "option-text";
-        text.textContent = option;
+          letter.className = "option-letter";
+          letter.textContent = letters[index];
 
-        button.appendChild(letter);
-        button.appendChild(text);
+          const text = document.createElement("span");
 
-        if (userAnswers[currentQuestion] === index) {
-          button.classList.add("selected");
-        }
+          text.className = "option-text";
+          text.textContent = option;
 
-        button.addEventListener("click", () => {
-          selectAnswer(index);
+          button.appendChild(letter);
+          button.appendChild(text);
+
+          if (selected === index) {
+            button.classList.add("selected");
+          }
+
+          button.addEventListener("click", () => {
+            selectAnswer(index);
+          });
+
+          answerList.appendChild(button);
+
         });
 
-        answerList.appendChild(button);
+        dynamicAnswerArea.appendChild(answerList);
 
-      });
+      } else {
+
+        const letters = ["A", "B", "C"];
+        const grid = document.createElement("div");
+        grid.className = "audio-grid";
+
+        letters.forEach((letter, idx) => {
+          const card = document.createElement("div");
+          card.className = "audio-card" + (selected === idx ? " selected" : "");
+          card.addEventListener("click", () => selectAnswer(idx));
+
+          const title = document.createElement("div");
+          title.className = "audio-card-title";
+          title.textContent = letter;
+
+          const wave = document.createElement("div");
+          wave.className = "waveform";
+          waveHeights.forEach((h) => {
+            const bar = document.createElement("span");
+            bar.className = "wave-bar";
+            bar.style.height = `${h}px`;
+            wave.appendChild(bar);
+          });
+
+          const toggleBtn = document.createElement("button");
+          toggleBtn.type = "button";
+          toggleBtn.className = "audio-toggle-btn";
+          toggleBtn.innerHTML = "▶ Play";
+          toggleBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleAudioOption(idx);
+          });
+
+          card.appendChild(title);
+          card.appendChild(wave);
+          card.appendChild(toggleBtn);
+          grid.appendChild(card);
+        });
+
+        const radioSection = document.createElement("div");
+        radioSection.className = "audio-select-row";
+
+        const radioLabel = document.createElement("div");
+        radioLabel.className = "audio-select-label";
+        radioLabel.textContent = "Select one answer";
+
+        const radioGroup = document.createElement("div");
+        radioGroup.className = "audio-radio-group";
+
+        letters.forEach((letter, idx) => {
+          const radioBtn = document.createElement("div");
+          radioBtn.className = "audio-radio-btn" + (selected === idx ? " selected" : "");
+          radioBtn.addEventListener("click", () => selectAnswer(idx));
+
+          const dot = document.createElement("span");
+          dot.className = "radio-dot";
+
+          const txt = document.createElement("span");
+          txt.textContent = letter;
+
+          radioBtn.appendChild(dot);
+          radioBtn.appendChild(txt);
+          radioGroup.appendChild(radioBtn);
+        });
+
+        radioSection.appendChild(radioLabel);
+        radioSection.appendChild(radioGroup);
+
+        dynamicAnswerArea.appendChild(grid);
+        dynamicAnswerArea.appendChild(radioSection);
+
+      }
 
 
       previousButton.disabled = currentQuestion === 0;
@@ -1072,21 +1478,21 @@
 
       }
 
-      nextButton.disabled =
-        userAnswers[currentQuestion] === null;
+      nextButton.disabled = selected === null;
 
       answerHint.textContent =
-        userAnswers[currentQuestion] === null
+        selected === null
           ? "Select one answer to continue."
           : "Answer selected.";
 
       updateAnsweredCount();
+      preloadAudioForQuestion(question);
 
     }
 
 
     // =========================================
-    // 5. SELECT ANSWER
+    // 6. SELECT ANSWER
     // =========================================
 
     function selectAnswer(index) {
@@ -1095,13 +1501,28 @@
 
       userAnswers[currentQuestion] = index;
 
-      renderQuestion();
+      if (questions[currentQuestion].type === "mcq") {
+        document.querySelectorAll(".answer-option").forEach((el, idx) => {
+          el.classList.toggle("selected", idx === index);
+        });
+      } else {
+        document.querySelectorAll(".audio-card").forEach((el, idx) => {
+          el.classList.toggle("selected", idx === index);
+        });
+        document.querySelectorAll(".audio-radio-btn").forEach((el, idx) => {
+          el.classList.toggle("selected", idx === index);
+        });
+      }
+
+      nextButton.disabled = false;
+      answerHint.textContent = "Answer selected.";
+      updateAnsweredCount();
 
     }
 
 
     // =========================================
-    // 6. ANSWER COUNTER
+    // 7. ANSWER COUNTER
     // =========================================
 
     function updateAnsweredCount() {
@@ -1117,7 +1538,7 @@
 
 
     // =========================================
-    // 7. NEXT / SUBMIT
+    // 8. NEXT / SUBMIT
     // =========================================
 
     nextButton.addEventListener("click", () => {
@@ -1141,7 +1562,7 @@
 
 
     // =========================================
-    // 8. PREVIOUS
+    // 9. PREVIOUS
     // =========================================
 
     previousButton.addEventListener("click", () => {
@@ -1158,11 +1579,12 @@
 
 
     // =========================================
-    // 9. BACK TO HOME
+    // 10. BACK TO HOME
     // =========================================
 
     function goHome() {
 
+      stopAudioPlayback();
       window.location.assign("./home.html");
 
     }
@@ -1173,7 +1595,7 @@
 
 
     // =========================================
-    // 10. TIMER
+    // 11. TIMER
     // =========================================
 
     function startTimer() {
@@ -1203,7 +1625,7 @@
 
 
     // =========================================
-    // 11. TIMER DISPLAY
+    // 12. TIMER DISPLAY
     // =========================================
 
     function updateTimerDisplay() {
@@ -1231,7 +1653,7 @@
 
 
     // =========================================
-    // 12. CALCULATE SCORE
+    // 13. CALCULATE SCORE
     // =========================================
 
     function calculateScore() {
@@ -1252,8 +1674,7 @@
 
 
     // =========================================
-    // 13. FIREBASE CONNECTION
-    // โหลด Firebase แยกจากระบบแสดงโจทย์
+    // 14. FIREBASE CONNECTION
     // =========================================
 
     async function initializeFirebase() {
@@ -1317,7 +1738,7 @@
 
 
     // =========================================
-    // 14. SUBMIT QUIZ
+    // 15. SUBMIT QUIZ
     // =========================================
 
     async function submitQuiz(timeUp = false) {
@@ -1341,6 +1762,8 @@
 
       }
 
+      stopAudioPlayback();
+
       isSaving = true;
 
       nextButton.disabled = true;
@@ -1354,8 +1777,6 @@
       saveStatus.textContent = "Saving your result...";
 
       try {
-
-        // รอ Firebase โหลดให้เสร็จก่อนบันทึก
 
         await firebaseReady;
 
@@ -1377,8 +1798,6 @@
 
         console.error("Pretest save error:", error);
 
-        // แสดงคะแนนแม้บันทึก Firebase ไม่สำเร็จ
-
         isSubmitted = true;
 
         saveStatus.textContent = "";
@@ -1391,7 +1810,7 @@
 
 
     // =========================================
-    // 15. FIRESTORE SAVE
+    // 16. FIRESTORE SAVE
     // =========================================
 
     async function firestoreAddResult(score, timeUp) {
@@ -1435,7 +1854,7 @@
 
 
     // =========================================
-    // 16. SHOW RESULT
+    // 17. SHOW RESULT
     // =========================================
 
     function showResult(score, timeUp, saved) {
@@ -1461,19 +1880,14 @@
 
 
     // =========================================
-    // 17. START SYSTEM
+    // 18. START SYSTEM
     // =========================================
-
-    // แสดงโจทย์ทันที ไม่ต้องรอ Firebase
 
     renderQuestion();
 
     updateTimerDisplay();
 
     startTimer();
-
-
-    // โหลด Firebase ในขั้นตอนแยก
 
     const firebaseReady = initializeFirebase();
 
