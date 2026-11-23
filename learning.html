@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,676 +8,983 @@
 
   <title>Learning | Behind The Sound</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <style>
-    /* =========================================
-       BEHIND THE SOUND
-       LEARNING PAGE
-       DARK GOLD THEME
-    ========================================= */
 
-    :root {
-      --bg: #100e0c;
-      --panel: #211d18;
-      --panel-light: #29241e;
-      --orange: #ff9d43;
-      --orange-hover: #ffb066;
-      --gold: #e8a04d;
-      --text: #f4e7d9;
-      --muted: #c6b7a9;
-      --border: rgba(255, 157, 67, 0.3);
-      --wave-orange: #ff8c3b;
-    }
+/* =========================================
+   BEHIND THE SOUND
+   LEARNING PAGE
+   DARK GOLD THEME
+========================================= */
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
 
-    html {
-      scroll-behavior: smooth;
-    }
+/* =========================================
+   1. ROOT
+========================================= */
 
-    body {
-      min-height: 100vh;
-      overflow-x: hidden;
-      background:
-        radial-gradient(ellipse at 50% 35%, rgba(192, 95, 25, 0.08), transparent 60%),
-        #100e0c;
-      color: var(--text);
-      font-family: 'Montserrat', 'Kanit', sans-serif;
-    }
+:root {
 
-    button, a {
-      font: inherit;
-    }
+  --bg: #100e0c;
 
-    /* =========================================
-       HEADER
-    ========================================= */
+  --panel: #211d18;
 
-    .site-header {
-      width: 100%;
-      height: 75px;
-      padding: 0 30px;
-      display: flex;
-      align-items: center;
-      background: rgba(20, 17, 14, 0.97);
-      border-bottom: 1px solid rgba(255, 157, 67, 0.25);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+  --panel-light: #29241e;
 
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+  --orange: #ff9d43;
 
-    .menu-toggle {
-      background: transparent;
-      border: none;
-      color: var(--orange);
-      font-size: 29px;
-      cursor: pointer;
-      padding: 5px;
-      line-height: 1;
-      transition: .3s;
-    }
+  --gold: #e8a04d;
 
-    .menu-toggle:hover {
-      color: #ffc078;
-      transform: scale(1.08);
-    }
+  --text: #f4e7d9;
 
-    .logo {
-      color: var(--orange);
-      font-size: 23px;
-      font-weight: 800;
-      letter-spacing: -.5px;
-      white-space: nowrap;
-      text-decoration: none;
-    }
+  --muted: #c6b7a9;
 
-    /* =========================================
-       NAVIGATION MENU
-    ========================================= */
+  --border: rgba(255,157,67,.3);
 
-    .main-menu {
-      display: none;
-      position: absolute;
-      top: 75px;
-      left: 0;
-      width: 290px;
-      height: calc(100vh - 75px);
-      padding: 25px;
-      background: #191512;
-      border-right: 1px solid rgba(255, 157, 67, 0.35);
-      border-bottom: 1px solid rgba(255, 157, 67, 0.35);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-      flex-direction: column;
-      gap: 0;
-      overflow-y: auto;
-    }
+}
 
-    .main-menu.active {
-      display: flex;
-    }
 
-    .main-menu a {
-      display: block;
-      color: #e8d6c5;
-      text-decoration: none;
-      font-size: 16px;
-      padding: 20px 10px;
-      border-bottom: 1px solid rgba(255, 157, 67, 0.15);
-      transition: .3s;
-    }
+* {
 
-    .main-menu a:hover,
-    .main-menu a.active {
-      color: var(--orange);
-      padding-left: 18px;
-    }
+  margin: 0;
+  padding: 0;
 
-    /* =========================================
-       MAIN CONTAINER
-    ========================================= */
+  box-sizing: border-box;
 
-    .learning-container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 60px 25px 90px;
-    }
+}
 
-    /* =========================================
-       HERO SECTION
-    ========================================= */
 
-    .learning-hero {
-      width: 100%;
-      margin-bottom: 45px;
-      text-align: left;
-    }
+html {
 
-    .learning-hero h1 {
-      color: var(--orange);
-      font-size: clamp(38px, 5.5vw, 56px);
-      font-weight: 800;
-      letter-spacing: -1.5px;
-      line-height: 1.15;
-      margin-bottom: 14px;
-      text-shadow: 0 0 30px rgba(255, 145, 50, 0.15);
-    }
+  scroll-behavior: smooth;
 
-    .learning-hero p {
-      max-width: 720px;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.8;
-    }
+}
 
-    /* =========================================
-       LEARNING SECTIONS
-    ========================================= */
 
-    .learning-sections {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 25px;
-      align-items: stretch;
-      margin-bottom: 45px;
-    }
+body {
 
-    /* =========================================
-       LEARNING CARD
-    ========================================= */
+  min-height: 100vh;
 
-    .learning-card {
-      position: relative;
-      min-height: 250px;
-      padding: 35px 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-      background: linear-gradient(145deg, rgba(46, 39, 31, 0.98), rgba(25, 22, 18, 0.98));
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      transition: .3s;
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
-    }
+  overflow-x: hidden;
 
-    .learning-card:hover {
-      border-color: rgba(255, 157, 67, 0.7);
-      transform: translateY(-4px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
-    }
+  background:
+    radial-gradient(
+      ellipse at 50% 35%,
+      rgba(192,95,25,.08),
+      transparent 60%
+    ),
+    #100e0c;
 
-    .card-content {
-      position: relative;
-      z-index: 2;
-      max-width: 100%;
-    }
+  color: var(--text);
 
-    .card-content h2 {
-      color: #f4bd87;
-      font-size: clamp(22px, 2.5vw, 28px);
-      font-weight: 700;
-      line-height: 1.35;
-      margin-bottom: 14px;
-    }
+  font-family: 'Montserrat', 'Kanit', sans-serif;
 
-    .card-content h3 {
-      color: #f4e7d9;
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
+}
 
-    .card-content p {
-      color: #c6b7a9;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.8;
-    }
 
-    /* CARD DECORATIONS */
+button,
+a {
 
-    .card-decoration {
-      position: absolute;
-      pointer-events: none;
-      opacity: .25;
-    }
+  font: inherit;
 
-    .waveform-decoration {
-      top: 40px;
-      right: 28px;
-      height: 90px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
+}
 
-    .waveform-decoration span {
-      width: 4px;
-      border-radius: 10px;
-      background: linear-gradient(to top, #a95120, #ffb253);
-    }
 
-    .waveform-decoration span:nth-child(1), .waveform-decoration span:nth-child(15) { height: 15px; }
-    .waveform-decoration span:nth-child(2), .waveform-decoration span:nth-child(14) { height: 35px; }
-    .waveform-decoration span:nth-child(3), .waveform-decoration span:nth-child(13) { height: 55px; }
-    .waveform-decoration span:nth-child(4), .waveform-decoration span:nth-child(12) { height: 75px; }
-    .waveform-decoration span:nth-child(5), .waveform-decoration span:nth-child(11) { height: 90px; }
-    .waveform-decoration span:nth-child(6), .waveform-decoration span:nth-child(10) { height: 60px; }
-    .waveform-decoration span:nth-child(7), .waveform-decoration span:nth-child(9) { height: 35px; }
-    .waveform-decoration span:nth-child(8) { height: 75px; }
+/* =========================================
+   2. HEADER
+========================================= */
 
-    .processor-decoration {
-      top: 35px;
-      right: 30px;
-    }
+.site-header {
 
-    .processor-icon {
-      width: 95px;
-      height: 95px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      border: 1px solid var(--orange);
-      border-radius: 18px;
-      transform: rotate(-8deg);
-    }
+  width: 100%;
 
-    .processor-icon span {
-      color: #ffb66f;
-      font-size: 28px;
-      font-weight: 600;
-    }
+  height: 75px;
 
-    /* =========================================
-       NEW WAVEFORM DIAGRAM SECTION (จากรูปที่ 3)
-    ========================================= */
+  padding: 0 30px;
 
-    .waveform-section {
-      width: 100%;
-      background: #15120e;
-      border: 1.5px solid rgba(255, 157, 67, 0.4);
-      border-radius: 20px;
-      padding: 35px 30px;
-      margin-top: 20px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
-    }
+  display: flex;
 
-    .section-header {
-      margin-bottom: 24px;
-    }
+  align-items: center;
 
-    .section-tag {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--orange);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
+  background: rgba(20,17,14,.97);
 
-    .section-title {
-      font-size: 24px;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 12px;
-    }
+  border-bottom: 1px solid rgba(255,157,67,.25);
 
-    .section-desc {
-      font-size: 14px;
-      color: #c4b5a6;
-      line-height: 1.7;
-      max-width: 820px;
-    }
+  position: sticky;
 
-    /* Waveform Container */
-    .waveform-display-box {
-      width: 100%;
-      background: #0b0907;
-      border: 1px solid rgba(255, 157, 67, 0.2);
-      border-radius: 14px;
-      padding: 24px;
-      position: relative;
-      overflow-x: auto;
-    }
+  top: 0;
 
-    .waveform-svg {
-      width: 100%;
-      min-width: 780px;
-      height: auto;
-      display: block;
-    }
+  z-index: 100;
 
-    /* Glossary Grid */
-    .waveform-glossary {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 16px;
-      margin-top: 24px;
-    }
+}
 
-    .glossary-card {
-      background: rgba(41, 36, 30, 0.5);
-      border: 1px solid rgba(255, 157, 67, 0.18);
-      border-radius: 12px;
-      padding: 16px;
-      transition: .2s;
-    }
 
-    .glossary-card:hover {
-      background: rgba(41, 36, 30, 0.8);
-      border-color: var(--orange);
-    }
+.header-left {
 
-    .glossary-term {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--orange);
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+  display: flex;
 
-    .glossary-term span.badge {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--orange);
-    }
+  align-items: center;
 
-    .glossary-def {
-      font-size: 13px;
-      color: #d1c1b2;
-      line-height: 1.6;
-    }
+  gap: 16px;
 
-    /* =========================================
-       RESPONSIVE
-    ========================================= */
+}
 
-    @media (max-width: 850px) {
-      .learning-sections {
-        grid-template-columns: 1fr;
-        gap: 18px;
-      }
-      .waveform-section {
-        padding: 25px 20px;
-      }
-    }
 
-    @media (max-width: 600px) {
-      .site-header {
-        height: 75px;
-        padding: 0 18px;
-      }
-      .logo {
-        font-size: 21px;
-      }
-      .learning-container {
-        padding: 35px 16px 60px;
-      }
-      .learning-hero h1 {
-        font-size: 34px;
-      }
-      .learning-hero p {
-        font-size: 14px;
-      }
-      .waveform-section {
-        padding: 22px 16px;
-      }
-      .section-title {
-        font-size: 20px;
-      }
-    }
-  </style>
+/* MENU BUTTON */
+
+.menu-toggle {
+
+  background: transparent;
+
+  border: none;
+
+  color: var(--orange);
+
+  font-size: 29px;
+
+  cursor: pointer;
+
+  padding: 5px;
+
+  line-height: 1;
+
+  transition: .3s;
+
+}
+
+
+.menu-toggle:hover {
+
+  color: #ffc078;
+
+  transform: scale(1.08);
+
+}
+
+
+/* WEBSITE LOGO */
+
+.logo {
+
+  color: var(--orange);
+
+  font-size: 23px;
+
+  font-weight: 800;
+
+  letter-spacing: -.5px;
+
+  white-space: nowrap;
+
+  text-decoration: none;
+
+}
+
+
+/* =========================================
+   3. NAVIGATION MENU
+========================================= */
+
+.main-menu {
+
+  display: none;
+
+  position: absolute;
+
+  top: 75px;
+
+  left: 0;
+
+  width: 290px;
+
+  height: calc(100vh - 75px);
+
+  padding: 25px;
+
+  background: #191512;
+
+  border-right: 1px solid rgba(255,157,67,.35);
+
+  border-bottom: 1px solid rgba(255,157,67,.35);
+
+  box-shadow: 0 15px 35px rgba(0,0,0,.5);
+
+  flex-direction: column;
+
+  gap: 0;
+
+  overflow-y: auto;
+
+}
+
+
+.main-menu.active {
+
+  display: flex;
+
+}
+
+
+.main-menu a {
+
+  display: block;
+
+  color: #e8d6c5;
+
+  text-decoration: none;
+
+  font-size: 16px;
+
+  padding: 20px 10px;
+
+  border-bottom: 1px solid rgba(255,157,67,.15);
+
+  transition: .3s;
+
+}
+
+
+.main-menu a:hover,
+.main-menu a.active {
+
+  color: var(--orange);
+
+  padding-left: 18px;
+
+}
+
+
+/* =========================================
+   4. MAIN CONTAINER
+========================================= */
+
+.learning-container {
+
+  width: 100%;
+
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  padding: 80px 45px 100px;
+
+}
+
+
+/* =========================================
+   5. HERO SECTION
+========================================= */
+
+.learning-hero {
+
+  width: 100%;
+
+  margin-bottom: 55px;
+
+  text-align: left;
+
+}
+
+
+.learning-hero h1 {
+
+  color: var(--orange);
+
+  font-size: clamp(42px, 6vw, 65px);
+
+  font-weight: 800;
+
+  letter-spacing: -2px;
+
+  line-height: 1.15;
+
+  margin-bottom: 18px;
+
+  text-shadow: 0 0 30px rgba(255,145,50,.15);
+
+}
+
+
+.learning-hero p {
+
+  max-width: 720px;
+
+  color: var(--muted);
+
+  font-size: 16px;
+
+  line-height: 1.9;
+
+}
+
+
+/* =========================================
+   6. LEARNING SECTIONS
+========================================= */
+
+.learning-sections {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 25px;
+
+  align-items: stretch;
+
+}
+
+
+/* =========================================
+   7. LEARNING CARD
+========================================= */
+
+.learning-card {
+
+  position: relative;
+
+  min-height: 390px;
+
+  padding: 35px 30px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(46,39,31,.98),
+      rgba(25,22,18,.98)
+    );
+
+  border: 1px solid var(--border);
+
+  border-radius: 20px;
+
+  transition: .3s;
+
+}
+
+
+.learning-card:hover {
+
+  border-color: rgba(255,157,67,.7);
+
+  transform: translateY(-5px);
+
+  box-shadow: 0 15px 35px rgba(0,0,0,.3);
+
+}
+
+
+/* CARD CONTENT */
+
+.card-content {
+
+  position: relative;
+
+  z-index: 2;
+
+  max-width: 100%;
+
+}
+
+
+/* CARD TITLE */
+
+.card-content h2 {
+
+  color: #f4bd87;
+
+  font-size: clamp(22px, 2.5vw, 29px);
+
+  font-weight: 700;
+
+  line-height: 1.35;
+
+  margin-bottom: 18px;
+
+}
+
+
+/* CARD SUBTITLE */
+
+.card-content h3 {
+
+  color: #f4e7d9;
+
+  font-size: 17px;
+
+  font-weight: 600;
+
+  line-height: 1.5;
+
+  margin-bottom: 12px;
+
+}
+
+
+/* CARD DESCRIPTION */
+
+.card-content p {
+
+  color: #c6b7a9;
+
+  font-size: 14px;
+
+  font-weight: 400;
+
+  line-height: 1.9;
+
+}
+
+
+/* =========================================
+   8. CARD DECORATIONS
+========================================= */
+
+.card-decoration {
+
+  position: absolute;
+
+  pointer-events: none;
+
+  opacity: .22;
+
+}
+
+
+/* WAVEFORM DECORATION */
+
+.waveform-decoration {
+
+  top: 45px;
+
+  right: 28px;
+
+  height: 95px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+}
+
+
+.waveform-decoration span {
+
+  width: 4px;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    to top,
+    #a95120,
+    #ffb253
+  );
+
+}
+
+
+.waveform-decoration span:nth-child(1),
+.waveform-decoration span:nth-child(15) {
+
+  height: 15px;
+
+}
+
+
+.waveform-decoration span:nth-child(2),
+.waveform-decoration span:nth-child(14) {
+
+  height: 35px;
+
+}
+
+
+.waveform-decoration span:nth-child(3),
+.waveform-decoration span:nth-child(13) {
+
+  height: 55px;
+
+}
+
+
+.waveform-decoration span:nth-child(4),
+.waveform-decoration span:nth-child(12) {
+
+  height: 75px;
+
+}
+
+
+.waveform-decoration span:nth-child(5),
+.waveform-decoration span:nth-child(11) {
+
+  height: 90px;
+
+}
+
+
+.waveform-decoration span:nth-child(6),
+.waveform-decoration span:nth-child(10) {
+
+  height: 60px;
+
+}
+
+
+.waveform-decoration span:nth-child(7),
+.waveform-decoration span:nth-child(9) {
+
+  height: 35px;
+
+}
+
+
+.waveform-decoration span:nth-child(8) {
+
+  height: 75px;
+
+}
+
+
+/* PROCESSOR DECORATION */
+
+.processor-decoration {
+
+  top: 35px;
+
+  right: 30px;
+
+}
+
+
+.processor-icon {
+
+  width: 100px;
+
+  height: 100px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  border: 1px solid var(--orange);
+
+  border-radius: 18px;
+
+  transform: rotate(-8deg);
+
+}
+
+
+.processor-icon span {
+
+  color: #ffb66f;
+
+  font-size: 30px;
+
+  font-weight: 600;
+
+}
+
+
+/* =========================================
+   9. RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 800px) {
+
+  .learning-container {
+
+    padding: 65px 30px 80px;
+
+  }
+
+
+  .learning-sections {
+
+    gap: 18px;
+
+  }
+
+
+  .learning-card {
+
+    min-height: 370px;
+
+    padding: 28px 22px;
+
+  }
+
+
+  .card-content h2 {
+
+    font-size: 22px;
+
+  }
+
+
+  .card-content h3 {
+
+    font-size: 15px;
+
+  }
+
+
+  .card-content p {
+
+    font-size: 13px;
+
+  }
+
+}
+
+
+/* =========================================
+   10. RESPONSIVE - MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .site-header {
+
+    height: 75px;
+
+    padding: 0 18px;
+
+  }
+
+
+  .logo {
+
+    font-size: 21px;
+
+  }
+
+
+  .main-menu {
+
+    top: 75px;
+
+    width: 260px;
+
+    height: calc(100vh - 75px);
+
+  }
+
+
+  .learning-container {
+
+    padding: 55px 20px 70px;
+
+  }
+
+
+  .learning-hero {
+
+    margin-bottom: 35px;
+
+  }
+
+
+  .learning-hero h1 {
+
+    font-size: 43px;
+
+  }
+
+
+  .learning-hero p {
+
+    font-size: 14px;
+
+  }
+
+
+  .learning-sections {
+
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+
+  }
+
+
+  .learning-card {
+
+    min-height: 300px;
+
+    padding: 27px 23px;
+
+  }
+
+
+  .card-content h2 {
+
+    font-size: 25px;
+
+  }
+
+
+  .card-content h3 {
+
+    font-size: 16px;
+
+  }
+
+
+  .card-content p {
+
+    font-size: 14px;
+
+  }
+
+}
+
+
+/* =========================================
+   11. SMALL MOBILE
+========================================= */
+
+@media (max-width: 360px) {
+
+  .learning-container {
+
+    padding-left: 15px;
+
+    padding-right: 15px;
+
+  }
+
+
+  .learning-card {
+
+    padding: 23px 18px;
+
+  }
+
+}
+
+
+/* =========================================
+   END OF LEARNING CSS
+========================================= */
+.learning-card {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+</style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
   <!-- HEADER -->
   <header class="site-header">
+
     <div class="header-left">
-      <button class="menu-toggle" id="menuButton" type="button" aria-label="Toggle menu" aria-expanded="false">
+
+      <button
+        class="menu-toggle"
+        id="menuButton"
+        type="button"
+        aria-label="Toggle menu"
+        aria-expanded="false">
         ☰
       </button>
-      <a href="home.html" class="logo">Behind The Sound</a>
+
+      <a href="home.html" class="logo">
+        Behind The Sound
+      </a>
+
     </div>
 
     <!-- NAVIGATION MENU -->
     <nav id="mainMenu" class="main-menu">
+
       <a href="home.html">Home</a>
       <a href="profile.html">My Profile</a>
       <a href="pretest.html">Pretest</a>
       <a href="learning.html" class="active">Learning</a>
       <a href="practice.html">Practice</a>
       <a href="posttest.html">Post test</a>
+
     </nav>
+
   </header>
+
 
   <!-- MAIN CONTENT -->
   <main class="learning-container">
 
     <!-- HERO -->
     <section class="learning-hero">
+
       <h1>Learning</h1>
+
       <p>
         Choose a topic and explore the world of sound, from basic concepts to audio processing.
       </p>
+
     </section>
+
 
     <!-- LEARNING CARDS -->
     <section class="learning-sections">
 
       <!-- SOUND FUNDAMENTALS -->
-      <a href="sound-fundamentals.html" class="learning-card">
+      <a
+        href="sound-fundamentals.html"
+        class="learning-card fundamentals-card"
+        style="display:block; color:inherit; text-decoration:none;">
+
         <div class="card-content">
+
           <h2>Sound Fundamentals</h2>
+
           <h3>Understand the Basics of Sound</h3>
+
           <p>
             Explore the fundamentals of sound, including frequency, waveforms, and the principles behind how sound works.
           </p>
+
         </div>
 
+        <!-- WAVEFORM DECORATION -->
         <div class="card-decoration waveform-decoration" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
+
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+
         </div>
+
       </a>
 
+
       <!-- AUDIO PROCESSOR LAB -->
-      <a href="audio-processor-lab.html" class="learning-card">
+      <a href="audio-processor-lab.html"
+   class="learning-card fundamentals-card">
+
         <div class="card-content">
+
           <h2>Audio Processor Lab</h2>
+
           <h3>Learn Through Hands-on Experimentation</h3>
+
           <p>
             Explore and experiment with different audio processors by adjusting their parameters and hearing how they affect sound.
           </p>
+
         </div>
 
+        <!-- PROCESSOR DECORATION -->
         <div class="card-decoration processor-decoration" aria-hidden="true">
+
           <div class="processor-icon">
-            <span>≋</span><span>⌁</span><span>≋</span>
+
+            <span>≋</span>
+            <span>⌁</span>
+            <span>≋</span>
+
           </div>
+
         </div>
+
       </a>
-
-    </section>
-
-    <!-- NEW WAVEFORM DIAGRAM SECTION (จากรูปที่ 3) -->
-    <section class="waveform-section">
-      <div class="section-header">
-        <span class="section-tag">Waveform Anatomy</span>
-        <h2 class="section-title">Waveform (รูปคลื่นเสียง) & Components</h2>
-        <p class="section-desc">
-          การสั่นสะเทือนของเสียงที่เดินทางผ่านตัวกลางเมื่อแสดงผลเป็นกราฟ (Amplitude vs Time) จะประกอบไปด้วยส่วนสำคัญที่กำหนดคุณสมบัติของเสียงดังนี้:
-        </p>
-      </div>
-
-      <!-- Waveform Graphic (Vector SVG - คมชัดทุกหน้าจอ) -->
-      <div class="waveform-display-box">
-        <svg class="waveform-svg" viewBox="0 0 1000 520" xmlns="http://www.w3.org/2000/svg">
-          <!-- Background Grid Lines -->
-          <defs>
-            <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 157, 67, 0.04)" stroke-width="1"/>
-            </pattern>
-            <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#ff7f24" />
-              <stop offset="50%" stop-color="#ffa54f" />
-              <stop offset="100%" stop-color="#ff7f24" />
-            </linearGradient>
-            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="6" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
-          </defs>
-
-          <!-- Grid Fill -->
-          <rect width="1000" height="520" fill="url(#gridPattern)" rx="8" />
-
-          <!-- Center Zero Baseline -->
-          <line x1="80" y1="260" x2="890" y2="260" stroke="#ff9d43" stroke-width="1.5" stroke-dasharray="6,5" opacity="0.6" />
-
-          <!-- Main Continuous Waveform Curve -->
-          <!-- 3 cycles: Cycle 1 (80-320), Cycle 2 (320-560), Cycle 3 (560-800) -->
-          <path d="M 80,260 
-                   C 140,20 200,20 260,260 
-                   C 320,500 380,500 440,260 
-                   C 500,20 560,20 620,260 
-                   C 680,500 740,500 800,260 
-                   C 830,140 860,140 890,260" 
-                fill="none" stroke="url(#waveGradient)" stroke-width="4.5" filter="url(#glow)" />
-
-          <!-- Baseline Arrow / Time Axis -->
-          <line x1="890" y1="260" x2="925" y2="260" stroke="#ff9d43" stroke-width="2" />
-          <polygon points="925,255 935,260 925,265" fill="#ff9d43" />
-          <text x="945" y="260" fill="#f4e7d9" font-family="'Montserrat', sans-serif" font-size="14" font-weight="600">Time</text>
-          <text x="945" y="278" fill="#a99b8e" font-family="'Kanit', sans-serif" font-size="11">(เวลา)</text>
-
-          <!-- Peak (สันคลื่น) -->
-          <circle cx="170" cy="73" r="7" fill="#ff9d43" stroke="#ffffff" stroke-width="2" />
-          <line x1="170" y1="73" x2="170" y2="40" stroke="#ffa54f" stroke-width="1.5" stroke-dasharray="3,3" />
-          <text x="170" y="20" text-anchor="middle" fill="#ffffff" font-family="'Montserrat', sans-serif" font-weight="700" font-size="16">Peak</text>
-          <text x="170" y="36" text-anchor="middle" fill="#ff9d43" font-family="'Kanit', sans-serif" font-size="12">สันคลื่น (จุดสูงสุด)</text>
-
-          <!-- Trough (ท้องคลื่น) -->
-          <circle cx="380" cy="447" r="7" fill="#ff9d43" stroke="#ffffff" stroke-width="2" />
-          <line x1="380" y1="447" x2="380" y2="480" stroke="#ffa54f" stroke-width="1.5" stroke-dasharray="3,3" />
-          <text x="380" y="500" text-anchor="middle" fill="#ffffff" font-family="'Montserrat', sans-serif" font-weight="700" font-size="16">Trough</text>
-          <text x="380" y="515" text-anchor="middle" fill="#ff9d43" font-family="'Kanit', sans-serif" font-size="12">ท้องคลื่น (จุดต่ำสุด)</text>
-
-          <!-- Amplitude (แอมพลิจูด) -->
-          <line x1="830" y1="260" x2="830" y2="135" stroke="#e8a04d" stroke-width="2" />
-          <polygon points="826,140 830,132 834,140" fill="#e8a04d" />
-          <polygon points="826,255 830,263 834,255" fill="#e8a04d" />
-          <line x1="810" y1="135" x2="850" y2="135" stroke="#e8a04d" stroke-width="1.5" />
-          <text x="842" y="190" fill="#ffffff" font-family="'Montserrat', sans-serif" font-weight="700" font-size="15">Amplitude</text>
-          <text x="842" y="208" fill="#d1c1b2" font-family="'Kanit', sans-serif" font-size="12">แอมพลิจูด</text>
-
-          <!-- 1 Cycle (1 รอบคลื่น) -->
-          <line x1="80" y1="200" x2="440" y2="200" stroke="#ffa54f" stroke-width="2" />
-          <polygon points="85,196 77,200 85,204" fill="#ffa54f" />
-          <polygon points="435,196 443,200 435,204" fill="#ffa54f" />
-          <line x1="80" y1="185" x2="80" y2="215" stroke="#ffa54f" stroke-width="1.5" />
-          <line x1="440" y1="185" x2="440" y2="215" stroke="#ffa54f" stroke-width="1.5" />
-          <text x="260" y="180" text-anchor="middle" fill="#ffffff" font-family="'Montserrat', sans-serif" font-weight="700" font-size="15">1 Cycle</text>
-          <text x="260" y="194" text-anchor="middle" fill="#ffb066" font-family="'Kanit', sans-serif" font-size="12">1 รอบคลื่น</text>
-
-          <!-- Period (คาบเวลา) -->
-          <line x1="80" y1="410" x2="440" y2="410" stroke="#e8a04d" stroke-width="2" />
-          <polygon points="85,406 77,410 85,414" fill="#e8a04d" />
-          <polygon points="435,406 443,410 435,414" fill="#e8a04d" />
-          <line x1="80" y1="395" x2="80" y2="425" stroke="#e8a04d" stroke-width="1.5" />
-          <line x1="440" y1="395" x2="440" y2="425" stroke="#e8a04d" stroke-width="1.5" />
-          <text x="260" y="380" text-anchor="middle" fill="#ffffff" font-family="'Montserrat', sans-serif" font-weight="700" font-size="15">Period (คาบเวลา)</text>
-          <text x="260" y="394" text-anchor="middle" fill="#d1c1b2" font-family="'Kanit', sans-serif" font-size="11">เวลาในการครบรอบ 1 Cycle</text>
-
-          <!-- Wavelength (ความยาวคลื่น) -->
-          <line x1="170" y1="110" x2="530" y2="110" stroke="#ffa54f" stroke-width="2" />
-          <polygon points="175,106 167,110 175,114" fill="#ffa54f" />
-          <polygon points="525,106 533,110 525,114" fill="#ffa54f" />
-          <line x1="170" y1="95" x2="170" y2="115" stroke="#ffa54f" stroke-width="1.5" />
-          <line x1="530" y1="95" x2="530" y2="115" stroke="#ffa54f" stroke-width="1.5" />
-          <text x="350" y="94" text-anchor="middle" fill="#ffffff" font-family="'Montserrat', sans-serif" font-weight="700" font-size="15">Wavelength</text>
-          <text x="350" y="106" text-anchor="middle" fill="#ffb066" font-family="'Kanit', sans-serif" font-size="11">ความยาวคลื่น (ยอดถึงยอด)</text>
-        </svg>
-      </div>
-
-      <!-- Glossary Definitions -->
-      <div class="waveform-glossary">
-        <div class="glossary-card">
-          <div class="glossary-term"><span class="badge"></span> Peak (สันคลื่น)</div>
-          <div class="glossary-def">จุดสูงสุดของคลื่นเสียง แสดงถึงความดันอากาศสูงสุดในการสั่นสะเทือน</div>
-        </div>
-        <div class="glossary-card">
-          <div class="glossary-term"><span class="badge"></span> Trough (ท้องคลื่น)</div>
-          <div class="glossary-def">จุดต่ำสุดของคลื่นเสียง แสดงถึงความดันอากาศต่ำสุดในวงจร</div>
-        </div>
-        <div class="glossary-card">
-          <div class="glossary-term"><span class="badge"></span> 1 Cycle (1 รอบคลื่น)</div>
-          <div class="glossary-def">หนึ่งวงจรสมบูรณ์ที่คลื่นเคลื่อนที่ผ่านทั้งจุดบวกและจุดลบครบหนึ่งรอบ</div>
-        </div>
-        <div class="glossary-card">
-          <div class="glossary-term"><span class="badge"></span> Period (คาบเวลา)</div>
-          <div class="glossary-def">เวลา (วินาที) ที่คลื่นใช้ในการเคลื่อนที่ครบรอบ 1 Cycle เต็ม</div>
-        </div>
-        <div class="glossary-card">
-          <div class="glossary-term"><span class="badge"></span> Amplitude / Wavelength</div>
-          <div class="glossary-def">ความสูงจากแกนกลางแสดงถึงความดังเสียง และระยะทางที่คลื่นเคลื่อนที่ครบ 1 รอบ</div>
-        </div>
-      </div>
     </section>
 
   </main>
 
+
   <!-- JAVASCRIPT -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const menuButton = document.getElementById("menuButton");
-      const mainMenu = document.getElementById("mainMenu");
+/* =========================================
+   BEHIND THE SOUND
+   LEARNING PAGE JAVASCRIPT
+========================================= */
 
-      if (menuButton && mainMenu) {
-        menuButton.addEventListener("click", (event) => {
-          event.stopPropagation();
-          mainMenu.classList.toggle("active");
-          const isOpen = mainMenu.classList.contains("active");
-          menuButton.setAttribute("aria-expanded", String(isOpen));
-        });
+document.addEventListener("DOMContentLoaded", () => {
 
-        document.addEventListener("click", (event) => {
-          if (!mainMenu.contains(event.target) && !menuButton.contains(event.target)) {
-            mainMenu.classList.remove("active");
-            menuButton.setAttribute("aria-expanded", "false");
-          }
-        });
+  const menuButton = document.getElementById("menuButton");
+  const mainMenu = document.getElementById("mainMenu");
 
-        mainMenu.querySelectorAll("a").forEach(link => {
-          link.addEventListener("click", () => {
-            mainMenu.classList.remove("active");
-            menuButton.setAttribute("aria-expanded", "false");
-          });
-        });
-      }
+  // OPEN / CLOSE MENU
+  if (menuButton && mainMenu) {
+
+    menuButton.addEventListener("click", (event) => {
+
+      event.stopPropagation();
+
+      mainMenu.classList.toggle("active");
+
+      const isOpen = mainMenu.classList.contains("active");
+
+      menuButton.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+      );
+
     });
-  </script>
+
+    // CLICK OUTSIDE MENU
+    document.addEventListener("click", (event) => {
+
+      if (
+        !mainMenu.contains(event.target) &&
+        !menuButton.contains(event.target)
+      ) {
+
+        mainMenu.classList.remove("active");
+
+        menuButton.setAttribute("aria-expanded", "false");
+
+      }
+
+    });
+
+    // CLOSE AFTER CLICKING A MENU LINK
+    mainMenu.querySelectorAll("a").forEach(link => {
+
+      link.addEventListener("click", () => {
+
+        mainMenu.classList.remove("active");
+
+        menuButton.setAttribute("aria-expanded", "false");
+
+      });
+
+    });
+
+  }
+
+});
+</script>
 
 </body>
 </html>
