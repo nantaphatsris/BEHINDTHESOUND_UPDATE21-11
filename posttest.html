@@ -1,920 +1,1151 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Posttest - Behind The Sound</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Posttest | Behind The Sound</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg-dark: #090807;
-      --header-bg: #110e0b;
-      --accent-orange: #f27427;
-      --accent-orange-hover: #ff853b;
-      --accent-gold: #e5a95c;
-      --text-main: #ffffff;
-      --text-muted: #b8a89a;
-      --card-gradient: linear-gradient(115deg, #0c0a09 0%, #1c120c 42%, #6e371b 82%, #9a512a 100%);
-      --border-subtle: rgba(242, 116, 39, 0.28);
+      --header-bg: #14110e;
+      --orange: #ff8c3b;
+      --orange-bright: #ffa35e;
+      --gold: #e8a04d;
+      --text: #f7f0e8;
+      --muted: #c2afa0;
+      --border-gold: rgba(232, 160, 77, 0.42);
+      --post-card-grad: linear-gradient(115deg, #0b0908 0%, #1d120c 42%, #723819 82%, #9e5329 100%);
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Prompt', sans-serif;
+      box-sizing: border-box;
     }
 
     body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      background-color: var(--bg-dark);
+      background-image:
+        linear-gradient(rgba(9, 8, 7, 0.9), rgba(9, 8, 7, 0.96)),
+        repeating-linear-gradient(90deg, transparent 0px, transparent 39px, rgba(255, 140, 59, 0.06) 40px),
+        repeating-linear-gradient(0deg, transparent 0px, transparent 39px, rgba(255, 140, 59, 0.06) 40px);
+      color: var(--text);
+      font-family: 'Montserrat', 'Kanit', sans-serif;
     }
 
-    /* Top Header (เหมือนหน้า Pretest รูปที่ 3) */
-    .top-bar {
-      height: 58px;
-      background-color: var(--header-bg);
-      border-bottom: 1px solid rgba(229, 169, 92, 0.15);
-      display: flex;
+    /* Header เหมือน Pretest */
+    .quiz-header {
+      width: 100%;
+      height: 76px;
+      padding: 0 25px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: center;
-      position: relative;
-      padding: 0 24px;
+      background: rgba(20, 17, 14, 0.97);
+      border-bottom: 1px solid var(--border-gold);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    .back-btn {
-      position: absolute;
-      left: 24px;
-      background: none;
+    .back-button {
+      justify-self: start;
+      width: 40px;
+      height: 45px;
       border: none;
-      color: var(--accent-gold);
-      font-size: 20px;
-      font-weight: 600;
+      background: transparent;
+      color: var(--orange);
+      font-family: Arial, sans-serif;
+      font-size: 36px;
+      font-weight: 300;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      padding: 6px 10px;
-      border-radius: 8px;
-      transition: background 0.2s;
     }
 
-    .back-btn:hover {
-      background: rgba(242, 116, 39, 0.15);
+    .back-button:hover {
+      color: #ffd09c;
     }
 
-    .top-bar-title {
-      color: var(--accent-gold);
-      font-size: 16px;
+    .header-title {
+      color: var(--text);
+      font-size: 18px;
       font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .header-space {
+      width: 40px;
     }
 
     /* Main Container */
-    .container {
-      flex: 1;
-      max-width: 820px;
+    .quiz-container {
       width: 100%;
-      margin: 0 auto;
-      padding: 36px 20px 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      max-width: 780px;
+      margin: auto;
+      padding: 40px 22px 32px;
     }
 
-    /* Meta Header above card */
-    .quiz-meta-top {
+    .quiz-top-info {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
-      font-size: 12px;
-      letter-spacing: 0.8px;
+      margin-bottom: 14px;
     }
 
-    .quiz-badge {
-      color: var(--accent-orange);
+    .quiz-top-info span:first-child {
+      color: var(--orange);
+      font-size: 11px;
       font-weight: 700;
-      text-transform: uppercase;
+      letter-spacing: 2px;
     }
 
-    .quiz-progress-text {
-      color: var(--text-muted);
-    }
-
-    /* Main Quiz Card (สี Gradient ส้มอิฐ-ดำ เหมือนรูปที่ 2) */
-    .quiz-card {
-      background: var(--card-gradient);
-      border: 1px solid rgba(242, 116, 39, 0.45);
-      border-radius: 20px;
-      padding: 32px 34px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
-      transition: all 0.3s ease;
-    }
-
-    .question-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .question-step {
-      color: var(--accent-orange);
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .question-type-tag {
+    .quiz-top-info span:last-child {
+      color: var(--muted);
       font-size: 12px;
-      padding: 4px 12px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.45);
-      border: 1px solid rgba(242, 116, 39, 0.4);
-      color: #ffd3b6;
     }
 
-    .question-title {
-      font-size: 20px;
-      font-weight: 600;
-      line-height: 1.5;
-      margin-bottom: 8px;
+    /* Question Card สีเหมือน Posttest Ref */
+    .question-card {
+      width: 100%;
+      padding: 34px 30px 26px;
+      background: var(--post-card-grad);
+      border: 1.5px solid rgba(255, 140, 59, 0.45);
+      border-radius: 20px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.65);
+    }
+
+    .question-progress-text {
+      color: #ffb980;
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    .question-text {
       color: #ffffff;
-    }
-
-    .question-subtitle {
-      font-size: 13px;
-      color: #d6c3b5;
+      font-size: 19px;
+      font-weight: 600;
+      line-height: 1.55;
       margin-bottom: 24px;
+      font-family: 'Kanit', 'Montserrat', sans-serif;
     }
 
-    /* Standard 4 Choices (ข้อ 1 - 10) */
-    .choices-list {
+    /* MCQ Choices (A, B, C, D) */
+    .answer-list {
       display: flex;
       flex-direction: column;
+      gap: 11px;
+    }
+
+    .answer-option {
+      width: 100%;
+      min-height: 58px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
       gap: 14px;
-      margin-bottom: 26px;
-    }
-
-    .choice-item {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 15px 20px;
-      background: rgba(12, 10, 9, 0.72);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .choice-item:hover {
-      border-color: rgba(242, 116, 39, 0.65);
-      background: rgba(32, 19, 12, 0.85);
-    }
-
-    .choice-item.selected {
-      background: linear-gradient(90deg, rgba(242, 116, 39, 0.28) 0%, rgba(168, 74, 24, 0.42) 100%);
-      border-color: var(--accent-orange);
-      box-shadow: 0 0 0 1px var(--accent-orange);
-    }
-
-    .choice-prefix {
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--accent-orange);
-      font-weight: 600;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .choice-item.selected .choice-prefix {
-      background: var(--accent-orange);
-      color: #120904;
-    }
-
-    .choice-text {
-      font-size: 15px;
+      background: rgba(10, 8, 7, 0.72);
+      border: 1.5px solid rgba(255, 255, 255, 0.16);
+      border-radius: 14px;
       color: #f5ede6;
+      text-align: left;
+      font-family: 'Kanit', sans-serif;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.2s;
     }
 
-    /* Audio Comparison Choices (ข้อ 11 - 15 เหมือนรูปที่ 2) */
+    .answer-option:hover {
+      border-color: var(--orange);
+      background: rgba(255, 140, 59, 0.14);
+    }
+
+    .answer-option.selected {
+      background: linear-gradient(90deg, rgba(255, 140, 59, 0.32) 0%, rgba(168, 74, 24, 0.48) 100%);
+      border-color: var(--orange);
+      box-shadow: 0 0 14px rgba(255, 140, 59, 0.2);
+    }
+
+    .option-letter {
+      min-width: 24px;
+      color: var(--orange);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .option-text {
+      line-height: 1.45;
+    }
+
+    /* Audio Comparison Cards (A, B, C เท่านั้น ไม่แสดงชื่อไฟล์) */
     .audio-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 24px;
+      gap: 14px;
+      margin-bottom: 22px;
     }
 
     .audio-card {
-      background: #0c0a09;
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(10, 8, 7, 0.84);
+      border: 1.5px solid rgba(255, 255, 255, 0.18);
       border-radius: 14px;
-      padding: 18px 16px;
+      padding: 18px 14px;
       display: flex;
       flex-direction: column;
       align-items: center;
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: 0.2s;
     }
 
     .audio-card:hover {
-      border-color: rgba(242, 116, 39, 0.7);
+      border-color: var(--orange);
       transform: translateY(-2px);
     }
 
     .audio-card.selected {
-      background: linear-gradient(180deg, rgba(168, 86, 38, 0.55) 0%, rgba(92, 46, 20, 0.7) 100%);
-      border-color: var(--accent-orange);
-      box-shadow: 0 0 20px rgba(242, 116, 39, 0.25);
+      background: linear-gradient(180deg, rgba(186, 92, 36, 0.55) 0%, rgba(92, 44, 18, 0.72) 100%);
+      border-color: var(--orange);
+      box-shadow: 0 0 20px rgba(255, 140, 59, 0.24);
     }
 
-    .audio-card-label {
+    .audio-card-title {
       align-self: flex-start;
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 16px;
+      font-size: 16px;
+      font-weight: 700;
       color: #ffffff;
+      margin-bottom: 14px;
     }
 
-    /* Waveform Bars */
     .waveform {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 3px;
-      height: 46px;
-      margin-bottom: 18px;
+      height: 44px;
       width: 100%;
+      margin-bottom: 16px;
     }
 
     .wave-bar {
       width: 3px;
       background-color: #ffffff;
       border-radius: 2px;
-      transition: background-color 0.2s, transform 0.15s;
+      transition: background-color 0.2s;
     }
 
     .audio-card.selected .wave-bar,
     .audio-card.playing .wave-bar {
-      background-color: var(--accent-orange);
+      background-color: var(--orange);
     }
 
     .audio-card.playing .wave-bar {
-      animation: pulseWave 0.6s infinite alternate ease-in-out;
+      animation: wavePulse 0.55s infinite alternate ease-in-out;
     }
 
-    @keyframes pulseWave {
-      from { transform: scaleY(0.65); }
-      to { transform: scaleY(1.25); }
+    @keyframes wavePulse {
+      from { transform: scaleY(0.6); }
+      to { transform: scaleY(1.3); }
     }
 
-    .play-btn {
+    .audio-toggle-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 7px;
-      background: rgba(242, 116, 39, 0.12);
-      border: 1px solid rgba(242, 116, 39, 0.45);
-      color: var(--accent-orange);
-      padding: 6px 16px;
+      min-width: 96px;
+      padding: 7px 16px;
       border-radius: 999px;
+      border: 1px solid var(--orange);
+      background: rgba(255, 140, 59, 0.14);
+      color: var(--orange);
+      font-family: 'Montserrat', sans-serif;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: 0.2s;
     }
 
-    .play-btn:hover {
-      background: var(--accent-orange);
-      color: #120904;
+    .audio-toggle-btn:hover {
+      background: var(--orange);
+      color: #140903;
     }
 
-    .play-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      border: 1.5px solid currentColor;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 8px;
+    .audio-toggle-btn.playing {
+      background: #ff5e3a;
+      border-color: #ff5e3a;
+      color: #ffffff;
     }
 
-    /* Radio Selector row for Audio questions */
-    .audio-radio-section {
+    .audio-select-row {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 14px;
     }
 
-    .audio-radio-hint {
-      font-size: 14px;
-      color: #f0dfd3;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+    .audio-select-label {
+      font-size: 13px;
+      color: #f2dfd0;
+      margin-bottom: 12px;
     }
 
     .audio-radio-group {
       display: flex;
       justify-content: center;
-      gap: 36px;
+      gap: 34px;
     }
 
-    .radio-option {
-      display: flex;
+    .audio-radio-btn {
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       cursor: pointer;
       font-size: 18px;
-      font-weight: 600;
+      font-weight: 700;
+      color: #ffffff;
     }
 
-    .radio-circle {
+    .radio-dot {
       width: 20px;
       height: 20px;
       border-radius: 50%;
       border: 2px solid rgba(255, 255, 255, 0.45);
-      display: inline-block;
-      position: relative;
-      transition: all 0.2s;
+      transition: 0.2s;
     }
 
-    .radio-option.selected .radio-circle {
-      border-color: var(--accent-orange);
-      background-color: var(--accent-orange);
-      box-shadow: 0 0 10px rgba(242, 116, 39, 0.6);
+    .audio-radio-btn.selected .radio-dot {
+      border-color: var(--orange);
+      background-color: var(--orange);
+      box-shadow: 0 0 10px rgba(255, 140, 59, 0.65);
     }
 
-    /* Timer Section inside Card (เหมือน Pretest รูปที่ 3) */
-    .card-footer-hint {
+    .answer-hint {
+      min-height: 22px;
+      margin-top: 14px;
+      color: #d6c3b5;
+      font-size: 11px;
       text-align: center;
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 14px;
     }
 
-    .timer-row {
+    /* Timer */
+    .timer-section {
+      margin-top: 10px;
+    }
+
+    .timer-text {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12px;
       margin-bottom: 8px;
+      color: #e0c5ad;
+      font-size: 12px;
     }
 
-    .timer-label {
-      color: var(--text-muted);
+    .timer-text strong {
+      color: var(--orange);
+      font-size: 16px;
     }
 
-    .timer-value {
-      color: var(--accent-orange);
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    .timer-bar-bg {
+    .timer-track {
       width: 100%;
-      height: 6px;
+      height: 7px;
       background: rgba(0, 0, 0, 0.45);
-      border-radius: 999px;
+      border-radius: 20px;
       overflow: hidden;
     }
 
-    .timer-bar-fill {
-      height: 100%;
+    .timer-fill {
       width: 100%;
-      background: linear-gradient(90deg, #d95d1e 0%, #ff8c42 100%);
-      border-radius: 999px;
+      height: 100%;
+      background: linear-gradient(90deg, #ffad59, #e86b25);
+      border-radius: 20px;
       transition: width 1s linear;
     }
 
-    /* Navigation Buttons below Card */
-    .nav-actions {
+    /* Navigation */
+    .quiz-navigation {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-top: 22px;
+      gap: 15px;
+      margin-top: 42px;
     }
 
-    .btn-prev {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: var(--text-muted);
-      padding: 12px 28px;
-      border-radius: 10px;
-      font-size: 14px;
+    .previous-button,
+    .next-button {
+      min-width: 145px;
+      padding: 13px 25px;
+      border-radius: 15px;
+      font-family: 'Kanit', sans-serif;
+      font-size: 15px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: 0.25s;
     }
 
-    .btn-prev:hover:not(:disabled) {
-      border-color: var(--accent-orange);
-      color: #fff;
+    .previous-button {
+      background: transparent;
+      border: 1px solid var(--border-gold);
+      color: #d4b895;
     }
 
-    .btn-prev:disabled {
+    .previous-button:hover:not(:disabled) {
+      background: rgba(255, 140, 59, 0.1);
+      border-color: var(--orange);
+    }
+
+    .previous-button:disabled {
       opacity: 0.35;
       cursor: not-allowed;
     }
 
-    .btn-next {
-      background: var(--accent-orange);
-      border: none;
-      color: #140903;
+    .next-button {
+      background: linear-gradient(135deg, #ffa85c, #e56f24);
+      border: 1px solid #ffad66;
+      color: #1c0e05;
       font-weight: 600;
-      padding: 12px 34px;
-      border-radius: 10px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.2s;
     }
 
-    .btn-next:hover:not(:disabled) {
-      background: var(--accent-orange-hover);
-      transform: translateY(-1px);
+    .next-button:hover:not(:disabled) {
+      transform: translateY(-2px);
     }
 
-    .btn-next:disabled {
-      background: rgba(242, 116, 39, 0.3);
-      color: rgba(255, 255, 255, 0.45);
+    .next-button:disabled {
+      opacity: 0.45;
       cursor: not-allowed;
     }
 
-    .bottom-status {
+    .bottom-progress {
       display: flex;
       justify-content: space-between;
-      margin-top: 14px;
-      font-size: 11px;
-      color: #6e6259;
+      margin-top: 24px;
+      color: #8f7e70;
+      font-size: 10px;
       letter-spacing: 0.5px;
     }
 
-    /* Result Screen */
-    .result-box {
+    .save-status {
+      margin-top: 12px;
+      color: var(--orange);
       text-align: center;
-      padding: 20px 10px;
+      font-size: 12px;
+    }
+
+    /* Result Modal เหมือน Pretest */
+    .result-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 500;
+    }
+
+    .result-overlay.active {
+      display: flex;
+    }
+
+    .result-card {
+      width: 100%;
+      max-width: 390px;
+      padding: 35px 25px;
+      text-align: center;
+      background: #211d17;
+      border: 1px solid var(--border-gold);
+      border-radius: 20px;
+    }
+
+    .result-icon {
+      width: 65px;
+      height: 65px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--orange);
+      border-radius: 50%;
+      color: var(--orange);
+      font-size: 30px;
+    }
+
+    .result-label {
+      color: var(--orange);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .result-card h2 {
+      margin-top: 12px;
+      font-size: 24px;
     }
 
     .result-score {
-      font-size: 48px;
-      font-weight: 700;
-      color: var(--accent-orange);
-      margin: 16px 0;
+      margin: 22px 0;
+      color: var(--orange);
     }
 
-    @media (max-width: 680px) {
+    .result-score strong {
+      font-size: 55px;
+      font-weight: 800;
+    }
+
+    .result-score span {
+      color: var(--muted);
+      font-size: 22px;
+    }
+
+    .result-message {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .result-home-button {
+      width: 100%;
+      margin-top: 24px;
+      padding: 13px;
+      border: none;
+      border-radius: 25px;
+      background: linear-gradient(135deg, #ffa85c, #e56f24);
+      color: #1c0e05;
+      font-family: 'Kanit', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    @media (max-width: 650px) {
       .audio-grid {
         grid-template-columns: 1fr;
       }
-      .quiz-card {
-        padding: 24px 18px;
+      .question-card {
+        padding: 26px 16px 22px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Bar เหมือน Pretest -->
-  <header class="top-bar">
-    <button class="back-btn" onclick="window.location.href='home.html'" title="กลับหน้าหลัก">&#8249;</button>
-    <div class="top-bar-title">POSTTEST</div>
+  <header class="quiz-header">
+    <button class="back-button" id="backButton" type="button" aria-label="Back to Home">‹</button>
+    <div class="header-title">POSTTEST</div>
+    <div class="header-space"></div>
   </header>
 
-  <main class="container">
-    <div class="quiz-meta-top">
-      <span class="quiz-badge">POSTTEST</span>
-      <span class="quiz-progress-text" id="topProgressText">Question 1 of 15</span>
+  <main class="quiz-container">
+    <div class="quiz-top-info">
+      <span>POSTTEST</span>
+      <span id="questionNumber">Question 1 of 15</span>
     </div>
 
-    <div class="quiz-card" id="quizCard">
-      <!-- Content injected by JS -->
+    <section class="question-card">
+      <div class="question-progress-text" id="questionLabel">Question 1 of 15</div>
+      <h2 class="question-text" id="questionText">Loading question...</h2>
+
+      <div id="dynamicAnswerArea"></div>
+
+      <p class="answer-hint" id="answerHint">Select one answer to continue.</p>
+
+      <div class="timer-section">
+        <div class="timer-text">
+          <span>Time Remaining</span>
+          <strong id="timer">15:00</strong>
+        </div>
+        <div class="timer-track">
+          <div class="timer-fill" id="timerFill"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="quiz-navigation">
+      <button type="button" class="previous-button" id="previousButton" disabled>Previous</button>
+      <button type="button" class="next-button" id="nextButton" disabled>Next</button>
     </div>
 
-    <div class="nav-actions" id="navActions">
-      <button class="btn-prev" id="prevBtn" onclick="prevQuestion()">Previous</button>
-      <button class="btn-next" id="nextBtn" onclick="nextQuestion()" disabled>Next</button>
-    </div>
-
-    <div class="bottom-status" id="bottomStatus">
-      <span id="answeredCounter">0 / 15 Answered</span>
+    <div class="bottom-progress">
+      <span id="answeredCount">0 / 15 Answered</span>
       <span>BEHIND THE SOUND</span>
     </div>
+
+    <p class="save-status" id="saveStatus" role="status"></p>
   </main>
 
-  <script>
-    // ข้อมูลข้อสอบ 15 ข้อ (10 ข้อเลือกตอบ + 5 ข้อฟังเสียง)
-    // คุณสามารถแก้ไขคำถาม ตัวเลือก และเฉลย (answer) ใน Array นี้ได้เลย
+  <div class="result-overlay" id="resultOverlay">
+    <div class="result-card">
+      <div class="result-icon">✓</div>
+      <p class="result-label">POSTTEST COMPLETED</p>
+      <h2>Your Result</h2>
+      <div class="result-score">
+        <strong id="finalScore">0</strong>
+        <span>/ 15</span>
+      </div>
+      <p class="result-message" id="resultMessage">Your answers have been submitted.</p>
+      <button type="button" id="homeButton" class="result-home-button">Back to Home →</button>
+    </div>
+  </div>
+
+  <script type="module">
+    const TOTAL_QUESTIONS = 15;
+    const TOTAL_TIME = 15 * 60;
+
+    let currentQuestion = 0;
+    let remainingTime = TOTAL_TIME;
+    let currentUser = null;
+    let db = null;
+    let timerInterval = null;
+    let isSubmitted = false;
+    let isSaving = false;
+    let userAnswers = Array(TOTAL_QUESTIONS).fill(null);
+
+    // ตัวแปรควบคุมการเล่นเสียง (ไม่ลูป เล่นจบแล้วรีเซ็ตปุ่มเป็น Play)
+    let currentAudio = null;
+    let playingOptionIndex = null;
+
+    const waveHeights = [14, 24, 12, 34, 42, 26, 18, 38, 44, 28, 16, 40, 30, 20, 42, 26, 15, 35, 22, 14];
+
+    // คำตอบ: A = 0, B = 1, C = 2, D = 3
     const questions = [
-      // --- ส่วนที่ 1: เลือกตอบ 10 ข้อ ---
+      // ข้อ 1 - 10 (เลือกตอบ ช้อยส์ A B C D)
       {
-        type: 'mcq',
-        question: 'เสียงที่เราได้ยินในชีวิตประจำวันเกิดจากอะไร?',
-        choices: ['การสั่นสะเทือนของวัตถุ', 'การเปลี่ยนแปลงของแสง', 'การเคลื่อนที่ของอากาศอย่างเดียว', 'การเปลี่ยนแปลงของอุณหภูมิ'],
-        answer: 0
-      },
-      {
-        type: 'mcq',
-        question: 'คุณสมบัติใดของคลื่นเสียงที่กำหนดระดับเสียงสูง-ต่ำ (Pitch)?',
-        choices: ['แอมพลิจูด (Amplitude)', 'ความถี่ (Frequency)', 'เฟส (Phase)', 'ความเร็วเสียง (Velocity)'],
-        answer: 1
-      },
-      {
-        type: 'mcq',
-        question: 'หน่วยวัดความดังของเสียงที่นิยมใช้ในงานด้านระบบเสียงคือข้อใด?',
-        choices: ['Hertz (Hz)', 'Decibel (dB)', 'Ohm (Ω)', 'Millisecond (ms)'],
-        answer: 1
-      },
-      {
-        type: 'mcq',
-        question: 'ช่วงความถี่เสียงที่หูของมนุษย์ปกติสามารถได้ยินอยู่ในช่วงใด?',
-        choices: ['2 Hz – 2,000 Hz', '20 Hz – 20,000 Hz', '200 Hz – 200,000 Hz', '10 Hz – 10,000 Hz'],
-        answer: 1
-      },
-      {
-        type: 'mcq',
-        question: 'เอฟเฟกต์ Reverb มีหน้าที่จำลองลักษณะทางเสียงแบบใด?',
-        choices: ['การเปลี่ยนระดับเสียงให้สูงขึ้น', 'เสียงสะท้อนก้องภายในพื้นที่หรือห้อง', 'การตัดย่านความถี่ต่ำทิ้งทั้งหมด', 'การบีบอัดไดนามิกของเสียง'],
-        answer: 1
-      },
-      {
-        type: 'mcq',
-        question: 'พารามิเตอร์ Feedback ในเอฟเฟกต์ Delay ควบคุมสิ่งใด?',
-        choices: ['ความสว่างของโทนเสียง', 'จำนวนครั้งหรือความต่อเนื่องของเสียงสะท้อนซ้ำ', 'ความกว้างของมิติสเตอริโอ', 'ความเร็วในการโจมตีของเสียง (Attack)'],
-        answer: 1
-      },
-      {
-        type: 'mcq',
-        question: 'การปรับ Pitch Shift เป็นค่า +12 Semitones จะส่งผลต่อเสียงอย่างไร?',
-        choices: ['เสียงต่ำลง 1 Octave', 'เสียงสูงขึ้น 1 Octave', 'เสียงดังขึ้น 12 dB', 'เสียงช้าลงครึ่งหนึ่ง'],
-        answer: 1
-      },
-      {
-        type: 'mcq',
-        question: 'ข้อใดคือความแตกต่างหลักระหว่าง Dry Signal และ Wet Signal?',
-        choices: [
-          'Dry คือเสียงต้นฉบับที่ยังไม่ผ่านเอฟเฟกต์, Wet คือเสียงที่ผ่านการประมวลผลแล้ว',
-          'Dry คือเสียงความถี่สูง, Wet คือเสียงความถี่ต่ำ',
-          'Dry คือเสียงโมโน, Wet คือเสียงสเตอริโอ',
-          'Dry คือเสียงที่บันทึกในห้องอัด, Wet คือเสียงสังเคราะห์'
+        type: "mcq",
+        question: "ข้อ 1 เสียงใดมีลักษณะก้องเหมือนอยู่ในห้องขนาดใหญ่",
+        options: [
+          "เสียงแห้ง ไม่มีเสียงก้อง",
+          "เสียงก้องสั้น",
+          "เสียงก้องยาว",
+          "เสียงสะท้อนซ้ำอย่างชัดเจน"
         ],
-        answer: 0
+        answer: 2 // ค
       },
       {
-        type: 'mcq',
-        question: 'หากต้องการลดเสียงรบกวนความถี่ต่ำมาก (เช่น เสียงลมหรือเสียงหึ่ง) ควรเลือกใช้ฟิลเตอร์ชนิดใด?',
-        choices: ['Low-Pass Filter', 'High-Pass Filter', 'Band-Stop Filter', 'All-Pass Filter'],
-        answer: 1
-      },
-      {
-        type: 'mcq',
-        question: 'ปรากฏการณ์ Clipping ในระบบเสียงดิจิทัลเกิดขึ้นเมื่อใด?',
-        choices: [
-          'ระดับสัญญาณเสียงเกินค่าสูงสุด (0 dBFS) จนยอดคลื่นถูกตัด',
-          'ความถี่แซมปลิ้งสูงเกินไป',
-          'สายสัญญาณมีความยาวมากเกินไป',
-          'ปรับค่า Reverb น้อยเกินไป'
+        type: "mcq",
+        question: "ข้อ 2 เสียงใดลดเสียงความถี่ต่ำออกไป ทำให้เสียงพูดลดเสียงทุ้มรบกวน",
+        options: [
+          "เสียงปกติ",
+          "เสียงผ่าน High-Pass Filter",
+          "เสียงผ่าน Low-Pass Filter",
+          "เสียงผ่าน Reverb"
         ],
-        answer: 0
+        answer: 1 // ข
+      },
+      {
+        type: "mcq",
+        question: "ข้อ 3 เสียงใดมีการเล่นซ้ำตามหลังเสียงต้นฉบับ",
+        options: [
+          "เสียงผ่าน Delay",
+          "เสียงผ่าน Reverb",
+          "เสียงผ่าน Compressor",
+          "เสียงผ่าน EQ"
+        ],
+        answer: 0 // ก
+      },
+      {
+        type: "mcq",
+        question: "ข้อ 4 เสียงใดมีระดับความดังสม่ำเสมอขึ้น โดยลดความแตกต่างระหว่างช่วงดังกับช่วงเบา",
+        options: [
+          "เสียงปกติ",
+          "เสียงเพิ่มความถี่สูง",
+          "เสียงผ่าน Compressor",
+          "เสียงผ่าน Delay"
+        ],
+        answer: 2 // ค
+      },
+      {
+        type: "mcq",
+        question: "ข้อ 5 เสียงใดมีความทุ้มมากกว่าเสียงต้นฉบับ",
+        options: [
+          "เสียงเพิ่มความถี่ต่ำด้วย EQ",
+          "เสียงเพิ่มความถี่สูงด้วย EQ",
+          "เสียงผ่าน High-Pass Filter",
+          "เสียงผ่าน Reverb"
+        ],
+        answer: 0 // ก
+      },
+      {
+        type: "mcq",
+        question: "ข้อ 6 เสียงใดลดความถี่สูง ทำให้เสียงแหลมน้อยลง",
+        options: [
+          "เสียงผ่าน High-Pass Filter",
+          "เสียงผ่าน Low-Pass Filter",
+          "เสียงผ่าน Delay",
+          "เสียงผ่าน Compressor"
+        ],
+        answer: 1 // ข
+      },
+      {
+        type: "mcq",
+        question: "ข้อ 7 เสียงใดมีระดับเสียงสูงขึ้นจากต้นฉบับ",
+        options: [
+          "เสียงลด Pitch",
+          "เสียงเพิ่ม Pitch",
+          "เสียงเพิ่ม Reverb",
+          "เสียงลด Gain"
+        ],
+        answer: 1 // ข
+      },
+      {
+        type: "mcq",
+        question: "ข้อ 8 เสียงใดมีลักษณะสะท้อนซ้ำเป็นจังหวะที่แยกจากเสียงต้นฉบับได้ชัดเจน",
+        options: [
+          "เสียงผ่าน Reverb",
+          "เสียงผ่าน Compressor",
+          "เสียงผ่าน Delay",
+          "เสียงผ่าน Low-Pass Filter"
+        ],
+        answer: 2 // ค
+      },
+      {
+        type: "mcq",
+        question: "ข้อ 9 เสียงใดมีความดังของสัญญาณเพิ่มขึ้น แต่ลักษณะเสียงโดยรวมยังเหมือนต้นฉบับ",
+        options: [
+          "เสียงเพิ่ม Gain",
+          "เสียงเพิ่ม Feedback",
+          "เสียงเพิ่ม Decay",
+          "เสียงเพิ่ม Q"
+        ],
+        answer: 0 // ก
+      },
+      {
+        type: "mcq",
+        question: "ข้อ 10 เสียงใดมีลักษณะเสียงชัดขึ้นจากการปรับระดับความถี่ให้เหมาะสม",
+        options: [
+          "เสียงผ่าน Delay",
+          "เสียงผ่าน EQ",
+          "เสียงผ่าน Reverb",
+          "เสียงผ่าน Pitch Shifter"
+        ],
+        answer: 1 // ข (อ้างอิงลำดับคำตอบชุดข้อ 1-10)
       },
 
-      // --- ส่วนที่ 2: ฟังเสียงแล้วเลือกช้อยส์ 5 ข้อ (เหมือน Posttest Ref รูปที่ 2) ---
+      // ข้อ 11 - 15 (ฟังเสียงแล้วเลือก A, B, C — ไม่แสดงชื่อไฟล์บนหน้าเว็บ)
       {
-        type: 'audio',
-        question: 'Choose the Processed Sound (Reverb)',
-        subtitle: 'ฟังเสียงทั้ง 3 ตัวเลือก แล้วเลือกว่าเสียงใดถูกใส่เอฟเฟกต์ Reverb',
-        effect: 'reverb',
-        options: ['Sound A', 'Sound B', 'Sound C'],
-        answer: 1 // ข้อ B
+        type: "audio",
+        question: "ข้อ 11 เสียงไหนเบาลงจากเสียงเดิม แต่ลักษณะเสียงยังเหมือนเดิม?",
+        audioFiles: [
+          "./assets/posttest/q11_a.wav", // A: Door Close Gain+.wav
+          "./assets/posttest/q11_b.wav", // B: Door Close Gain-.wav
+          "./assets/posttest/q11_c.wav"  // C: Door Close Pitch+.wav
+        ],
+        answer: 1 // B
       },
       {
-        type: 'audio',
-        question: 'Choose the Processed Sound (Delay)',
-        subtitle: 'ฟังเสียงทั้ง 3 ตัวเลือก แล้วเลือกว่าเสียงใดถูกใส่เอฟเฟกต์ Delay (เสียงสะท้อนเป็นจังหวะ)',
-        effect: 'delay',
-        options: ['Sound A', 'Sound B', 'Sound C'],
-        answer: 0 // ข้อ A
+        type: "audio",
+        question: "ข้อ 12 เสียงนก เสียงไหนฟังดูทุ้มลงจากเสียงต้นฉบับ?",
+        audioFiles: [
+          "./assets/posttest/q12_a.wav", // A: Bird Chirp Pitch+.wav
+          "./assets/posttest/q12_b.wav", // B: Bird Chirp Pitch-.wav
+          "./assets/posttest/q12_c.wav"  // C: Bird Chirp Reverb.wav
+        ],
+        answer: 1 // B
       },
       {
-        type: 'audio',
-        question: 'Choose the Processed Sound (Pitch Shift Up)',
-        subtitle: 'ฟังเสียงทั้ง 3 ตัวเลือก แล้วเลือกว่าเสียงใดถูกปรับระดับเสียง (Pitch) ให้สูงขึ้น',
-        effect: 'pitchUp',
-        options: ['Sound A', 'Sound B', 'Sound C'],
-        answer: 2 // ข้อ C
+        type: "audio",
+        question: "ข้อ 13 เสียงไหนฟังดูทึบขึ้น เพราะเสียงแหลมถูกลดลง?",
+        audioFiles: [
+          "./assets/posttest/q13_a.wav", // A: Paper Crumple Low-Pass .wav
+          "./assets/posttest/q13_b.wav", // B: Paper Crumple High-Pass.wav
+          "./assets/posttest/q13_c.wav"  // C: Paper Crumple EQ.wav
+        ],
+        answer: 0 // A
       },
       {
-        type: 'audio',
-        question: 'Choose the Processed Sound (Pitch Shift Down)',
-        subtitle: 'ฟังเสียงทั้ง 3 ตัวเลือก แล้วเลือกว่าเสียงใดถูกปรับระดับเสียง (Pitch) ให้ต่ำลง',
-        effect: 'pitchDown',
-        options: ['Sound A', 'Sound B', 'Sound C'],
-        answer: 1 // ข้อ B
+        type: "audio",
+        question: "ข้อ 14 เสียงไหนฟังดูก้องเหมือนอยู่ในห้องกว้าง?",
+        audioFiles: [
+          "./assets/posttest/q14_a.wav", // A: Keys Dropping Compressor.wav
+          "./assets/posttest/q14_b.wav", // B: Keys Dropping Reverb.wav
+          "./assets/posttest/q14_c.wav"  // C: Keys Dropping High-pass.wav
+        ],
+        answer: 1 // B
       },
       {
-        type: 'audio',
-        question: 'Choose the Processed Sound (Low-Pass Filter)',
-        subtitle: 'ฟังเสียงทั้ง 3 ตัวเลือก แล้วเลือกว่าเสียงใดถูกตัดย่านความถี่แหลมออก (เสียงทุ้มอู้อี้)',
-        effect: 'lowpass',
-        options: ['Sound A', 'Sound B', 'Sound C'],
-        answer: 0 // ข้อ A
+        type: "audio",
+        question: "ข้อ 15 เสียงไหนมีระดับความดังสม่ำเสมอขึ้น ช่วงที่ดังมากถูกลดลง?",
+        audioFiles: [
+          "./assets/posttest/q15_a.wav", // A: Car Passing By Delay.wav
+          "./assets/posttest/q15_b.wav", // B: Car Passing By Pitch Shifter.wav
+          "./assets/posttest/q15_c.wav"  // C: Car Passing By Compressor.wav
+        ],
+        answer: 2 // C
       }
     ];
 
-    const thaiPrefixes = ['ก', 'ข', 'ค', 'ง'];
-    const engPrefixes = ['A', 'B', 'C'];
-    const waveHeights = [14, 22, 12, 34, 42, 26, 18, 38, 46, 30, 16, 40, 32, 20, 44, 28, 15, 36, 24, 14];
+    // DOM Elements
+    const questionNumber = document.getElementById("questionNumber");
+    const questionLabel = document.getElementById("questionLabel");
+    const questionText = document.getElementById("questionText");
+    const dynamicAnswerArea = document.getElementById("dynamicAnswerArea");
+    const answerHint = document.getElementById("answerHint");
+    const previousButton = document.getElementById("previousButton");
+    const nextButton = document.getElementById("nextButton");
+    const answeredCount = document.getElementById("answeredCount");
+    const timerElement = document.getElementById("timer");
+    const timerFill = document.getElementById("timerFill");
+    const backButton = document.getElementById("backButton");
+    const resultOverlay = document.getElementById("resultOverlay");
+    const finalScore = document.getElementById("finalScore");
+    const resultMessage = document.getElementById("resultMessage");
+    const homeButton = document.getElementById("homeButton");
+    const saveStatus = document.getElementById("saveStatus");
 
-    let currentIndex = 0;
-    let userAnswers = new Array(questions.length).fill(null);
-    let totalSeconds = 15 * 60; // 15 นาทีเหมือน Pretest
-    let timerInterval = null;
-    let audioCtx = null;
-    let activeAudioSource = null;
-
-    // เริ่มจับเวลา
-    function startTimer() {
-      timerInterval = setInterval(() => {
-        if (totalSeconds <= 0) {
-          clearInterval(timerInterval);
-          submitQuiz();
-          return;
-        }
-        totalSeconds--;
-        updateTimerUI();
-      }, 1000);
+    function stopAudioPlayback() {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentAudio.onended = null;
+        currentAudio = null;
+      }
+      playingOptionIndex = null;
+      syncAudioButtonsUI();
     }
 
-    function updateTimerUI() {
-      const mins = Math.floor(totalSeconds / 60);
-      const secs = totalSeconds % 60;
-      const timeEl = document.getElementById('timerValue');
-      const barEl = document.getElementById('timerBarFill');
-      if (timeEl) {
-        timeEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    function syncAudioButtonsUI() {
+      document.querySelectorAll(".audio-card").forEach((card, idx) => {
+        card.classList.toggle("playing", playingOptionIndex === idx);
+      });
+      document.querySelectorAll(".audio-toggle-btn").forEach((btn, idx) => {
+        const isPlaying = playingOptionIndex === idx;
+        btn.classList.toggle("playing", isPlaying);
+        btn.innerHTML = isPlaying ? "■ Stop" : "▶ Play";
+      });
+    }
+
+    function toggleAudioOption(optIndex) {
+      const q = questions[currentQuestion];
+      if (!q || q.type !== "audio") return;
+
+      // ถ้ากดปุ่มเดิมที่กำลังเล่นอยู่ -> หยุดเล่นทันที
+      if (playingOptionIndex === optIndex && currentAudio) {
+        stopAudioPlayback();
+        return;
       }
-      if (barEl) {
-        const pct = (totalSeconds / (15 * 60)) * 100;
-        barEl.style.width = `${pct}%`;
-      }
+
+      // หยุดเสียงอื่นก่อน แล้วเริ่มเล่นเสียงใหม่ (loop = false ตามค่าเริ่มต้น)
+      stopAudioPlayback();
+
+      const audio = new Audio(q.audioFiles[optIndex]);
+      audio.loop = false;
+      currentAudio = audio;
+      playingOptionIndex = optIndex;
+      syncAudioButtonsUI();
+
+      // เล่นจบแล้วหยุด และเปลี่ยนปุ่มกลับเป็น Play อัตโนมัติ
+      audio.onended = () => {
+        if (currentAudio === audio) {
+          currentAudio = null;
+          playingOptionIndex = null;
+          syncAudioButtonsUI();
+        }
+      };
+
+      audio.onerror = () => {
+        if (currentAudio === audio) {
+          currentAudio = null;
+          playingOptionIndex = null;
+          syncAudioButtonsUI();
+        }
+      };
+
+      audio.play().catch(() => {
+        if (currentAudio === audio) {
+          currentAudio = null;
+          playingOptionIndex = null;
+          syncAudioButtonsUI();
+        }
+      });
     }
 
     function renderQuestion() {
-      const q = questions[currentIndex];
-      const card = document.getElementById('quizCard');
-      const selected = userAnswers[currentIndex];
+      stopAudioPlayback();
 
-      document.getElementById('topProgressText').textContent = `Question ${currentIndex + 1} of ${questions.length}`;
-      const answeredCount = userAnswers.filter(a => a !== null).length;
-      document.getElementById('answeredCounter').textContent = `${answeredCount} / ${questions.length} Answered`;
+      const q = questions[currentQuestion];
+      const num = currentQuestion + 1;
+      const selected = userAnswers[currentQuestion];
 
-      const mins = Math.floor(totalSeconds / 60);
-      const secs = totalSeconds % 60;
-      const timeFormatted = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-      const pct = (totalSeconds / (15 * 60)) * 100;
+      questionNumber.textContent = `Question ${num} of ${TOTAL_QUESTIONS}`;
+      questionLabel.textContent = `Question ${num} of ${TOTAL_QUESTIONS}`;
+      questionText.textContent = q.question;
+      dynamicAnswerArea.innerHTML = "";
 
-      let bodyHTML = '';
+      if (q.type === "mcq") {
+        const letters = ["A", "B", "C", "D"];
+        const list = document.createElement("div");
+        list.className = "answer-list";
 
-      if (q.type === 'mcq') {
-        bodyHTML = `
-          <div class="question-header">
-            <span class="question-step">Question ${currentIndex + 1} of ${questions.length}</span>
-            <span class="question-type-tag">Multiple Choice</span>
-          </div>
-          <h2 class="question-title">${q.question}</h2>
-          <div class="choices-list">
-            ${q.choices.map((choice, idx) => `
-              <div class="choice-item ${selected === idx ? 'selected' : ''}" onclick="selectAnswer(${idx})">
-                <div class="choice-prefix">${thaiPrefixes[idx]}</div>
-                <div class="choice-text">${choice}</div>
-              </div>
-            `).join('')}
-          </div>
-        `;
+        q.options.forEach((optText, idx) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "answer-option" + (selected === idx ? " selected" : "");
+
+          const letterSpan = document.createElement("span");
+          letterSpan.className = "option-letter";
+          letterSpan.textContent = letters[idx];
+
+          const textSpan = document.createElement("span");
+          textSpan.className = "option-text";
+          textSpan.textContent = optText;
+
+          btn.appendChild(letterSpan);
+          btn.appendChild(textSpan);
+          btn.addEventListener("click", () => selectAnswer(idx));
+          list.appendChild(btn);
+        });
+
+        dynamicAnswerArea.appendChild(list);
       } else {
-        // แบบฟังเสียง 3 ช้อยส์ (เหมือนรูปที่ 2)
-        bodyHTML = `
-          <div class="question-header">
-            <span class="question-step">Question ${currentIndex + 1} of ${questions.length}</span>
-            <span class="question-type-tag">🎧 Ear Training</span>
-          </div>
-          <h2 class="question-title">${q.question}</h2>
-          <p class="question-subtitle">${q.subtitle}</p>
+        const letters = ["A", "B", "C"];
+        const grid = document.createElement("div");
+        grid.className = "audio-grid";
 
-          <div class="audio-grid">
-            ${q.options.map((opt, idx) => `
-              <div class="audio-card ${selected === idx ? 'selected' : ''}" id="audioCard-${idx}" onclick="selectAnswer(${idx})">
-                <div class="audio-card-label">${engPrefixes[idx]}.${opt}</div>
-                <div class="waveform">
-                  ${waveHeights.map(h => `<span class="wave-bar" style="height:${h}px"></span>`).join('')}
-                </div>
-                <button type="button" class="play-btn" onclick="event.stopPropagation(); playOptionSound(${idx})">
-                  <span class="play-dot">&#9654;</span> Play
-                </button>
-              </div>
-            `).join('')}
-          </div>
+        letters.forEach((letter, idx) => {
+          const card = document.createElement("div");
+          card.className = "audio-card" + (selected === idx ? " selected" : "");
+          card.addEventListener("click", () => selectAnswer(idx));
 
-          <div class="audio-radio-section">
-            <div class="audio-radio-hint">🎧 Select one answer</div>
-            <div class="audio-radio-group">
-              ${engPrefixes.map((letter, idx) => `
-                <div class="radio-option ${selected === idx ? 'selected' : ''}" onclick="selectAnswer(${idx})">
-                  <span class="radio-circle"></span>
-                  <span>${letter}</span>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
+          const title = document.createElement("div");
+          title.className = "audio-card-title";
+          title.textContent = letter;
+
+          const wave = document.createElement("div");
+          wave.className = "waveform";
+          waveHeights.forEach((h) => {
+            const bar = document.createElement("span");
+            bar.className = "wave-bar";
+            bar.style.height = `${h}px`;
+            wave.appendChild(bar);
+          });
+
+          const toggleBtn = document.createElement("button");
+          toggleBtn.type = "button";
+          toggleBtn.className = "audio-toggle-btn";
+          toggleBtn.innerHTML = "▶ Play";
+          toggleBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleAudioOption(idx);
+          });
+
+          card.appendChild(title);
+          card.appendChild(wave);
+          card.appendChild(toggleBtn);
+          grid.appendChild(card);
+        });
+
+        const radioSection = document.createElement("div");
+        radioSection.className = "audio-select-row";
+
+        const radioLabel = document.createElement("div");
+        radioLabel.className = "audio-select-label";
+        radioLabel.textContent = "Select one answer";
+
+        const radioGroup = document.createElement("div");
+        radioGroup.className = "audio-radio-group";
+
+        letters.forEach((letter, idx) => {
+          const radioBtn = document.createElement("div");
+          radioBtn.className = "audio-radio-btn" + (selected === idx ? " selected" : "");
+          radioBtn.addEventListener("click", () => selectAnswer(idx));
+
+          const dot = document.createElement("span");
+          dot.className = "radio-dot";
+
+          const txt = document.createElement("span");
+          txt.textContent = letter;
+
+          radioBtn.appendChild(dot);
+          radioBtn.appendChild(txt);
+          radioGroup.appendChild(radioBtn);
+        });
+
+        radioSection.appendChild(radioLabel);
+        radioSection.appendChild(radioGroup);
+
+        dynamicAnswerArea.appendChild(grid);
+        dynamicAnswerArea.appendChild(radioSection);
       }
 
-      card.innerHTML = `
-        ${bodyHTML}
-        <div class="card-footer-hint">Select one answer to continue.</div>
-        <div class="timer-row">
-          <span class="timer-label">Time Remaining</span>
-          <span class="timer-value" id="timerValue">${timeFormatted}</span>
-        </div>
-        <div class="timer-bar-bg">
-          <div class="timer-bar-fill" id="timerBarFill" style="width: ${pct}%"></div>
-        </div>
-      `;
-
-      // ปุ่ม Previous / Next
-      document.getElementById('prevBtn').disabled = currentIndex === 0;
-      const nextBtn = document.getElementById('nextBtn');
-      nextBtn.disabled = selected === null;
-      nextBtn.textContent = currentIndex === questions.length - 1 ? 'Submit Posttest' : 'Next';
+      previousButton.disabled = currentQuestion === 0;
+      nextButton.textContent = currentQuestion === TOTAL_QUESTIONS - 1 ? "Submit" : "Next";
+      nextButton.disabled = selected === null;
+      answerHint.textContent = selected === null ? "Select one answer to continue." : "Answer selected.";
+      updateAnsweredCount();
     }
 
-    function selectAnswer(idx) {
-      userAnswers[currentIndex] = idx;
+    function selectAnswer(index) {
+      if (isSubmitted || isSaving) return;
+      userAnswers[currentQuestion] = index;
+
+      if (questions[currentQuestion].type === "mcq") {
+        document.querySelectorAll(".answer-option").forEach((el, idx) => {
+          el.classList.toggle("selected", idx === index);
+        });
+      } else {
+        document.querySelectorAll(".audio-card").forEach((el, idx) => {
+          el.classList.toggle("selected", idx === index);
+        });
+        document.querySelectorAll(".audio-radio-btn").forEach((el, idx) => {
+          el.classList.toggle("selected", idx === index);
+        });
+      }
+
+      nextButton.disabled = false;
+      answerHint.textContent = "Answer selected.";
+      updateAnsweredCount();
+    }
+
+    function updateAnsweredCount() {
+      const count = userAnswers.filter((a) => a !== null).length;
+      answeredCount.textContent = `${count} / ${TOTAL_QUESTIONS} Answered`;
+    }
+
+    nextButton.addEventListener("click", () => {
+      if (isSubmitted || isSaving || userAnswers[currentQuestion] === null) return;
+      if (currentQuestion === TOTAL_QUESTIONS - 1) {
+        submitQuiz(false);
+        return;
+      }
+      currentQuestion++;
       renderQuestion();
+    });
+
+    previousButton.addEventListener("click", () => {
+      if (isSubmitted || isSaving || currentQuestion <= 0) return;
+      currentQuestion--;
+      renderQuestion();
+    });
+
+    function goHome() {
+      stopAudioPlayback();
+      window.location.assign("./home.html");
     }
 
-    function prevQuestion() {
-      stopCurrentAudio();
-      if (currentIndex > 0) {
-        currentIndex--;
-        renderQuestion();
-      }
-    }
+    backButton.addEventListener("click", goHome);
+    homeButton.addEventListener("click", goHome);
 
-    function nextQuestion() {
-      stopCurrentAudio();
-      if (currentIndex < questions.length - 1) {
-        currentIndex++;
-        renderQuestion();
-      } else {
-        submitQuiz();
-      }
-    }
-
-    // ระบบเล่นเสียงและใส่เอฟเฟกต์ Web Audio API
-    function stopCurrentAudio() {
-      document.querySelectorAll('.audio-card').forEach(el => el.classList.remove('playing'));
-      if (activeAudioSource) {
-        try { activeAudioSource.stop(); } catch (e) {}
-        activeAudioSource = null;
-      }
-    }
-
-    async function playOptionSound(optionIndex) {
-      stopCurrentAudio();
-      const q = questions[currentIndex];
-      const cardEl = document.getElementById(`audioCard-${optionIndex}`);
-      if (cardEl) cardEl.classList.add('playing');
-
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === 'suspended') {
-        await audioCtx.resume();
-      }
-
-      const isProcessed = (optionIndex === q.answer);
-
-      try {
-        // โหลดไฟล์ assets/Bottle.mp3 ที่มีอยู่ในโฟลเดอร์โปรเจกต์
-        const response = await fetch('assets/Bottle.mp3');
-        const arrayBuffer = await response.arrayBuffer();
-        const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-
-        const source = audioCtx.createBufferSource();
-        source.buffer = audioBuffer;
-        activeAudioSource = source;
-
-        if (!isProcessed) {
-          // เสียงต้นฉบับ (Dry)
-          source.connect(audioCtx.destination);
-        } else {
-          // เสียงที่ผ่านการ Process ตามโจทย์แต่ละข้อ
-          if (q.effect === 'pitchUp') {
-            source.playbackRate.value = 1.45;
-            source.connect(audioCtx.destination);
-          } else if (q.effect === 'pitchDown') {
-            source.playbackRate.value = 0.72;
-            source.connect(audioCtx.destination);
-          } else if (q.effect === 'lowpass') {
-            const filter = audioCtx.createBiquadFilter();
-            filter.type = 'lowpass';
-            filter.frequency.value = 420;
-            source.connect(filter);
-            filter.connect(audioCtx.destination);
-          } else if (q.effect === 'delay') {
-            const delay = audioCtx.createDelay();
-            delay.delayTime.value = 0.28;
-            const feedback = audioCtx.createGain();
-            feedback.gain.value = 0.45;
-
-            source.connect(audioCtx.destination);
-            source.connect(delay);
-            delay.connect(feedback);
-            feedback.connect(delay);
-            delay.connect(audioCtx.destination);
-          } else if (q.effect === 'reverb') {
-            // จำลอง Reverb ด้วย Impulse Response
-            const convolver = audioCtx.createConvolver();
-            const rate = audioCtx.sampleRate;
-            const length = rate * 1.8;
-            const impulse = audioCtx.createBuffer(2, length, rate);
-            for (let ch = 0; ch < 2; ch++) {
-              const data = impulse.getChannelData(ch);
-              for (let i = 0; i < length; i++) {
-                data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, 2.5);
-              }
-            }
-            convolver.buffer = impulse;
-            source.connect(convolver);
-            convolver.connect(audioCtx.destination);
-          }
+    function startTimer() {
+      if (timerInterval) return;
+      timerInterval = setInterval(() => {
+        if (isSubmitted || isSaving) return;
+        remainingTime--;
+        updateTimerDisplay();
+        if (remainingTime <= 0) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          submitQuiz(true);
         }
+      }, 1000);
+    }
 
-        source.onended = () => {
-          if (cardEl) cardEl.classList.remove('playing');
-        };
-        source.start(0);
-      } catch (err) {
-        // Fallback กรณีเปิดไฟล์ตรงๆ โดยไม่ผ่าน Local Server (เช่น file://)
-        playSynthFallback(isProcessed, q.effect, cardEl);
+    function updateTimerDisplay() {
+      const minutes = Math.floor(remainingTime / 60);
+      const seconds = remainingTime % 60;
+      timerElement.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+      timerFill.style.width = `${(remainingTime / TOTAL_TIME) * 100}%`;
+
+      if (remainingTime <= 60) {
+        timerElement.style.color = "#ff7770";
+        timerFill.style.background = "#ff7770";
       }
     }
 
-    function playSynthFallback(isProcessed, effect, cardEl) {
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.value = isProcessed && effect === 'pitchUp' ? 660 : (isProcessed && effect === 'pitchDown' ? 220 : 440);
-      gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.8);
-      setTimeout(() => { if (cardEl) cardEl.classList.remove('playing'); }, 800);
-    }
-
-    function submitQuiz() {
-      clearInterval(timerInterval);
-      stopCurrentAudio();
-
+    function calculateScore() {
       let score = 0;
       questions.forEach((q, i) => {
         if (userAnswers[i] === q.answer) score++;
       });
-
-      // บันทึกคะแนนลง localStorage เผื่อหน้า profile.html ดึงไปแสดง
-      localStorage.setItem('posttestScore', score);
-      localStorage.setItem('posttestTotal', questions.length);
-
-      document.getElementById('navActions').style.display = 'none';
-      document.getElementById('bottomStatus').style.display = 'none';
-
-      document.getElementById('quizCard').innerHTML = `
-        <div class="result-box">
-          <span class="question-type-tag">POSTTEST COMPLETED</span>
-          <h2 class="question-title" style="margin-top:16px;">สรุปคะแนนแบบทดสอบหลังเรียน</h2>
-          <div class="result-score">${score} / ${questions.length}</div>
-          <p class="question-subtitle">บันทึกผลคะแนนเรียบร้อยแล้ว คุณสามารถกลับไปดูความคืบหน้าได้ที่หน้าหลัก</p>
-          <button class="btn-next" style="margin-top:12px;" onclick="window.location.href='home.html'">กลับหน้าหลัก</button>
-        </div>
-      `;
+      return score;
     }
 
-    // เริ่มทำงาน
+    async function initializeFirebase() {
+      try {
+        const configModule = await import("./firebase-config.js");
+        const { firebaseConfig } = configModule;
+        const appModule = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
+        const authModule = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+        const firestoreModule = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+
+        const app = appModule.getApps().length ? appModule.getApp() : appModule.initializeApp(firebaseConfig);
+        const auth = authModule.getAuth(app);
+        db = firestoreModule.getFirestore(app);
+
+        await new Promise((resolve) => {
+          authModule.onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            resolve();
+          }, () => resolve());
+        });
+      } catch (error) {
+        console.error("Firebase connection error:", error);
+      }
+    }
+
+    async function firestoreAddResult(score, timeUp) {
+      const firestoreModule = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+      await firestoreModule.addDoc(
+        firestoreModule.collection(db, "users", currentUser.uid, "learningResults"),
+        {
+          type: "posttest",
+          score: score,
+          maxScore: TOTAL_QUESTIONS,
+          completed: true,
+          answers: userAnswers,
+          timeUsed: TOTAL_TIME - remainingTime,
+          timeUp: timeUp,
+          createdAt: firestoreModule.serverTimestamp()
+        }
+      );
+    }
+
+    async function submitQuiz(timeUp = false) {
+      if (isSubmitted || isSaving) return;
+
+      if (!timeUp && !userAnswers.every((a) => a !== null)) {
+        answerHint.textContent = "Please answer all questions before submitting.";
+        return;
+      }
+
+      stopAudioPlayback();
+      isSaving = true;
+      nextButton.disabled = true;
+      previousButton.disabled = true;
+      clearInterval(timerInterval);
+      timerInterval = null;
+
+      const score = calculateScore();
+      saveStatus.textContent = "Saving your result...";
+
+      try {
+        await firebaseReady;
+        if (!currentUser || !db) throw new Error("User is not authenticated.");
+        await firestoreAddResult(score, timeUp);
+        isSubmitted = true;
+        saveStatus.textContent = "";
+        showResult(score, timeUp, true);
+      } catch (error) {
+        console.error("Posttest save error:", error);
+        isSubmitted = true;
+        saveStatus.textContent = "";
+        showResult(score, timeUp, false);
+      }
+    }
+
+    function showResult(score, timeUp, saved) {
+      finalScore.textContent = score;
+      if (saved) {
+        resultMessage.textContent = timeUp
+          ? "Time is up! Your posttest result has been saved."
+          : "Your posttest result has been saved successfully.";
+      } else {
+        resultMessage.textContent =
+          "Your score has been calculated, but the result could not be saved to Firebase. Please check your login and connection.";
+      }
+      resultOverlay.classList.add("active");
+    }
+
     renderQuestion();
+    updateTimerDisplay();
     startTimer();
+    const firebaseReady = initializeFirebase();
   </script>
 </body>
 </html>
