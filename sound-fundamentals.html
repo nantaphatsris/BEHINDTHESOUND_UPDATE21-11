@@ -395,9 +395,9 @@ button, a {
 .wave-diagram {
   width: 100%;
   margin-top: 20px;
-  padding: 20px 10px;
+  padding: 20px 14px;
 
-  background-color: rgba(16,14,12,.5);
+  background-color: rgba(16,14,12,.65);
 
   background-image:
     repeating-linear-gradient(
@@ -413,7 +413,7 @@ button, a {
       rgba(255,173,89,.08) 30px
     );
 
-  border: 1px solid rgba(232,160,77,.2);
+  border: 1px solid rgba(232,160,77,.25);
   border-radius: 12px;
 }
 
@@ -992,128 +992,129 @@ const lessons = {
 
       <div class="wave-diagram">
 
-        <svg viewBox="0 0 760 410"
+        <svg viewBox="0 0 820 490"
           xmlns="http://www.w3.org/2000/svg"
           role="img"
-          aria-label="Sine wave showing amplitude, peak, trough, cycle and period">
+          aria-label="Waveform showing period, peak, amplitude, trough, and cycle">
 
           <defs>
-            <marker id="waveArrow"
-              markerWidth="7"
-              markerHeight="7"
-              refX="5"
-              refY="3"
-              orient="auto-start-reverse">
-              <path d="M0 0 L6 3 L0 6"
-                fill="none"
-                stroke="#ffad59"
-                stroke-width="1.2"/>
+            <linearGradient id="btsGoldWave" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#e8a04d" />
+              <stop offset="50%" stop-color="#ffad59" />
+              <stop offset="100%" stop-color="#e8a04d" />
+            </linearGradient>
+
+            <marker id="goldArrowEnd" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+              <path d="M1 1.5 L6.5 4 L1 6.5" fill="none" stroke="#ff9d43" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            </marker>
+
+            <marker id="goldArrowStart" markerWidth="8" markerHeight="8" refX="1.5" refY="4" orient="auto">
+              <path d="M6.5 1.5 L1 4 L6.5 6.5" fill="none" stroke="#ff9d43" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
             </marker>
           </defs>
 
-          <!-- CENTER AXIS -->
-          <line x1="65" y1="190"
-            x2="690" y2="190"
-            stroke="#b9a99a"
-            stroke-width="1.5"
-            stroke-dasharray="6 5"/>
+          <!-- VERTICAL AXIS -->
+          <line x1="68" y1="455" x2="68" y2="34" stroke="#d8be9e" stroke-width="5" stroke-linecap="round" />
+          <polygon points="68,18 56,38 80,38" fill="#d8be9e" />
 
-          <!-- SINE WAVE -->
-          <path
-            d="M65 190
-               C115 190 115 80 165 80
-               S215 190 265 190
-               S315 300 365 300
-               S415 190 465 190
-               S515 80 565 80
-               S615 190 665 190"
-            fill="none"
-            stroke="#ffad59"
-            stroke-width="4"
-            stroke-linecap="round"/>
+          <!-- HORIZONTAL AXIS -->
+          <line x1="68" y1="262" x2="762" y2="262" stroke="#d8be9e" stroke-width="5" stroke-linecap="round" />
+          <polygon points="780,262 758,250 758,274" fill="#d8be9e" />
 
-          <!-- PEAK -->
-          <circle cx="165" cy="80" r="5" fill="#ffad59"/>
+          <!-- SINE WAVE (2 FULL CYCLES: x=68..392 and x=392..716) -->
+          <path d="M 68,262
+                   C 112,115 186,115 230,262
+                   C 274,409 348,409 392,262
+                   C 436,115 510,115 554,262
+                   C 598,409 672,409 716,262"
+                fill="none"
+                stroke="url(#btsGoldWave)"
+                stroke-width="6"
+                stroke-linecap="round" />
 
-          <line x1="165" y1="80"
-            x2="165" y2="45"
-            stroke="#ffad59"
-            stroke-dasharray="4 4"/>
+          <!-- PERIOD (TOP: BETWEEN PEAK 1 AT X=149 AND PEAK 2 AT X=473) -->
+          <line x1="154" y1="66" x2="262" y2="66"
+                stroke="#ff9d43" stroke-width="2.2"
+                marker-start="url(#goldArrowStart)" />
+          <text x="311" y="72"
+                fill="#f4e7d9"
+                font-family="'Montserrat', 'Kanit', sans-serif"
+                font-size="18"
+                font-weight="600"
+                text-anchor="middle">
+            period
+          </text>
+          <line x1="360" y1="66" x2="468" y2="66"
+                stroke="#ff9d43" stroke-width="2.2"
+                marker-end="url(#goldArrowEnd)" />
 
-          <text x="165" y="30"
-            fill="#ffc27e"
-            font-size="17"
-            text-anchor="middle">
-            Peak
+          <!-- AMPLITUDE (FROM BASELINE Y=262 TO PEAK 1 Y=151.75) -->
+          <line x1="149" y1="151.75" x2="298" y2="151.75"
+                stroke="#ff9d43" stroke-width="1.8" stroke-dasharray="5,4" />
+          <line x1="149" y1="262" x2="298" y2="262"
+                stroke="#ff9d43" stroke-width="1.8" stroke-dasharray="5,4" />
+
+          <line x1="149" y1="157" x2="149" y2="257"
+                stroke="#ff9d43" stroke-width="2.2"
+                marker-start="url(#goldArrowStart)"
+                marker-end="url(#goldArrowEnd)" />
+
+          <line x1="292" y1="151.75" x2="292" y2="184" stroke="#ff9d43" stroke-width="2" />
+          <text x="292" y="206"
+                fill="#f4e7d9"
+                font-family="'Montserrat', 'Kanit', sans-serif"
+                font-size="17"
+                font-weight="600"
+                text-anchor="middle">
+            amplitude
+          </text>
+          <line x1="292" y1="218" x2="292" y2="262" stroke="#ff9d43" stroke-width="2" />
+
+          <!-- PEAK (ON PEAK 2 AT X=473, Y=151.75) -->
+          <line x1="473" y1="108" x2="473" y2="140"
+                stroke="#ff9d43" stroke-width="3" stroke-dasharray="6,4" />
+          <circle cx="473" cy="151.75" r="8" fill="#ff9d43" stroke="#100e0c" stroke-width="2" />
+          <text x="473" y="96"
+                fill="#f4e7d9"
+                font-family="'Montserrat', 'Kanit', sans-serif"
+                font-size="18"
+                font-weight="600"
+                text-anchor="middle">
+            peak
           </text>
 
-          <!-- TROUGH -->
-          <circle cx="365" cy="300" r="5" fill="#ffad59"/>
-
-          <line x1="365" y1="300"
-            x2="365" y2="335"
-            stroke="#ffad59"
-            stroke-dasharray="4 4"/>
-
-          <text x="365" y="360"
-            fill="#ffc27e"
-            font-size="17"
-            text-anchor="middle">
-            Trough
+          <!-- TROUGH (ON TROUGH 1 AT X=311, Y=372.25) -->
+          <circle cx="311" cy="372.25" r="8" fill="#ff9d43" stroke="#100e0c" stroke-width="2" />
+          <line x1="311" y1="384" x2="311" y2="416"
+                stroke="#ff9d43" stroke-width="3" stroke-dasharray="6,4" />
+          <text x="311" y="442"
+                fill="#f4e7d9"
+                font-family="'Montserrat', 'Kanit', sans-serif"
+                font-size="18"
+                font-weight="600"
+                text-anchor="middle">
+            trough
           </text>
 
-          <!-- AMPLITUDE -->
-          <line x1="105" y1="190"
-            x2="105" y2="80"
-            stroke="#ffad59"
-            stroke-width="2"
-            marker-start="url(#waveArrow)"
-            marker-end="url(#waveArrow)"/>
+          <!-- CYCLE (BOTTOM RIGHT: 1 FULL CYCLE FROM X=392 TO X=716) -->
+          <polyline points="386,282 392,271 398,282"
+                    fill="none" stroke="#ff9d43" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+          <polyline points="392,273 392,428 518,428"
+                    fill="none" stroke="#ff9d43" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
 
-          <text x="95" y="135"
-            fill="#ffc27e"
-            font-size="14"
-            text-anchor="end">
-            Amplitude
+          <text x="554" y="434"
+                fill="#f4e7d9"
+                font-family="'Montserrat', 'Kanit', sans-serif"
+                font-size="18"
+                font-weight="600"
+                text-anchor="middle">
+            cycle
           </text>
 
-          <!-- CYCLE -->
-          <line x1="165" y1="125"
-            x2="565" y2="125"
-            stroke="#ffad59"
-            stroke-width="2"
-            marker-start="url(#waveArrow)"
-            marker-end="url(#waveArrow)"/>
-
-          <text x="365" y="115"
-            fill="#ffc27e"
-            font-size="15"
-            text-anchor="middle">
-            1 Cycle
-          </text>
-
-          <!-- PERIOD -->
-          <line x1="165" y1="390"
-            x2="565" y2="390"
-            stroke="#ffad59"
-            stroke-width="2"
-            marker-start="url(#waveArrow)"
-            marker-end="url(#waveArrow)"/>
-
-          <text x="365" y="380"
-            fill="#ffc27e"
-            font-size="15"
-            text-anchor="middle">
-            Period
-          </text>
-
-          <!-- TIME -->
-          <text x="680" y="215"
-            fill="#e9c59c"
-            font-size="14"
-            text-anchor="end">
-            Time
-          </text>
+          <polyline points="590,428 716,428 716,273"
+                    fill="none" stroke="#ff9d43" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+          <polyline points="710,282 716,271 722,282"
+                    fill="none" stroke="#ff9d43" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
 
         </svg>
 
