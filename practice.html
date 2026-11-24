@@ -1089,7 +1089,98 @@
             octave: 0
           }
         }
+      },
+      {
+        "id": "FootStep_Horror",
+        "name": "08. FS_Horror",
+        "audioUrl": "assets/FS_Horror.wav",
+        "description": "ฟังเสียง Target แล้วเลือก Processor พร้อมปรับค่าให้ใกล้เคียงต้นฉบับ",
+        "solution": {
+          "reverb": {
+            "enabled": true,
+            "preDelay": 0,
+            "roomSize": 10,
+            "decay": 5,
+            "wet": 80
+          },
+          "pitch-shifter": {
+            "enabled": true,
+            "semitone": -8,
+            "octave": -1
+          }
+        }
+      },
+      {
+      "id": "FootStep_Impact",
+      "name": "08. FS_Impact",
+      "audioUrl": "assets/FS_Impact.wav",
+      "description": "ฟังเสียง Target แล้วเลือก Processor พร้อมปรับค่าให้ใกล้เคียงต้นฉบับ",
+      "solution": {
+        "eq": {
+          "enabled": true,
+          "selectedBand": 1,
+          "bands": [
+            {
+              "type": "lowshelf",
+              "frequency": 121,
+              "gain": -15,
+              "q": 0.8
+            },
+            {
+              "type": "highshelf",
+              "frequency": 711,
+              "gain": -18,
+              "q": 1
+            }
+          ]
+        },
+        "compressor": {
+          "enabled": true,
+          "threshold": -11,
+          "ratio": 10,
+          "knee": 12,
+          "attack": 10,
+          "release": 150,
+          "makeup": 0,
+          "monitor": "post"
+        },
+        "gain-stage": {
+          "enabled": true,
+          "gain": 15
+        }
       }
+    } ,
+    {
+      "id": "FootStep_Soft",
+      "name": "08. FS_Soft",
+      "audioUrl": "assets/FS_Soft.wav",
+      "description": "ฟังเสียง Target แล้วเลือก Processor พร้อมปรับค่าให้ใกล้เคียงต้นฉบับ",
+      "solution": {
+        "gain-stage": {
+          "enabled": true,
+          "gain": 7
+        },
+        "filter": {
+          "enabled": true,
+          "type": "lowpass",
+          "lowerFreq": 4000,
+          "upperFreq": 4000,
+          "slope": 24
+        },
+        "compressor": {
+          "enabled": true,
+          "threshold": -34,
+          "ratio": 10,
+          "knee": 12,
+          "attack": 10,
+          "release": 150,
+          "makeup": 20,
+          "monitor": "post"
+        }
+      }
+    },
+      
+      
     ];
 
     const PROCESSORS = {
