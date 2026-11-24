@@ -76,30 +76,9 @@
       text-align: center;
     }
 
-    .header-right-tools {
+    .header-spacer {
       justify-self: end;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .top-pill-btn {
-      padding: 7px 11px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--muted);
-      font: 500 12px 'Kanit', sans-serif;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: 0.2s;
-    }
-    .top-pill-btn:hover { border-color: var(--orange); color: var(--orange); }
-    .top-pill-btn.accent {
-      border-color: rgba(255, 173, 89, 0.6);
-      background: rgba(255, 173, 89, 0.12);
-      color: var(--orange);
+      width: 38px;
     }
 
     /* MAIN LAYOUT */
@@ -107,7 +86,7 @@
       width: 100%;
       max-width: 1440px;
       margin: 0 auto;
-      padding: clamp(14px, 2.5vw, 26px) clamp(12px, 2.5vw, 28px) 44px;
+      padding: clamp(16px, 2.5vw, 28px) clamp(12px, 2.5vw, 28px) 44px;
     }
 
     /* TOP BAR: TITLE + SOUND SELECTOR */
@@ -115,27 +94,24 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: center;
       gap: 14px;
       margin-bottom: 16px;
     }
 
     .hero-title {
-      flex: 1 1 300px;
+      flex: 1 1 320px;
       min-width: 0;
     }
     .hero-title h1 {
-      font-size: clamp(22px, 4vw, 30px);
+      font-size: clamp(26px, 3.4vw, 36px);
       font-weight: 800;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.4px;
       color: var(--text);
-      line-height: 1.2;
+      line-height: 1.18;
     }
-    .hero-title h1 span { color: var(--orange); }
-    .hero-title p {
-      font: 300 clamp(12.5px, 2vw, 13.5px)/1.45 'Kanit', sans-serif;
-      color: var(--muted);
-      margin-top: 4px;
+    .hero-title h1 span {
+      color: var(--orange);
     }
 
     .sound-selector-box {
@@ -186,10 +162,10 @@
     .brief-left {
       display: flex;
       align-items: flex-start;
-      gap: 9px;
-      font: 400 13px/1.45 'Kanit', sans-serif;
+      gap: 10px;
+      font: 400 13px/1.55 'Kanit', sans-serif;
       color: #e6d5c3;
-      flex: 1 1 260px;
+      flex: 1 1 300px;
       min-width: 0;
     }
     .brief-tag {
@@ -200,7 +176,17 @@
       border-radius: 6px;
       letter-spacing: 0.8px;
       flex-shrink: 0;
-      margin-top: 2px;
+      margin-top: 3px;
+    }
+    .mission-text-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+    .mission-guide-line {
+      font: 300 12.5px/1.45 'Kanit', sans-serif;
+      color: var(--muted);
     }
     .hint-box {
       display: flex;
@@ -387,7 +373,7 @@
       flex-shrink: 0;
     }
 
-    /* PROCESSOR DEVICE CARD (DYNAMIC SIZING) */
+    /* PROCESSOR DEVICE CARD */
     .device-card {
       width: clamp(300px, 88vw, 540px);
       min-width: clamp(300px, 88vw, 540px);
@@ -862,31 +848,14 @@
        ========================================= */
     @media (max-width: 860px) {
       .practice-header {
-        padding: 8px 12px;
-        grid-template-columns: auto 1fr;
+        padding: 8px 14px;
       }
       .header-title {
-        justify-self: end;
-        font-size: 14px;
+        font-size: 14.5px;
       }
-      .header-right-tools {
-        grid-column: 1 / -1;
-        justify-self: stretch;
-        justify-content: space-between;
-        padding-top: 6px;
-        border-top: 1px solid rgba(232, 160, 77, 0.15);
-      }
-      .header-right-tools .top-pill-btn {
-        flex: 1 1 auto;
-        text-align: center;
-        padding: 6px 8px;
-        font-size: 11.5px;
-      }
-
       .waveform-grid {
         grid-template-columns: 1fr;
       }
-
       .sound-selector-box {
         width: 100%;
       }
@@ -959,11 +928,7 @@
   <header class="practice-header">
     <button class="back-button" id="backButton" type="button" aria-label="Back">‹</button>
     <div class="header-title">PRACTICE</div>
-    <div class="header-right-tools">
-      <button class="top-pill-btn accent" id="scrambleButton" type="button">🎲 สุ่มโจทย์ใหม่</button>
-      <button class="top-pill-btn" id="copyJsonButton" type="button" title="ก๊อปปี้ค่าพารามิเตอร์ของ Chain ปัจจุบันไปวางใน TARGET_PRESETS">📋 Copy JSON</button>
-      <button class="top-pill-btn" id="resetButton" type="button">ล้าง Chain</button>
-    </div>
+    <div class="header-spacer" aria-hidden="true"></div>
   </header>
 
   <main class="practice-container">
@@ -971,7 +936,6 @@
     <div class="top-workspace-bar">
       <div class="hero-title">
         <h1>Ear Training <span>Practice</span></h1>
-        <p>เลือกโจทย์เสียง Target กด + Add Processor เลือกเครื่องมือเอง แล้วปรับค่าพารามิเตอร์ให้เหมือนต้นฉบับ</p>
       </div>
       <div class="sound-selector-box">
         <label for="presetSelect">TARGET</label>
@@ -983,7 +947,10 @@
     <div class="challenge-brief-bar">
       <div class="brief-left">
         <span class="brief-tag">MISSION</span>
-        <span id="missionDescription">ฟังเสียง Target ด้านซ้าย แล้วเลือก Processor + ปรับค่าให้ใกล้เคียงที่สุด</span>
+        <div class="mission-text-stack">
+          <span id="missionDescription">ฟังเสียง Target แล้วเลือก Processor พร้อมปรับค่าให้ใกล้เคียงต้นฉบับ</span>
+          <span class="mission-guide-line">เลือกโจทย์เสียง Target กด + Add Processor เลือกเครื่องมือเอง แล้วปรับค่าพารามิเตอร์ให้เหมือนต้นฉบับ</span>
+        </div>
       </div>
       <div class="hint-box">
         <div class="hint-chips" id="hintChipsContainer" hidden></div>
@@ -997,7 +964,7 @@
         <div class="wave-card-header">
           <div class="wave-card-title">
             <span class="wave-badge">TARGET SOUND</span>
-            <h3 id="targetName">01. Lo-Fi Radio Trash</h3>
+            <h3 id="targetName">06. Custom Challenge</h3>
           </div>
           <span class="wave-time" id="targetTime">0.00 / 0.00</span>
         </div>
@@ -1076,6 +1043,31 @@
     // TARGET PRESET DATABASE
     // -----------------------------------------
     const TARGET_PRESETS = [
+      {
+        id: "custom-preset-01",
+        name: "06. Custom Challenge",
+        audioUrl: "assets/custom-sound.wav",
+        description: "เสียงที่ถูกยกโทนให้สูงขึ้น 1 คู่แปดเต็ม พร้อมมิติ Reverb ระยะสั้นและ Delay เบาๆ — ฟังเสียง Target แล้วเลือก Processor พร้อมปรับค่าให้ใกล้เคียงต้นฉบับ",
+        solution: {
+          delay: {
+            enabled: true,
+            mode: "free",
+            time: 400,
+            bpm: 120,
+            noteMult: 0.5,
+            noteSym: "♪",
+            feedback: 55,
+            mix: 40
+          },
+          reverb: {
+            enabled: true,
+            preDelay: 30,
+            roomSize: 50,
+            decay: 4.3,
+            wet: 60
+          }
+        }
+      },
       {
         id: "lofi-radio-trash",
         name: "01. Lo-Fi Radio Trash (Foley 01)",
@@ -1227,15 +1219,9 @@
         : `<span class="hint-proc-chip">ไม่ต้องใช้ Processor</span>`;
     }
 
-    function loadPresetEmptyChain(presetId, isRandom = false) {
-      if (isRandom) {
-        const others = TARGET_PRESETS.filter(p => p.id !== activePreset.id);
-        const pool = others.length ? others : TARGET_PRESETS;
-        activePreset = pool[Math.floor(Math.random() * pool.length)];
-        presetSelect.value = activePreset.id;
-      } else {
-        activePreset = TARGET_PRESETS.find(p => p.id === presetId) || TARGET_PRESETS[0];
-      }
+    function loadPresetEmptyChain(presetId) {
+      activePreset = TARGET_PRESETS.find(p => p.id === presetId) || TARGET_PRESETS[0];
+      presetSelect.value = activePreset.id;
 
       $("targetName").textContent = activePreset.name;
       $("missionDescription").textContent = activePreset.description;
@@ -1258,9 +1244,7 @@
       renderRack();
       buildLiveChain().catch(console.error);
 
-      saveStatus.textContent = isRandom
-        ? `สุ่มโจทย์ "${activePreset.name}" แล้ว — กด + Add Processor เพื่อเลือกเครื่องมือเองได้เลย`
-        : `โหลดโจทย์ "${activePreset.name}" แล้ว — กด + Add Processor เพื่อเริ่มปรับแต่ง`;
+      saveStatus.textContent = `โหลดโจทย์ "${activePreset.name}" แล้ว — กด + Add Processor เพื่อเริ่มปรับแต่ง`;
     }
 
     // -----------------------------------------
@@ -1498,7 +1482,7 @@
     }
 
     // -----------------------------------------
-    // LAB VISUALIZERS (DYNAMIC PADDING FOR SMALL SCREENS)
+    // LAB VISUALIZERS
     // -----------------------------------------
     function getPlotPad(w) {
       const narrow = w < 380;
@@ -2829,43 +2813,12 @@
     bindAudioPlayer(targetAudio, $("targetPlayButton"), $("targetTime"), "targetWaveCanvas", "rgba(98,217,173,0.35)", "#62d9ad", 1.2, "target");
     bindAudioPlayer(processedAudio, $("processedPlayButton"), $("processedTime"), "processedWaveCanvas", "rgba(255,173,89,0.42)", "#ffad59", 2.7, "user");
 
-    presetSelect.addEventListener("change", () => loadPresetEmptyChain(presetSelect.value, false));
-    $("scrambleButton").addEventListener("click", () => loadPresetEmptyChain(null, true));
-
-    $("resetButton").addEventListener("click", () => {
-      processorValues = getDefaultState();
-      selectedProcessors.length = 0;
-      pickerOpen = false;
-      renderRack();
-      buildLiveChain().catch(console.error);
-      saveStatus.textContent = "ล้าง Processor Chain เรียบร้อยแล้ว";
-    });
+    presetSelect.addEventListener("change", () => loadPresetEmptyChain(presetSelect.value));
 
     $("toggleHintBtn").addEventListener("click", () => {
       hintVisible = !hintVisible;
       $("hintChipsContainer").hidden = !hintVisible;
       $("toggleHintBtn").textContent = hintVisible ? "🙈 ซ่อน Hint" : "💡 ดู Hint ว่าใช้ Processor อะไร";
-    });
-
-    $("copyJsonButton").addEventListener("click", async () => {
-      const exported = {};
-      selectedProcessors.forEach(k => {
-        const clean = { ...processorValues[k] };
-        delete clean.grHistory;
-        delete clean.peakHold;
-        delete clean.peakTimer;
-        delete clean.rotX;
-        delete clean.rotY;
-        delete clean.isDragging;
-        exported[k] = clean;
-      });
-      const jsonStr = JSON.stringify(exported, null, 2);
-      try {
-        await navigator.clipboard.writeText(jsonStr);
-        saveStatus.textContent = "ก๊อปปี้พารามิเตอร์ (JSON) ของ Chain ปัจจุบันลง Clipboard แล้ว! นำไปวางใน solution ของ TARGET_PRESETS ได้เลย";
-      } catch (_) {
-        prompt("ก๊อปปี้ JSON นี้ไปวางใน solution ของ TARGET_PRESETS:", jsonStr);
-      }
     });
 
     // -----------------------------------------
@@ -3107,7 +3060,7 @@
     });
 
     // Initialize first preset & draw waveforms
-    loadPresetEmptyChain(TARGET_PRESETS[0].id, false);
+    loadPresetEmptyChain(TARGET_PRESETS[0].id);
     requestAnimationFrame(redrawWaveforms);
   </script>
 </body>
