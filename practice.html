@@ -1093,20 +1093,24 @@
       {
         "id": "FootStep_Horror",
         "name": "FS_Horror",
-        "audioUrl": "assets/FS_Horror.wav",
+        "audioUrl": "assets/FS.wav",
         "description": "ฟังเสียง Target แล้วเลือก Processor พร้อมปรับค่าให้ใกล้เคียงต้นฉบับ",
         "solution": {
           "reverb": {
             "enabled": true,
-            "preDelay": 0,
-            "roomSize": 10,
+            "preDelay": 25,
+            "roomSize": 45,
             "decay": 5,
             "wet": 80
           },
           "pitch-shifter": {
             "enabled": true,
-            "semitone": -8,
+            "semitone": 4,
             "octave": -1
+          },
+          "gain-stage": {
+            "enabled": true,
+            "gain": 9.5
           }
         }
       },
