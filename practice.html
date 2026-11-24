@@ -1117,47 +1117,59 @@
       {
       "id": "FootStep_Impact",
       "name": "FS_Impact",
-      "audioUrl": "assets/FS_Impact.wav",
+      "audioUrl": "assets/FS.wav",
       "description": "ฟังเสียง Target แล้วเลือก Processor พร้อมปรับค่าให้ใกล้เคียงต้นฉบับ",
       "solution": {
         "eq": {
           "enabled": true,
-          "selectedBand": 1,
+          "selectedBand": 3,
           "bands": [
             {
               "type": "lowshelf",
               "frequency": 121,
-              "gain": -15,
+              "gain": 0,
               "q": 0.8
+            },
+            {
+              "type": "peaking",
+              "frequency": 120,
+              "gain": -15,
+              "q": 1
+            },
+            {
+              "type": "peaking",
+              "frequency": 2500,
+              "gain": 0,
+              "q": 1.2
             },
             {
               "type": "highshelf",
               "frequency": 711,
               "gain": -18,
-              "q": 1
+              "q": 0.8
             }
           ]
+        },
+        "gain-stage": {
+          "enabled": true,
+          "gain": 15
         },
         "compressor": {
           "enabled": true,
           "threshold": -11,
-          "ratio": 10,
+          "ratio": 3,
           "knee": 12,
           "attack": 10,
           "release": 150,
           "makeup": 0,
           "monitor": "post"
-        },
-        "gain-stage": {
-          "enabled": true,
-          "gain": 15
         }
       }
-    } ,
+    },
     {
       "id": "FootStep_Soft",
       "name": "FS_Soft",
-      "audioUrl": "assets/FS_Soft.wav",
+      "audioUrl": "assets/FS.wav",
       "description": "ฟังเสียง Target แล้วเลือก Processor พร้อมปรับค่าให้ใกล้เคียงต้นฉบับ",
       "solution": {
         "gain-stage": {
@@ -1167,23 +1179,27 @@
         "filter": {
           "enabled": true,
           "type": "lowpass",
-          "lowerFreq": 4000,
+          "lowerFreq": 629,
           "upperFreq": 4000,
           "slope": 24
         },
         "compressor": {
           "enabled": true,
           "threshold": -34,
-          "ratio": 10,
+          "ratio": 3,
           "knee": 12,
           "attack": 10,
           "release": 150,
-          "makeup": 20,
+          "makeup": 2,
           "monitor": "post"
+        },
+        "pitch-shifter": {
+          "enabled": true,
+          "semitone": 0,
+          "octave": -1
         }
       }
-    },
-      
+    }  
       
     ];
 
