@@ -1047,7 +1047,7 @@
         id: "custom-preset-01",
         name: "06. Custom Challenge",
         audioUrl: "assets/custom-sound.wav",
-        description: "เสียงที่ถูกยกโทนให้สูงขึ้น 1 คู่แปดเต็ม พร้อมมิติ Reverb ระยะสั้นและ Delay เบาๆ — ฟังเสียง Target แล้วเลือก Processor พร้อมปรับค่าให้ใกล้เคียงต้นฉบับ",
+        description: "ฟังเสียง Target แล้วเลือก Processor พร้อมปรับค่าให้ใกล้เคียงต้นฉบับ",
         solution: {
           delay: {
             enabled: true,
@@ -1069,64 +1069,26 @@
         }
       },
       {
-        id: "lofi-radio-trash",
-        name: "01. Lo-Fi Radio Trash (Foley 01)",
-        audioUrl: "assets/crape-6-foley-1-trash-koh.mp3",
-        description: "เสียงขยำขยะที่ถูกบีบย่านความถี่ให้แคบเหมือนเสียงออกจากวิทยุเก่า และกดไดนามิกให้แน่น",
+        id: "Paper",
+        name: "07. Paper",
+        audioUrl: "assets/Paper.wav",
+        description: "ฟังเสียง Target แล้วเลือก Processor พร้อมปรับค่าให้ใกล้เคียงต้นฉบับ",
         solution: {
-          filter: { enabled: true, type: "bandpass", lowerFreq: 480, upperFreq: 2600, slope: 24 },
-          compressor: { enabled: true, threshold: -28, ratio: 6, knee: 10, attack: 8, release: 120, makeup: 4.5, monitor: "post" }
-        }
-      },
-      {
-        id: "deep-cave-table",
-        name: "02. Deep Cave Echo (Foley 02)",
-        audioUrl: "assets/crape-2-foley-6-table-toob.mp3",
-        description: "เสียงเคาะโต๊ะที่ถูกกดให้ทุ้มต่ำลงและก้องสะท้อนอยู่ในโถงถ้ำขนาดใหญ่",
-        solution: {
-          "pitch-shifter": { enabled: true, semitone: -5, octave: 0 },
-          reverb: { enabled: true, preDelay: 45, roomSize: 82, decay: 3.6, wet: 48 }
-        }
-      },
-      {
-        id: "dub-slapback-trash",
-        name: "03. Dub Slapback Delay (Foley 01)",
-        audioUrl: "assets/crape-6-foley-1-trash-koh.mp3",
-        description: "เสียง Foley ที่เพิ่มความใสย่านกลางแหลม และมีเสียงสะท้อนตามหลังเป็นจังหวะต่อเนื่อง",
-        solution: {
-          eq: {
+          compressor: {
             enabled: true,
-            selectedBand: 2,
-            bands: [
-              { type: "lowshelf", frequency: 120, gain: -3, q: 0.8 },
-              { type: "peaking", frequency: 350, gain: 0, q: 1.0 },
-              { type: "peaking", frequency: 2800, gain: 6.5, q: 1.4 },
-              { type: "highshelf", frequency: 8000, gain: 2, q: 0.8 }
-            ]
+            threshold: -48,
+            ratio: 10,
+            knee: 12,
+            attack: 10,
+            release: 150,
+            makeup: 0,
+            monitor: "post"
           },
-          delay: { enabled: true, mode: "free", time: 320, bpm: 120, noteMult: 0.5, noteSym: "♪", feedback: 58, mix: 42 }
-        }
-      },
-      {
-        id: "punchy-boost-table",
-        name: "04. Crisp Punchy Table (Foley 02)",
-        audioUrl: "assets/crape-2-foley-6-table-toob.mp3",
-        description: "เสียงเคาะที่ถูกคัดย่านต่ำรบกวนออก บีบหัวเสียงให้กระชับ และดันระดับสัญญาณให้พุ่งเด่น",
-        solution: {
-          filter: { enabled: true, type: "highpass", lowerFreq: 180, upperFreq: 3000, slope: 24 },
-          compressor: { enabled: true, threshold: -22, ratio: 4.5, knee: 6, attack: 15, release: 100, makeup: 3, monitor: "post" },
-          "gain-stage": { enabled: true, gain: 5.5 }
-        }
-      },
-      {
-        id: "bright-space-trash",
-        name: "05. High-Pitch Space (Foley 01)",
-        audioUrl: "assets/crape-6-foley-1-trash-koh.mp3",
-        description: "เสียงที่ถูกยกโทนให้สูงขึ้น 1 คู่แปดเต็ม พร้อมมิติ Reverb ระยะสั้นและ Delay เบาๆ",
-        solution: {
-          "pitch-shifter": { enabled: true, semitone: 0, octave: 1 },
-          reverb: { enabled: true, preDelay: 20, roomSize: 55, decay: 1.8, wet: 30 },
-          delay: { enabled: true, mode: "free", time: 210, bpm: 120, noteMult: 0.5, noteSym: "♪", feedback: 35, mix: 25 }
+          "pitch-shifter": {
+            enabled: true,
+            semitone: 7,
+            octave: 0
+          }
         }
       }
     ];
@@ -1143,36 +1105,120 @@
 
     const selectedProcessors = [];
 
-    function getDefaultState() {
-      return {
-        filter: { enabled: true, type: "lowpass", lowerFreq: 1200, upperFreq: 4000, slope: 24 },
-        eq: {
+    const $ = id => document.getElementById(id);
+    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+    const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const randStep = (min, max, step) => {
+      const steps = Math.round((max - min) / step);
+      return Number((min + randInt(0, steps) * step).toFixed(2));
+    };
+    const pickRandom = arr => arr[Math.floor(Math.random() * arr.length)];
+
+    function randomizeProcessorState(key) {
+      if (key === "filter") {
+        const type = pickRandom(["lowpass", "highpass", "bandpass"]);
+        const lowerFreq = Math.round(60 * Math.pow(3500 / 60, Math.random()));
+        const upperFreq = Math.min(18000, Math.round(lowerFreq * (1.8 + Math.random() * 2.5)));
+        return {
           enabled: true,
-          selectedBand: 1,
-          bands: [
-            { type: "lowshelf", frequency: 120, gain: 0, q: 0.8 },
-            { type: "peaking", frequency: 350, gain: 0, q: 1.0 },
-            { type: "peaking", frequency: 2500, gain: 0, q: 1.2 },
-            { type: "highshelf", frequency: 8000, gain: 0, q: 0.8 }
-          ]
-        },
-        compressor: {
-          enabled: true, threshold: -20, ratio: 3, knee: 12, attack: 10, release: 150, makeup: 0, monitor: "post",
+          type,
+          lowerFreq,
+          upperFreq,
+          slope: pickRandom([12, 24, 36, 48, 72])
+        };
+      }
+
+      if (key === "eq") {
+        const bands = [
+          { type: "lowshelf", frequency: randInt(70, 220), gain: randStep(-8, 8, 0.5), q: randStep(0.5, 2.0, 0.1) },
+          { type: "peaking", frequency: randInt(220, 750), gain: randStep(-9, 9, 0.5), q: randStep(0.6, 3.5, 0.1) },
+          { type: "peaking", frequency: randInt(1200, 5500), gain: randStep(-9, 9, 0.5), q: randStep(0.6, 3.5, 0.1) },
+          { type: "highshelf", frequency: randInt(5500, 12000), gain: randStep(-8, 8, 0.5), q: randStep(0.5, 2.0, 0.1) }
+        ];
+        return {
+          enabled: true,
+          selectedBand: randInt(0, bands.length - 1),
+          bands
+        };
+      }
+
+      if (key === "compressor") {
+        return {
+          enabled: true,
+          threshold: randInt(-52, -8),
+          ratio: randStep(1.5, 14, 0.5),
+          knee: randInt(0, 28),
+          attack: randInt(2, 80),
+          release: randInt(40, 450),
+          makeup: randStep(0, 10, 0.5),
+          monitor: "post",
           grHistory: new Array(120).fill(0)
-        },
-        "gain-stage": { enabled: true, gain: 0, peakHold: -Infinity, peakTimer: 0 },
-        reverb: { enabled: true, preDelay: 25, roomSize: 45, decay: 1.8, wet: 25, rotX: 0.42, rotY: 0.58, isDragging: false },
-        delay: { enabled: true, mode: "free", time: 400, bpm: 120, noteMult: 0.5, noteSym: "♪", feedback: 45, mix: 30 },
-        "pitch-shifter": { enabled: true, semitone: 0, octave: 0 }
+        };
+      }
+
+      if (key === "gain-stage") {
+        return {
+          enabled: true,
+          gain: randStep(-12, 12, 0.5),
+          peakHold: -Infinity,
+          peakTimer: 0
+        };
+      }
+
+      if (key === "reverb") {
+        return {
+          enabled: true,
+          preDelay: randInt(5, 110),
+          roomSize: randInt(15, 95),
+          decay: randStep(0.6, 5.2, 0.1),
+          wet: randInt(10, 80),
+          rotX: 0.42,
+          rotY: 0.58,
+          isDragging: false
+        };
+      }
+
+      if (key === "delay") {
+        return {
+          enabled: true,
+          mode: "free",
+          time: randInt(80, 900),
+          bpm: randInt(80, 160),
+          noteMult: 0.5,
+          noteSym: "♪",
+          feedback: randInt(15, 75),
+          mix: randInt(10, 65)
+        };
+      }
+
+      if (key === "pitch-shifter") {
+        const semitone = randInt(-11, 11);
+        const octave = semitone === 0 ? pickRandom([-1, 1]) : randInt(-1, 1);
+        return {
+          enabled: true,
+          semitone,
+          octave
+        };
+      }
+
+      return { enabled: true };
+    }
+
+    function getRandomizedState() {
+      return {
+        filter: randomizeProcessorState("filter"),
+        eq: randomizeProcessorState("eq"),
+        compressor: randomizeProcessorState("compressor"),
+        "gain-stage": randomizeProcessorState("gain-stage"),
+        reverb: randomizeProcessorState("reverb"),
+        delay: randomizeProcessorState("delay"),
+        "pitch-shifter": randomizeProcessorState("pitch-shifter")
       };
     }
 
-    let processorValues = getDefaultState();
+    let processorValues = getRandomizedState();
     let activePreset = TARGET_PRESETS[0];
     let hintVisible = false;
-
-    const $ = id => document.getElementById(id);
-    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
     const presetSelect = $("presetSelect");
     const processorRack = $("processorRack");
@@ -1238,7 +1284,7 @@
       targetAudio.load();
       processedAudio.load();
 
-      processorValues = getDefaultState();
+      processorValues = getRandomizedState();
       selectedProcessors.length = 0;
       pickerOpen = false;
       renderRack();
@@ -2186,7 +2232,7 @@
           <div class="eq-toolbar">
             <button type="button" class="lab-mini-btn primary" id="eq-add-btn">＋ Add Band</button>
             <button type="button" class="lab-mini-btn" id="eq-rem-btn" ${v.bands.length <= 1 ? "disabled" : ""}>− Remove</button>
-            <button type="button" class="lab-mini-btn" id="eq-rst-btn">Reset EQ</button>
+            <button type="button" class="lab-mini-btn" id="eq-rst-btn">Randomize EQ</button>
             <span style="margin-left:auto; font-size:11px; color:#b9a99a;" id="eq-band-count">${v.bands.length} bands (Band ${v.selectedBand + 1})</span>
           </div>
           <div class="lab-controls-grid-4">
@@ -2500,7 +2546,7 @@
         });
 
         document.getElementById("eq-add-btn").addEventListener("click", () => {
-          v.bands.push({ type: "peaking", frequency: 1000, gain: 0, q: 1.0 });
+          v.bands.push({ type: "peaking", frequency: randInt(250, 6000), gain: randStep(-6, 6, 0.5), q: 1.0 });
           v.selectedBand = v.bands.length - 1;
           syncUI();
         });
@@ -2511,8 +2557,9 @@
           syncUI();
         });
         document.getElementById("eq-rst-btn").addEventListener("click", () => {
-          v.bands = getDefaultState().eq.bands;
-          v.selectedBand = 1;
+          const randEq = randomizeProcessorState("eq");
+          v.bands = randEq.bands;
+          v.selectedBand = randEq.selectedBand;
           syncUI();
         });
 
@@ -2760,6 +2807,7 @@
         btn.addEventListener("click", () => {
           const k = btn.dataset.add;
           if (!selectedProcessors.includes(k)) {
+            processorValues[k] = randomizeProcessorState(k);
             selectedProcessors.push(k);
             pickerOpen = false;
             renderRack();
@@ -2822,7 +2870,7 @@
     });
 
     // -----------------------------------------
-    // PARAMETER-BASED SCORING & DIAGNOSIS ENGINE
+    // PARAMETER-BASED SCORING & DIAGNOSIS ENGINE (NO SPOILER VALUES)
     // -----------------------------------------
     function proximityScore(actual, target, maxTolerance) {
       const diff = Math.abs(actual - target);
@@ -2849,14 +2897,14 @@
           matchRows.push({ name: PROCESSORS[k].title, status: "✓ เลือกใช้งานถูกต้อง", cls: "badge-ok" });
         } else {
           matchRows.push({ name: PROCESSORS[k].title, status: "✗ ขาด Processor ตัวนี้", cls: "badge-miss" });
-          advices.push({ text: `ควรเพิ่มและเปิดใช้งาน "${PROCESSORS[k].title}" เพื่อให้ได้คาแรคเตอร์เสียงเหมือนต้นฉบับ`, good: false });
+          advices.push({ text: `ลองเพิ่มและเปิดใช้งาน "${PROCESSORS[k].title}" แล้วฟังเทียบมิติเสียงกับ Target`, good: false });
         }
       });
 
       const extraKeys = userActiveKeys.filter(k => !solKeys.includes(k));
       extraKeys.forEach(k => {
         matchRows.push({ name: `${PROCESSORS[k].title} (ส่วนเกิน)`, status: "! ไม่ได้ใช้ในโจทย์นี้", cls: "badge-warn" });
-        advices.push({ text: `โจทย์นี้ไม่ได้ใช้ "${PROCESSORS[k].title}" ลองปิด (OFF) หรือลบออกเพื่อไม่ให้เสียงเพี้ยน`, good: false });
+        advices.push({ text: `"${PROCESSORS[k].title}" อาจทำให้คาแรคเตอร์เสียงต่างจาก Target ลองปิด (OFF) หรือถอดออกแล้วฟังเทียบดู`, good: false });
       });
 
       const baseSelectionRatio = solKeys.length ? (hitCount / solKeys.length) : 1;
@@ -2879,15 +2927,11 @@
           paramScoreSum += itemAvg;
 
           if (u.type !== t.type) {
-            advices.push({ text: `Filter: ชนิดฟิลเตอร์ยังไม่ตรง (คุณเลือก ${u.type.toUpperCase()}, ต้นฉบับใช้ ${t.type.toUpperCase()})`, good: false });
-          } else if (lowS < 0.75) {
-            const dir = u.lowerFreq > t.lowerFreq ? "สูงเกินไป" : "ต่ำเกินไป";
-            advices.push({ text: `Filter: จุดตัดความถี่หลัก${dir} (ของคุณ ${fmtHz(u.lowerFreq)}, ต้นฉบับประมาณ ${fmtHz(t.lowerFreq)})`, good: false });
-          } else if (t.type === "bandpass" && upS < 0.75) {
-            const dir = u.upperFreq > t.upperFreq ? "สูงเกินไป" : "ต่ำเกินไป";
-            advices.push({ text: `Filter (BPF): ย่านตัดบน${dir} (ของคุณ ${fmtHz(u.upperFreq)}, ต้นฉบับประมาณ ${fmtHz(t.upperFreq)})`, good: false });
+            advices.push({ text: `Filter: ลองสังเกตว่าเสียง Target ถูกตัดย่านต่ำ ย่านสูง หรือบีบให้อยู่เฉพาะช่วง แล้วเปลี่ยนชนิดฟิลเตอร์ให้เหมาะ`, good: false });
+          } else if (lowS < 0.75 || (t.type === "bandpass" && upS < 0.75)) {
+            advices.push({ text: `Filter: จุดตัดความถี่ยังคลาดเคลื่อน ลองลากจุดบนกราฟและฟังเทียบความโปร่ง-ทึบของเสียง`, good: false });
           } else {
-            advices.push({ text: `Filter: ปรับย่านความถี่ได้ใกล้เคียงต้นฉบับมาก!`, good: true });
+            advices.push({ text: `Filter: กำหนดย่านความถี่ได้ใกล้เคียงเสียง Target มาก!`, good: true });
           }
         }
 
@@ -2899,11 +2943,10 @@
           const itemAvg = freqS * 0.45 + gainS * 0.55;
           paramScoreSum += itemAvg;
 
-          if (gainS < 0.72) {
-            const dir = userMid.gain > targetMid.gain ? "บูสต์เยอะเกินไป" : "บูสต์น้อยเกินไป";
-            advices.push({ text: `EQ: ย่านกลาง-แหลม (Band 3) ${dir} (ของคุณ ${userMid.gain.toFixed(1)} dB, ต้นฉบับ ${targetMid.gain.toFixed(1)} dB)`, good: false });
+          if (gainS < 0.72 || freqS < 0.72) {
+            advices.push({ text: `EQ: โทนย่านกลาง-แหลมยังต่างจาก Target ลองฟังเทียบความคมชัดแล้วปรับจุดและระดับ Gain ใหม่`, good: false });
           } else {
-            advices.push({ text: `EQ: ชดเชยโทนเสียงได้แม่นยำ!`, good: true });
+            advices.push({ text: `EQ: ปรับสมดุลย่านความถี่ได้ใกล้เคียงต้นฉบับ!`, good: true });
           }
         }
 
@@ -2914,13 +2957,10 @@
           const itemAvg = thS * 0.45 + ratS * 0.35 + mkS * 0.20;
           paramScoreSum += itemAvg;
 
-          if (thS < 0.72) {
-            const dir = u.threshold > t.threshold ? "สูงไป (บีบอัดน้อยกว่าต้นฉบับ)" : "ต่ำไป (บีบอัดหนักกว่าต้นฉบับ)";
-            advices.push({ text: `Compressor: ค่า Threshold ${dir} (ของคุณ ${u.threshold} dB, ต้นฉบับ ${t.threshold} dB)`, good: false });
-          } else if (ratS < 0.72) {
-            advices.push({ text: `Compressor: Ratio ยังต่างจากต้นฉบับ (ของคุณ ${u.ratio}:1, ต้นฉบับ ${t.ratio}:1)`, good: false });
+          if (thS < 0.72 || ratS < 0.72 || mkS < 0.72) {
+            advices.push({ text: `Compressor: ความแน่นและไดนามิกของเสียงยังต่างจาก Target ลองฟังเทียบหัวเสียงแล้วปรับ Threshold, Ratio และ Make-up ดู`, good: false });
           } else {
-            advices.push({ text: `Compressor: คุมไดนามิกและหัวเสียงได้ใกล้เคียงต้นฉบับ!`, good: true });
+            advices.push({ text: `Compressor: คุมไดนามิกและน้ำหนักเสียงได้ใกล้เคียงต้นฉบับ!`, good: true });
           }
         }
 
@@ -2928,8 +2968,7 @@
           const gS = proximityScore(u.gain, t.gain, 10);
           paramScoreSum += gS;
           if (gS < 0.75) {
-            const dir = u.gain > t.gain ? "ดังเกินไป" : "เบาเกินไป";
-            advices.push({ text: `Gain Stage: ระดับความดังรวม${dir} (ของคุณ ${u.gain > 0 ? "+" : ""}${u.gain} dB, ต้นฉบับ ${t.gain > 0 ? "+" : ""}${t.gain} dB)`, good: false });
+            advices.push({ text: `Gain Stage: ระดับความดังรวมยังต่างจาก Target ลองฟังสลับ A/B แล้วปรับ Gain ให้บาลานซ์ขึ้น`, good: false });
           } else {
             advices.push({ text: `Gain Stage: ตั้งระดับความแรงสัญญาณได้พอดี!`, good: true });
           }
@@ -2942,14 +2981,10 @@
           const itemAvg = sizeS * 0.3 + decS * 0.35 + wetS * 0.35;
           paramScoreSum += itemAvg;
 
-          if (wetS < 0.72) {
-            const dir = u.wet > t.wet ? "ก้อง/เปียกเกินไป" : "แห้งเกินไป";
-            advices.push({ text: `Reverb: สัดส่วนเสียงก้อง (Wet) ${dir} (ของคุณ ${u.wet}%, ต้นฉบับ ${t.wet}%)`, good: false });
-          } else if (decS < 0.72) {
-            const dir = u.decay > t.decay ? "หางเสียงยาวเกินไป" : "หางเสียงสั้นเกินไป";
-            advices.push({ text: `Reverb: ค่า Decay Time ${dir} (ของคุณ ${u.decay.toFixed(1)}s, ต้นฉบับ ${t.decay.toFixed(1)}s)`, good: false });
+          if (wetS < 0.72 || decS < 0.72 || sizeS < 0.72) {
+            advices.push({ text: `Reverb: บรรยากาศห้องและหางเสียงก้องยังต่างจาก Target ลองฟังหางเสียงแล้วปรับ Wet, Decay หรือ Room Size ดู`, good: false });
           } else {
-            advices.push({ text: `Reverb: จำลองขนาดห้องและหางเสียงได้สมจริงใกล้เคียงโจทย์!`, good: true });
+            advices.push({ text: `Reverb: จำลองมิติห้องและหางเสียงได้ใกล้เคียงโจทย์!`, good: true });
           }
         }
 
@@ -2962,13 +2997,10 @@
           const itemAvg = timeS * 0.45 + fbS * 0.3 + mixS * 0.25;
           paramScoreSum += itemAvg;
 
-          if (timeS < 0.75) {
-            const dir = uMs > tMs ? "ช้า/ห่างเกินไป" : "เร็ว/ถี่เกินไป";
-            advices.push({ text: `Delay: จังหวะเสียงสะท้อน${dir} (ของคุณ ${uMs} ms, ต้นฉบับ ${tMs} ms)`, good: false });
-          } else if (fbS < 0.72) {
-            advices.push({ text: `Delay: จำนวนครั้งที่วนซ้ำ (Feedback) ยังไม่ตรง (ของคุณ ${u.feedback}%, ต้นฉบับ ${t.feedback}%)`, good: false });
+          if (timeS < 0.75 || fbS < 0.72 || mixS < 0.72) {
+            advices.push({ text: `Delay: จังหวะเสียงสะท้อนหรือการวนซ้ำยังต่างจาก Target ลองจับจังหวะ Echo แล้วปรับ Delay Time, Feedback และ Wet/Dry`, good: false });
           } else {
-            advices.push({ text: `Delay: จับจังหวะ Echo และหางเสียงสะท้อนได้แม่นยำ!`, good: true });
+            advices.push({ text: `Delay: จับจังหวะเสียงสะท้อนได้ใกล้เคียงต้นฉบับ!`, good: true });
           }
         }
 
@@ -2979,10 +3011,9 @@
           paramScoreSum += stS;
 
           if (stS < 0.85) {
-            const dir = uSt > tSt ? "สูงเกินไป" : "ต่ำเกินไป";
-            advices.push({ text: `Pitch Shifter: ระดับเสียงยัง${dir} (ของคุณ ${uSt > 0 ? "+" : ""}${uSt} ST, ต้นฉบับ ${tSt > 0 ? "+" : ""}${tSt} ST)`, good: false });
+            advices.push({ text: `Pitch Shifter: ระดับความสูง-ต่ำของเสียงยังต่างจาก Target ลองฟังเทียบคีย์เสียงแล้วปรับ Semitone / Octave ใหม่`, good: false });
           } else {
-            advices.push({ text: `Pitch Shifter: ดึงระดับคีย์เสียงได้ตรงเป๊ะ!`, good: true });
+            advices.push({ text: `Pitch Shifter: ดึงระดับเสียงได้ใกล้เคียงต้นฉบับ!`, good: true });
           }
         }
       });
@@ -3020,8 +3051,8 @@
         $("finalScore").textContent = evalRes.totalScore;
         $("resultMessage").textContent =
           evalRes.totalScore >= 85 ? "สุดยอด! หูทองคำ ปรับเสียงได้ใกล้เคียงต้นฉบับมาก" :
-          evalRes.totalScore >= 60 ? "ทำได้ดี! ใกล้เคียงแล้ว ลองดูคำแนะนำด้านล่างเพื่อเก็บรายละเอียด" :
-          "ยังต่างจาก Target อยู่พอสมควร ลองดูจุดที่พลาดด้านล่างแล้วกลับไปปรับต่อได้เลย";
+          evalRes.totalScore >= 60 ? "ทำได้ดี! ใกล้เคียงแล้ว ลองฟังเทียบและปรับแต่งต่อเพื่อเก็บรายละเอียด" :
+          "ยังต่างจาก Target อยู่พอสมควร ลองดูแนวทางด้านล่างแล้วกลับไปฟังและปรับต่อได้เลย";
 
         $("processorMatchList").innerHTML = evalRes.matchRows.map(r => `
           <div class="proc-score-row">
@@ -3032,7 +3063,7 @@
 
         $("suggestionList").innerHTML = evalRes.advices.length
           ? evalRes.advices.map(a => `<li class="${a.good ? "good" : ""}">${a.text}</li>`).join("")
-          : `<li class="good">ยอดเยี่ยม! ทุกพารามิเตอร์ตรงตามโจทย์ครบถ้วน</li>`;
+          : `<li class="good">ยอดเยี่ยม! ปรับเสียงได้ตรงตามโจทย์ครบถ้วน</li>`;
 
         resultOverlay.classList.add("active");
         resultOverlay.setAttribute("aria-hidden", "false");
@@ -3049,7 +3080,7 @@
     $("tryAgainButton").addEventListener("click", () => {
       resultOverlay.classList.remove("active");
       resultOverlay.setAttribute("aria-hidden", "true");
-      saveStatus.textContent = "ปรับแต่งค่าต่อตามคำแนะนำได้เลยครับ";
+      saveStatus.textContent = "กลับไปฟังเสียง Target เทียบและปรับแต่งต่อได้เลยครับ";
     });
     $("resultHomeButton").addEventListener("click", () => window.location.href = "home.html");
     $("backButton").addEventListener("click", () => window.location.href = "home.html");
