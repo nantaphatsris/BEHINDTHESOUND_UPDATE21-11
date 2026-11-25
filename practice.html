@@ -184,10 +184,6 @@
       gap: 3px;
       min-width: 0;
     }
-    .mission-guide-line {
-      font: 300 12.5px/1.45 'Kanit', sans-serif;
-      color: var(--muted);
-    }
     .hint-box {
       display: flex;
       align-items: center;
@@ -843,83 +839,28 @@
     }
     .btn-finish:hover { filter: brightness(1.08); }
 
-    /* =========================================
-       MOBILE & TABLET BREAKPOINTS
-       ========================================= */
     @media (max-width: 860px) {
-      .practice-header {
-        padding: 8px 14px;
-      }
-      .header-title {
-        font-size: 14.5px;
-      }
-      .waveform-grid {
-        grid-template-columns: 1fr;
-      }
-      .sound-selector-box {
-        width: 100%;
-      }
+      .practice-header { padding: 8px 14px; }
+      .header-title { font-size: 14.5px; }
+      .waveform-grid { grid-template-columns: 1fr; }
+      .sound-selector-box { width: 100%; }
     }
 
     @media (max-width: 540px) {
-      .device-card {
-        width: calc(100vw - 26px);
-        min-width: calc(100vw - 26px);
-      }
-
-      .add-processor-slot {
-        width: calc(100vw - 26px);
-        min-width: calc(100vw - 26px);
-        min-height: 280px;
-      }
-
-      .device-live-pill {
-        display: none;
-      }
-
-      .lab-controls-grid-4 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .lab-controls-grid-3 {
-        grid-template-columns: 1fr;
-      }
-
-      .comp-meter-strip {
-        grid-template-columns: 1fr 1fr;
-      }
-      .comp-meter-strip .comp-meter-box:first-child {
-        grid-column: 1 / -1;
-      }
-
-      .gain-meters-pair {
-        grid-template-columns: 1fr;
-        gap: 6px;
-      }
-      .gain-meters-pair > div:nth-child(2) {
-        transform: rotate(90deg);
-        line-height: 1;
-      }
-      .gain-led-body {
-        height: 110px;
-      }
-
-      .delay-note-row {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .bottom-action-bar {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .submit-btn {
-        width: 100%;
-        text-align: center;
-      }
-
-      .modal-choice-buttons {
-        grid-template-columns: 1fr;
-      }
+      .device-card { width: calc(100vw - 26px); min-width: calc(100vw - 26px); }
+      .add-processor-slot { width: calc(100vw - 26px); min-width: calc(100vw - 26px); min-height: 280px; }
+      .device-live-pill { display: none; }
+      .lab-controls-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lab-controls-grid-3 { grid-template-columns: 1fr; }
+      .comp-meter-strip { grid-template-columns: 1fr 1fr; }
+      .comp-meter-strip .comp-meter-box:first-child { grid-column: 1 / -1; }
+      .gain-meters-pair { grid-template-columns: 1fr; gap: 6px; }
+      .gain-meters-pair > div:nth-child(2) { transform: rotate(90deg); line-height: 1; }
+      .gain-led-body { height: 110px; }
+      .delay-note-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .bottom-action-bar { flex-direction: column; align-items: stretch; }
+      .submit-btn { width: 100%; text-align: center; }
+      .modal-choice-buttons { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -963,7 +904,7 @@
         <div class="wave-card-header">
           <div class="wave-card-title">
             <span class="wave-badge">TARGET SOUND</span>
-            <h3 id="targetName">06. Custom Challenge</h3>
+            <h3 id="targetName">Door</h3>
           </div>
           <span class="wave-time" id="targetTime">0.00 / 0.00</span>
         </div>
@@ -997,7 +938,7 @@
     <!-- HORIZONTAL ABLETON-STYLE RACK -->
     <div class="rack-section-head">
       <span>YOUR PROCESSOR CHAIN (ปัดแนวนอน ◄ ─── ►)</span>
-      <span class="rack-hint" id="audioNote">เริ่มจาก Chain ว่างเปล่า — กด + Add Processor เพื่อเลือกเครื่องมือ</span>
+      <span class="rack-hint" id="audioNote">Your Sound สุ่มพารามิเตอร์ใหม่ทุกครั้งที่เลือกเสียง — กด + Add Processor เพื่อปรับแต่ง</span>
     </div>
 
     <section class="processor-rack-scroll" id="processorRack"></section>
@@ -1048,23 +989,8 @@
         audioUrl: "assets/custom-sound.wav",
         description: "ฟังเสียง Target แล้วเลือก Processor พร้อมปรับค่าให้ใกล้เคียงต้นฉบับ",
         solution: {
-          delay: {
-            enabled: true,
-            mode: "free",
-            time: 400,
-            bpm: 120,
-            noteMult: 0.5,
-            noteSym: "♪",
-            feedback: 55,
-            mix: 40
-          },
-          reverb: {
-            enabled: true,
-            preDelay: 30,
-            roomSize: 50,
-            decay: 4.3,
-            wet: 60
-          }
+          delay: { enabled: true, mode: "free", time: 400, bpm: 120, noteMult: 0.5, noteSym: "♪", feedback: 55, mix: 40 },
+          reverb: { enabled: true, preDelay: 30, roomSize: 50, decay: 4.3, wet: 60 }
         }
       },
       {
@@ -1073,21 +999,8 @@
         audioUrl: "assets/Paper.wav",
         description: "ฟังเสียง Target แล้วเลือก Processor พร้อมปรับค่าให้ใกล้เคียงต้นฉบับ",
         solution: {
-          compressor: {
-            enabled: true,
-            threshold: -48,
-            ratio: 10,
-            knee: 12,
-            attack: 10,
-            release: 150,
-            makeup: 0,
-            monitor: "post"
-          },
-          "pitch-shifter": {
-            enabled: true,
-            semitone: 7,
-            octave: 0
-          }
+          compressor: { enabled: true, threshold: -48, ratio: 10, knee: 12, attack: 10, release: 150, makeup: 0, monitor: "post" },
+          "pitch-shifter": { enabled: true, semitone: 7, octave: 0 }
         }
       },
      {
@@ -1297,7 +1210,6 @@
         }
       }
     ];
-    
     const PROCESSORS = {
       filter: { title: "Filter" },
       eq: { title: "EQ (Parametric)" },
@@ -1308,6 +1220,7 @@
       "pitch-shifter": { title: "Pitch Shifter" }
     };
 
+    const ALL_PROCESSOR_KEYS = Object.keys(PROCESSORS);
     const selectedProcessors = [];
 
     const $ = id => document.getElementById(id);
@@ -1319,6 +1232,7 @@
     };
     const pickRandom = arr => arr[Math.floor(Math.random() * arr.length)];
 
+    // สุ่มพารามิเตอร์ใหม่ของแต่ละ Processor โดยไม่อิงค่าเฉลย
     function randomizeProcessorState(key) {
       if (key === "filter") {
         const type = pickRandom(["lowpass", "highpass", "bandpass"]);
@@ -1335,10 +1249,10 @@
 
       if (key === "eq") {
         const bands = [
-          { type: "lowshelf", frequency: randInt(70, 220), gain: randStep(-8, 8, 0.5), q: randStep(0.5, 2.0, 0.1) },
-          { type: "peaking", frequency: randInt(220, 750), gain: randStep(-9, 9, 0.5), q: randStep(0.6, 3.5, 0.1) },
-          { type: "peaking", frequency: randInt(1200, 5500), gain: randStep(-9, 9, 0.5), q: randStep(0.6, 3.5, 0.1) },
-          { type: "highshelf", frequency: randInt(5500, 12000), gain: randStep(-8, 8, 0.5), q: randStep(0.5, 2.0, 0.1) }
+          { type: "lowshelf", frequency: randInt(70, 220), gain: randStep(-9, 9, 0.5), q: randStep(0.5, 2.0, 0.1) },
+          { type: "peaking", frequency: randInt(220, 750), gain: randStep(-10, 10, 0.5), q: randStep(0.6, 3.5, 0.1) },
+          { type: "peaking", frequency: randInt(1200, 5500), gain: randStep(-10, 10, 0.5), q: randStep(0.6, 3.5, 0.1) },
+          { type: "highshelf", frequency: randInt(5500, 12000), gain: randStep(-9, 9, 0.5), q: randStep(0.5, 2.0, 0.1) }
         ];
         return {
           enabled: true,
@@ -1350,8 +1264,8 @@
       if (key === "compressor") {
         return {
           enabled: true,
-          threshold: randInt(-52, -8),
-          ratio: randStep(1.5, 14, 0.5),
+          threshold: randInt(-54, -8),
+          ratio: randStep(1.5, 16, 0.5),
           knee: randInt(0, 28),
           attack: randInt(2, 80),
           release: randInt(40, 450),
@@ -1364,7 +1278,7 @@
       if (key === "gain-stage") {
         return {
           enabled: true,
-          gain: randStep(-12, 12, 0.5),
+          gain: randStep(-14, 14, 0.5),
           peakHold: -Infinity,
           peakTimer: 0
         };
@@ -1373,10 +1287,10 @@
       if (key === "reverb") {
         return {
           enabled: true,
-          preDelay: randInt(5, 110),
+          preDelay: randInt(5, 120),
           roomSize: randInt(15, 95),
-          decay: randStep(0.6, 5.2, 0.1),
-          wet: randInt(10, 80),
+          decay: randStep(0.5, 5.2, 0.1),
+          wet: randInt(15, 80),
           rotX: 0.42,
           rotY: 0.58,
           isDragging: false
@@ -1387,12 +1301,12 @@
         return {
           enabled: true,
           mode: "free",
-          time: randInt(80, 900),
+          time: randInt(80, 950),
           bpm: randInt(80, 160),
           noteMult: 0.5,
           noteSym: "♪",
           feedback: randInt(15, 75),
-          mix: randInt(10, 65)
+          mix: randInt(15, 65)
         };
       }
 
@@ -1421,8 +1335,24 @@
       };
     }
 
+    // สร้าง Chain สุ่มสำหรับ Your Sound จากรายชื่อ processor ของ preset นั้น (ไม่เอาค่าเดิมกลับมาใช้)
+    function createRandomYourSoundChain(preset) {
+      const solKeys = Object.keys(preset?.solution || {});
+      const sourceKeys = solKeys.length > 0
+        ? solKeys
+        : ALL_PROCESSOR_KEYS.slice().sort(() => Math.random() - 0.5).slice(0, 2);
+
+      const orderedKeys = sourceKeys.slice().sort(() => Math.random() - 0.5);
+      const params = {};
+      orderedKeys.forEach(k => {
+        params[k] = randomizeProcessorState(k);
+      });
+      return { keys: orderedKeys, params };
+    }
+
     let processorValues = getRandomizedState();
     let activePreset = TARGET_PRESETS[0];
+    let yourSoundChain = createRandomYourSoundChain(activePreset);
     let hintVisible = false;
 
     const presetSelect = $("presetSelect");
@@ -1474,6 +1404,9 @@
       activePreset = TARGET_PRESETS.find(p => p.id === presetId) || TARGET_PRESETS[0];
       presetSelect.value = activePreset.id;
 
+      // สุ่มพารามิเตอร์ใหม่สำหรับ Your Sound ทุกครั้งที่เลือกเสียง
+      yourSoundChain = createRandomYourSoundChain(activePreset);
+
       $("targetName").textContent = activePreset.name;
       $("missionDescription").textContent = activePreset.description;
       updateHintChips();
@@ -1489,14 +1422,12 @@
       targetAudio.load();
       processedAudio.load();
 
-      // สุ่มค่าพารามิเตอร์ใหม่ทุกครั้งที่เลือกเสียง / โหลดโจทย์
       processorValues = getRandomizedState();
       selectedProcessors.length = 0;
       pickerOpen = false;
       renderRack();
-      buildLiveChain().catch(console.error);
 
-      saveStatus.textContent = `โหลดโจทย์ "${activePreset.name}" และสุ่มพารามิเตอร์ Your Sound ใหม่แล้ว — กด + Add Processor เพื่อเริ่มปรับแต่ง`;
+      saveStatus.textContent = `เลือก "${activePreset.name}" แล้ว — สุ่มพารามิเตอร์ Your Sound ใหม่เรียบร้อย (กดฟัง Your Sound ได้เลย)`;
     }
 
     // -----------------------------------------
@@ -1716,11 +1647,20 @@
       res.tail.connect(audioContext.destination);
     }
 
+    function getActiveYourSoundSpec() {
+      if (selectedProcessors.length > 0) {
+        return { keys: selectedProcessors, params: processorValues };
+      }
+      return yourSoundChain;
+    }
+
     async function buildLiveChain() {
       await ensureAudioContext();
       try { processedMediaSource.disconnect(); } catch (_) {}
       processingNodes.forEach(n => { try { n.disconnect(); } catch (_) {} });
-      const res = wireChainOnContext(audioContext, processedMediaSource, processedAudio, selectedProcessors, processorValues, true);
+
+      const spec = getActiveYourSoundSpec();
+      const res = wireChainOnContext(audioContext, processedMediaSource, processedAudio, spec.keys, spec.params, true);
       processingNodes = res.nodes;
 
       if (!liveHandles.postAnalyser) {
@@ -1738,12 +1678,7 @@
     // -----------------------------------------
     function getPlotPad(w) {
       const narrow = w < 380;
-      return {
-        left: narrow ? 38 : 46,
-        right: narrow ? 10 : 14,
-        top: 14,
-        bottom: 24
-      };
+      return { left: narrow ? 38 : 46, right: narrow ? 10 : 14, top: 14, bottom: 24 };
     }
 
     function drawLiveSpectrumOverlay(ctx, pad, plotW, plotH, colorFill, colorStroke) {
@@ -2406,9 +2341,7 @@
           ? `BPF · ${fmtHz(v.lowerFreq)} – ${fmtHz(v.upperFreq)} · Slope ${v.slope} dB/oct`
           : `${v.type === "lowpass" ? "LPF" : "HPF"} · ${fmtHz(v.lowerFreq)} · Slope ${v.slope} dB/oct`;
         return `
-          <div class="lab-canvas-shell">
-            <canvas id="canvas-filter" style="cursor:crosshair;"></canvas>
-          </div>
+          <div class="lab-canvas-shell"><canvas id="canvas-filter" style="cursor:crosshair;"></canvas></div>
           <div class="lab-controls-grid-2">
             <div class="lab-ctrl-box">
               <div class="lab-ctrl-head"><span>Filter Type</span></div>
@@ -2432,9 +2365,7 @@
         const v = processorValues.eq;
         const b = v.bands[v.selectedBand] || v.bands[0];
         return `
-          <div class="lab-canvas-shell">
-            <canvas id="canvas-eq" style="cursor:crosshair;"></canvas>
-          </div>
+          <div class="lab-canvas-shell"><canvas id="canvas-eq" style="cursor:crosshair;"></canvas></div>
           <div class="eq-toolbar">
             <button type="button" class="lab-mini-btn primary" id="eq-add-btn">＋ Add Band</button>
             <button type="button" class="lab-mini-btn" id="eq-rem-btn" ${v.bands.length <= 1 ? "disabled" : ""}>− Remove</button>
@@ -2477,9 +2408,7 @@
               <button type="button" class="lab-mini-btn ${v.monitor === "post" ? "active" : ""}" id="comp-post-btn">POST</button>
             </div>
           </div>
-          <div class="lab-canvas-shell">
-            <canvas id="canvas-compressor" style="cursor:ns-resize;"></canvas>
-          </div>
+          <div class="lab-canvas-shell"><canvas id="canvas-compressor" style="cursor:ns-resize;"></canvas></div>
           <div class="lab-controls-grid-3">
             <div class="lab-ctrl-box">
               <div class="lab-ctrl-head"><span>Threshold</span><output id="comp-th-out">${v.threshold} dB</output></div>
@@ -2601,9 +2530,7 @@
         const v = processorValues.delay;
         const ms = getDelayMsFromObj(v);
         return `
-          <div class="lab-canvas-shell">
-            <canvas id="canvas-delay"></canvas>
-          </div>
+          <div class="lab-canvas-shell"><canvas id="canvas-delay"></canvas></div>
           <div class="lab-ctrl-box">
             <div class="lab-ctrl-head">
               <span>Delay: <output id="del-time-out">${ms} ms</output></span>
@@ -2643,9 +2570,7 @@
         const v = processorValues["pitch-shifter"];
         const totalSt = v.octave * 12 + v.semitone;
         return `
-          <div class="lab-canvas-shell">
-            <canvas id="canvas-pitch-shifter"></canvas>
-          </div>
+          <div class="lab-canvas-shell"><canvas id="canvas-pitch-shifter"></canvas></div>
           <div class="lab-legend-row">
             <span><i style="background:#d99b38;"></i> ต้นฉบับ (0 ST)</span>
             <span><i style="background:#ffe082;"></i> Shifted Pitch</span>
@@ -2679,7 +2604,7 @@
             ? `BPF · ${fmtHz(v.lowerFreq)} – ${fmtHz(v.upperFreq)} · Slope ${v.slope} dB/oct`
             : `${v.type === "lowpass" ? "LPF" : "HPF"} · ${fmtHz(v.lowerFreq)} · Slope ${v.slope} dB/oct`;
           drawFilterGraph();
-          buildLiveChain().catch(console.error);
+          if (!processedAudio.paused) buildLiveChain().catch(console.error);
         };
 
         typeSel.addEventListener("change", () => { v.type = typeSel.value; refresh(); });
@@ -2737,7 +2662,7 @@
           document.getElementById("eq-band-count").textContent = `${v.bands.length} bands (Band ${v.selectedBand + 1})`;
           document.getElementById("eq-rem-btn").disabled = v.bands.length <= 1;
           drawEQGraph();
-          buildLiveChain().catch(console.error);
+          if (!processedAudio.paused) buildLiveChain().catch(console.error);
         };
 
         [typeSel, freqRng, gainRng, qRng].forEach(el => {
@@ -2822,7 +2747,7 @@
           document.getElementById("comp-at-out").textContent = `${v.attack} ms`;
           document.getElementById("comp-rl-out").textContent = `${v.release} ms`;
           drawCompressorGraph();
-          buildLiveChain().catch(console.error);
+          if (!processedAudio.paused) buildLiveChain().catch(console.error);
         };
 
         document.getElementById("comp-th-rng").addEventListener("input", e => { v.threshold = Number(e.target.value); refresh(); });
@@ -2832,8 +2757,8 @@
         document.getElementById("comp-at-rng").addEventListener("input", e => { v.attack = Number(e.target.value); refresh(); });
         document.getElementById("comp-rl-rng").addEventListener("input", e => { v.release = Number(e.target.value); refresh(); });
 
-        document.getElementById("comp-pre-btn").addEventListener("click", () => { v.monitor = "pre"; renderRack(); buildLiveChain().catch(console.error); });
-        document.getElementById("comp-post-btn").addEventListener("click", () => { v.monitor = "post"; renderRack(); buildLiveChain().catch(console.error); });
+        document.getElementById("comp-pre-btn").addEventListener("click", () => { v.monitor = "pre"; renderRack(); if (!processedAudio.paused) buildLiveChain().catch(console.error); });
+        document.getElementById("comp-post-btn").addEventListener("click", () => { v.monitor = "post"; renderRack(); if (!processedAudio.paused) buildLiveChain().catch(console.error); });
 
         let dragTh = false;
         const setThFromY = e => {
@@ -2856,7 +2781,7 @@
         const rng = document.getElementById("gain-rng");
         const update = () => {
           document.getElementById("gain-val-out").textContent = `${v.gain > 0 ? "+" : ""}${v.gain.toFixed(1)} dB`;
-          buildLiveChain().catch(console.error);
+          if (!processedAudio.paused) buildLiveChain().catch(console.error);
         };
         rng.addEventListener("input", () => { v.gain = Number(rng.value); update(); });
         processorRack.querySelectorAll("[data-gpreset]").forEach(btn => {
@@ -2877,7 +2802,7 @@
           document.getElementById("rev-dec-out").textContent = `${v.decay.toFixed(1)} s`;
           document.getElementById("rev-wet-out").textContent = `${v.wet}%`;
           document.getElementById("rev-hud-val").textContent = `${v.wet}% WET / ${v.decay.toFixed(2)} s`;
-          if (rebuild) buildLiveChain().catch(console.error);
+          if (rebuild && !processedAudio.paused) buildLiveChain().catch(console.error);
         };
         document.getElementById("rev-pre-rng").addEventListener("input", e => { v.preDelay = Number(e.target.value); update(true); });
         document.getElementById("rev-size-rng").addEventListener("input", e => { v.roomSize = Number(e.target.value); update(true); });
@@ -2906,11 +2831,11 @@
           document.getElementById("del-fb-out").textContent = `${v.feedback}%`;
           document.getElementById("del-mix-out").textContent = `${v.mix}%`;
           drawDelayGraph();
-          buildLiveChain().catch(console.error);
+          if (!processedAudio.paused) buildLiveChain().catch(console.error);
         };
 
-        document.getElementById("del-free-btn").addEventListener("click", () => { v.mode = "free"; renderRack(); buildLiveChain().catch(console.error); });
-        document.getElementById("del-sync-btn").addEventListener("click", () => { v.mode = "sync"; renderRack(); buildLiveChain().catch(console.error); });
+        document.getElementById("del-free-btn").addEventListener("click", () => { v.mode = "free"; renderRack(); if (!processedAudio.paused) buildLiveChain().catch(console.error); });
+        document.getElementById("del-sync-btn").addEventListener("click", () => { v.mode = "sync"; renderRack(); if (!processedAudio.paused) buildLiveChain().catch(console.error); });
         document.getElementById("del-time-rng").addEventListener("input", e => { v.time = Number(e.target.value); refresh(); });
         document.getElementById("del-bpm-rng").addEventListener("input", e => { v.bpm = Number(e.target.value); refresh(); });
         document.getElementById("del-fb-rng").addEventListener("input", e => { v.feedback = Number(e.target.value); refresh(); });
@@ -2921,7 +2846,7 @@
             v.noteMult = Number(btn.dataset.mult);
             v.noteSym = btn.dataset.sym;
             renderRack();
-            buildLiveChain().catch(console.error);
+            if (!processedAudio.paused) buildLiveChain().catch(console.error);
           });
         });
       }
@@ -2934,7 +2859,7 @@
           document.getElementById("pitch-oct-out").textContent = `${v.octave > 0 ? "+" : ""}${v.octave}`;
           document.getElementById("pitch-sum-out").textContent = `${totalSt > 0 ? "+" : ""}${totalSt} ST (${Math.pow(2, totalSt / 12).toFixed(3)}x)`;
           drawPitchGraph();
-          buildLiveChain().catch(console.error);
+          if (!processedAudio.paused) buildLiveChain().catch(console.error);
         };
         document.getElementById("pitch-semi-rng").addEventListener("input", e => { v.semitone = Number(e.target.value); refresh(); });
         document.getElementById("pitch-oct-rng").addEventListener("input", e => { v.octave = Number(e.target.value); refresh(); });
@@ -2991,7 +2916,7 @@
           const k = btn.dataset.bypass;
           processorValues[k].enabled = !processorValues[k].enabled;
           renderRack();
-          buildLiveChain().catch(console.error);
+          if (!processedAudio.paused) buildLiveChain().catch(console.error);
         });
       });
 
@@ -3000,7 +2925,7 @@
           const idx = selectedProcessors.indexOf(btn.dataset.remove);
           if (idx > -1) selectedProcessors.splice(idx, 1);
           renderRack();
-          buildLiveChain().catch(console.error);
+          if (!processedAudio.paused) buildLiveChain().catch(console.error);
         });
       });
 
@@ -3013,12 +2938,11 @@
         btn.addEventListener("click", () => {
           const k = btn.dataset.add;
           if (!selectedProcessors.includes(k)) {
-            // สุ่มค่าพารามิเตอร์ใหม่ทุกครั้งที่เพิ่ม Processor
             processorValues[k] = randomizeProcessorState(k);
             selectedProcessors.push(k);
             pickerOpen = false;
             renderRack();
-            buildLiveChain().catch(console.error);
+            if (!processedAudio.paused) buildLiveChain().catch(console.error);
             processorRack.scrollLeft = processorRack.scrollWidth;
           }
         });
@@ -3039,12 +2963,16 @@
           $("targetPlayButton").classList.remove("playing");
           $("processedPlayButton").classList.remove("playing");
 
-          if (mode === "target") await buildTargetChain();
-          else await buildLiveChain();
-
-          await audio.play();
-          btn.textContent = "❚❚";
-          btn.classList.add("playing");
+          try {
+            if (mode === "target") await buildTargetChain();
+            else await buildLiveChain();
+            await audio.play();
+            btn.textContent = "❚❚";
+            btn.classList.add("playing");
+          } catch (err) {
+            console.error(err);
+            saveStatus.textContent = "ไม่สามารถเล่นไฟล์เสียงได้ กรุณาตรวจสอบไฟล์เสียงในโฟลเดอร์ assets/";
+          }
         } else {
           audio.pause();
           btn.textContent = "▶";
@@ -3077,7 +3005,7 @@
     });
 
     // -----------------------------------------
-    // PARAMETER-BASED SCORING & DIAGNOSIS ENGINE (NO SPOILER VALUES)
+    // PARAMETER-BASED SCORING & DIAGNOSIS ENGINE
     // -----------------------------------------
     function proximityScore(actual, target, maxTolerance) {
       const diff = Math.abs(actual - target);
@@ -3297,7 +3225,6 @@
       if (!user) window.location.href = "login.html";
     });
 
-    // Initialize first preset & draw waveforms
     loadPresetEmptyChain(TARGET_PRESETS[0].id);
     requestAnimationFrame(redrawWaveforms);
   </script>
